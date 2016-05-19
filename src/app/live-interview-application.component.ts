@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['live-interview-application.component.css']
 })
 export class LiveInterviewApplicationAppComponent {
-  title = 'live-interview-application works!';
+  title = 'Hello World!';
 }
