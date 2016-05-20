@@ -1,2 +1,2 @@
 export {environment} from './environment';
-export {LiveInterviewApplicationAppComponent} from './live-interview-application.component';
+export {LiveInterviewAppComponent} from './live-interview.component';
