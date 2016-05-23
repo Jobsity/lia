@@ -1,0 +1,17 @@
+<div class="card-container">
+  <md-card>
+    <md-card-title-group>
+      <md-card-title>{{ lia.title }}</md-card-title>
+      <md-card-subtitle><strong>Language:</strong> {{ lia.language }}</md-card-subtitle>
+    </md-card-title-group>
+    <md-card-content>
+      <p>{{ lia.short_description }}</p>
+      <p>
+        <strong>Time:</strong> {{ lia.time }} minutes.
+      </p>
+    </md-card-content>
+    <md-card-actions align="end">
+      <button md-raised-button color="accent" (click)="launchLIA(lia)">START</button>
+    </md-card-actions>
+  </md-card>
+</div>
