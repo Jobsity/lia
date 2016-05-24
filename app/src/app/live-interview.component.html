@@ -10,11 +10,10 @@
     <div class="mdl-layout__tab-bar-container">
       <div class="mdl-layout__tab-bar-button mdl-layout__tab-bar-left-button"><i class="material-icons">chevron_left</i></div>
       <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-        <a href="#" class="mdl-layout__tab is-active">Overview</a>
+        <a [routerLink]="['Home']" class="mdl-layout__tab is-active">Overview</a>
         <!--<a href="#features" class="mdl-layout__tab">Features</a>
         <a href="#features" class="mdl-layout__tab">Details</a>
         <a href="#features" class="mdl-layout__tab">Technology</a>-->
-        <a href="#features" class="mdl-layout__tab">FAQ</a>
         <!--<button class="mdl-button mdl-js-button mdl-button&#45;&#45;fab mdl-js-ripple-effect mdl-button&#45;&#45;colored mdl-shadow&#45;&#45;4dp mdl-color&#45;&#45;accent" id="add">
           <i class="material-icons" role="presentation">add</i>
           <span class="visuallyhidden">Add</span>
@@ -24,7 +23,7 @@
   </header>
   <main class="mdl-layout__content">
     <div class="mdl-layout__tab-panel is-active" id="overview">
-      <app-lia-card></app-lia-card>
+      <router-outlet></router-outlet>
 
       <!--<section class="section&#45;&#45;center mdl-grid mdl-grid&#45;&#45;no-spacing mdl-shadow&#45;&#45;2dp">
         <header class="section__play-btn mdl-cell mdl-cell&#45;&#45;3-col-desktop mdl-cell&#45;&#45;2-col-tablet mdl-cell&#45;&#45;4-col-phone mdl-color&#45;&#45;teal-100 mdl-color-text&#45;&#45;white">

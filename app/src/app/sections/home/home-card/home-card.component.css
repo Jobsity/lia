@@ -1,0 +1,11 @@
+.card-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+md-card {
+  width: 860px;
+  box-sizing: border-box;
+  margin: 16px;
+}
