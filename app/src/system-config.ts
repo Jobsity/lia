@@ -57,6 +57,8 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/sections/lia/lia-card',
+  'app/sections/home/home-card',
   /** @cli-barrel */
 ];
 
