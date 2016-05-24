@@ -4,14 +4,22 @@
 
 This project represents an application which allows a candidate to solve a code challenge and submit his/her solution to the review and evaluation.
 
-It's built with _**Angular 2.0 RC**_ and follows _Material Design_ specifications.
+It's built with _**Angular 2.0 RC**_.
+
+![Screenshot](https://cloud.githubusercontent.com/assets/3257149/15520177/9b879064-21ca-11e6-86af-75000ee6659d.png)
 
 ### Installation
 
-* Make sure you have _**NodeJS version 4 or greater**_ installed on your machine
+#### Client
+
+* Make sure you have _**NodeJS version 5 or greater**_ installed on your machine
 * Install Angular CLI
 ```shell
 npm install -g angular-cli
+```
+* Install Typescript
+```shell
+npm install -g typescript
 ```
 
 * Clone the repository in your projects directory
@@ -23,7 +31,7 @@ git clone git@github.com:Jobsity/lia.git
 * Navigate to the project's directory
 
 ```shell
-cd lia
+cd lia/app
 ```
 
 * Run following commands
@@ -36,4 +44,19 @@ ng serve
 * Open in a browser
 ```
 http://localhost:4200/
+```
+
+#### Test API Server
+
+* Navigate to the project's directory
+
+```shell
+cd lia/server
+```
+
+* Run following commands
+
+```shell
+npm install
+npm start
 ```
