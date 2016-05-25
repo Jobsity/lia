@@ -12,8 +12,8 @@ export class LiaService {
 
   constructor(private http: Http) {}
 
-  getUserLia(user: any, lia: any) {
-    let url = `${this.mainUrl}/users/${user.id}/lia/${lia.id}`;
+  getUserLia(userId: number, liaId: number) {
+    let url = `${this.mainUrl}/users/${userId}/lia/${liaId}`;
 
     return this.http.get(url)
       .toPromise()
