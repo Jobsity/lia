@@ -38,7 +38,7 @@ module.exports = function(){
     "_id":"1",
     "title":"Test LIA 1",
     "short_description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis expedita facilis fugit illo molestiae optio quae quo vero. Animi, officia, vitae. Alias debitis dolores expedita fugiat incidunt numquam quas, ullam.",
-    "language":"JavaScript",
+    "language":"javascript",
     "state":"opened",
     "time":60,
     "created_at":"2016-05-25"

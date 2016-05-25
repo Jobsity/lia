@@ -26,7 +26,8 @@ export class LiaCardComponent implements OnInit {
   }
 
   launchLIA(lia: Lia) {
-    this.liaService.launchLia({id: 1}, {id: 123}).then(res => console.log(res));
+    let userId = +this.routeParams.get('userId');
+    this.liaService.launchLia(userId, lia).then(res => console.log(res));
   }
 
 }
