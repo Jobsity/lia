@@ -32,4 +32,13 @@ module.exports = function(){
 
   // Set up our after hooks
   userService.after(hooks.after);
+
+  // create test user
+  userService.create({
+    "_id": "1",
+    "email": "test@email.com",
+    "password": "test",
+    "first_name":"John",
+    "last_name": "Doe"
+  }).then(() => console.log('[LOG]: Created test user...'));
 };
