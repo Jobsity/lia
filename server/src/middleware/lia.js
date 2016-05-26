@@ -13,6 +13,7 @@ module.exports = function(app) {
             time: lia.time,
             title: lia.title,
             short_description: lia.short_description,
+            description: lia.description,
             language: lia.language,
             candidate_name: user.username,
             candidate_id: user._id,
