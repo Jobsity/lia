@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RouteParams } from '@angular/router-deprecated';
 import { Lia } from '../lia';
 import {MdButton} from '@angular2-material/button';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
@@ -16,25 +17,17 @@ export class LiaCardComponent implements OnInit {
 
   lia: Lia;
 
-  constructor(private liaService: LiaService) {}
+  constructor(private liaService: LiaService, private routeParams: RouteParams) {}
 
   ngOnInit() {
-    this.lia = {
-      id: 1,
-      title: 'Test LIA 1',
-      short_description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis expedita facilis fugit illo molestiae optio quae quo vero. Animi, officia, vitae. Alias debitis dolores expedita fugiat incidunt numquam quas, ullam.',
-      language: 'JavaScript',
-      state: 'opened',
-      time: 60,
-      user_id: 1,
-      username: 'test1',
-      created_at: '2016-05-23'
-    };
-    this.liaService.getUserLia({id: 1}, {id: 123}).then(res => console.log(res));
+    let userId = +this.routeParams.get('userId');
+    let liaId = +this.routeParams.get('liaId');
+    this.liaService.getUserLia(userId, liaId).then(res => this.lia = res);
   }
 
   launchLIA(lia: Lia) {
-    this.liaService.launchLia({id: 1}, {id: 123}).then(res => console.log(res));
+    let userId = +this.routeParams.get('userId');
+    this.liaService.launchLia(userId, lia).then(res => console.log(res));
   }
 
 }

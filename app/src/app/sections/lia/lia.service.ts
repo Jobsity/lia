@@ -5,15 +5,17 @@ import 'rxjs/add/operator/toPromise';
 
 import { Lia } from './lia';
 
+import { AuthService } from './../auth/auth.service';
+
 @Injectable()
 export class LiaService {
 
   private mainUrl: string = 'http://localhost:3000';
 
-  constructor(private http: Http) {}
+  constructor(private http: Http, private auth: AuthService) {}
 
-  getUserLia(user: any, lia: any) {
-    let url = `${this.mainUrl}/users/${user.id}/lia/${lia.id}`;
+  getUserLia(userId: number, liaId: number) {
+    let url = `${this.mainUrl}/users/${userId}/lia/${liaId}`;
 
     return this.http.get(url)
       .toPromise()
@@ -21,14 +23,21 @@ export class LiaService {
       .catch(this.handleError);
   }
 
-  launchLia(user: any, lia: any): Promise<Lia> {
-    let url = `${this.mainUrl}/users/${user.id}/lia/${lia.id}`;
+  launchLia(userId: number, lia: Lia): Promise<Lia> {
+    let url = `${this.mainUrl}/users/${userId}/lia/${lia.id}`;
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.put(url, JSON.stringify(lia), {headers})
+    lia.state = "in_progress";
+    
+    return this.http.patch(url, JSON.stringify(lia), {headers})
       .toPromise()
-      .then(response => response.json().data)
+      .then(response => {
+        // get user's token
+        this.auth.loadAccessToken(userId);
+
+        return response.json().data
+      })
       .catch(this.handleError);
   }
 

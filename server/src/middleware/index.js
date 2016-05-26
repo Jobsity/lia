@@ -15,7 +15,7 @@ module.exports = function() {
   const app = this;
 
   app.get('/users/:user_id/lia/:lia_id', lia(app));
-  app.put('/users/:user_id/lia/:lia_id', launchLia(app));
+  app.patch('/users/:user_id/lia/:lia_id', launchLia(app));
   
   app.use(notFound());
   app.use(logger(app));
