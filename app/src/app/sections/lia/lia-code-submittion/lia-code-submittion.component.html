@@ -1,7 +1,7 @@
-<md-card>
+<md-card *ngIf="lia">
   <md-card-content>
     <form name="codeSubmissionForm">
-      <textarea cols="105" id="" name="" placeholder="Code area..." rows="100"></textarea>
+      <textarea cols="105" id="code" name="code" [(ngModel)]="lia.submitted_code" placeholder="Code area..." rows="100"></textarea>
     </form>
   </md-card-content>
   <md-card-actions align="end">

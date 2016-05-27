@@ -28,7 +28,8 @@ export class LiaPageComponent implements OnInit {
   }
 
   submitLia(lia: Lia): void {
-    console.log('submitting LIA...', lia);
+    let userId = +this.routeParams.get('userId');
+    this.liaService.submitLia(userId, lia).then((res) => console.log(res));
   }
 
 }

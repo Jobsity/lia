@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { FORM_DIRECTIVES } from '@angular/common';
 import { Lia } from './../lia';
 import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import {MdButton} from '@angular2-material/button';
@@ -8,7 +9,7 @@ import {MdButton} from '@angular2-material/button';
   selector: 'app-lia-code-submittion',
   templateUrl: 'lia-code-submittion.component.html',
   styleUrls: ['lia-code-submittion.component.css'],
-  directives: [MD_CARD_DIRECTIVES, MdButton]
+  directives: [FORM_DIRECTIVES, MD_CARD_DIRECTIVES, MdButton]
 })
 export class LiaCodeSubmittionComponent {
 

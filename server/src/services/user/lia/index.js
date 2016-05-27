@@ -59,7 +59,7 @@ module.exports = function(){
     // submit solution for LIA
     create(data, params) {
       return app.service('users').get(params.user_id)
-        .then(() => app.service('lia').patch(data.lia_id, data).then(() => Promise.resolve('OK')));
+        .then(() => app.service('lia').patch(data.id, data).then(() => Promise.resolve('OK')));
     }
   });
 

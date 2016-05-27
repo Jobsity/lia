@@ -13,8 +13,7 @@ module.exports = function(defaults) {
       'rxjs/**/*.js',
       '@angular/**/*.js',
       '@angular2-material/**/*.js',
-      'moment/moment.js',
-      'angular2-moment/*.js'
+      'moment/moment.js'
     ]
   });
 };
