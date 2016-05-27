@@ -3,7 +3,8 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  '@angular2-material': 'vendor/@angular2-material'
+  '@angular2-material': 'vendor/@angular2-material',
+  'moment': 'vendor/moment/moment.js'
 };
 
 /** User packages configuration. */
@@ -63,6 +64,7 @@ const barrels: string[] = [
   'app/sections/lia/lia-page',
   'app/sections/lia/lia-description',
   'app/sections/lia/lia-code-submittion',
+  'app/sections/lia/lia-timer',
   /** @cli-barrel */
 ];
 

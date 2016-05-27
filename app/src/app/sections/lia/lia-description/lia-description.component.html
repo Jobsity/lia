@@ -6,7 +6,9 @@
         <p>{{ lia.title }}</p>
       </div>
     </md-card-title>
-    <md-card-subtitle>{{ lia.time }} minutes</md-card-subtitle>
+    <md-card-subtitle>
+      <app-lia-timer [time]="lia.time"></app-lia-timer>
+    </md-card-subtitle>
   </md-card-title-group>
   <md-card-content>
     <p>{{ lia.description }}</p>

@@ -13,7 +13,7 @@ import {MdButton} from '@angular2-material/button';
 export class LiaCodeSubmittionComponent {
 
   @Input() lia: Lia;
-  @Output() onLiaSubmitted: EventEmitter<Lia> =  new EventEmitter();
+  @Output() onLiaSubmitted: EventEmitter<any> =  new EventEmitter();
 
   constructor() {}
 
