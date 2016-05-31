@@ -1,0 +1,12 @@
+[lia-button] {
+  padding: 15px 58px;
+  width: 100%;
+  background: #3CA9D4;
+  border-radius: 2px;
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
+}
