@@ -10,3 +10,19 @@
   font-weight: 600;
   cursor: pointer;
 }
+
+[lia-button-link] {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 16px;
+  line-height: 24px;
+  color: #9B9B9B;
+}
+
+[lia-button-link] .dash {
+  display: inline-block;
+  width: 20px;
+  border-bottom: 1px solid rgba(151,151,151,0.60);
+  line-height:  16px;
+  margin: 4px;
+}
