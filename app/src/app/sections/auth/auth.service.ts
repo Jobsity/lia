@@ -29,7 +29,7 @@ export class AuthService {
   }
 
   getCurrentUserToken() {
-    localStorage.getItem('lia:auth');
+    return localStorage.getItem('lia:auth');
   }
 
   removeCurrentUserToken() {

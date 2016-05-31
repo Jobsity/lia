@@ -1,7 +1,7 @@
 export interface Lia {
   id: number,
   title: string,
-  description?: string,
+  description: string,
   short_description: string,
   time: number,
   language: string,

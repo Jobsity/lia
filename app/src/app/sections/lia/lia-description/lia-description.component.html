@@ -1,0 +1,16 @@
+<md-card *ngIf="lia">
+  <md-card-title-group>
+    <md-card-title>
+      <div>
+        <p><strong>{{ lia.language | uppercase }}</strong></p>
+        <p>{{ lia.title }}</p>
+      </div>
+    </md-card-title>
+    <md-card-subtitle>
+      <app-lia-timer [time]="lia.time"></app-lia-timer>
+    </md-card-subtitle>
+  </md-card-title-group>
+  <md-card-content>
+    <p>{{ lia.description }}</p>
+  </md-card-content>
+</md-card>
