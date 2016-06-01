@@ -1,20 +1,23 @@
 import { Component, Input } from '@angular/core';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { LiaTimerComponent } from './../lia-timer/lia-timer.component';
 import { Lia } from './../lia';
+import { LIA_CARD_DIRECTIVES } from './../../../components/lia-card';
+import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
+
+
 
 @Component({
   moduleId: module.id,
-  selector: 'app-lia-description',
+  selector: 'lia-description',
   templateUrl: 'lia-description.component.html',
   styleUrls: ['lia-description.component.css'],
-  directives: [MD_CARD_DIRECTIVES, LiaTimerComponent]
+  directives: [
+    LIA_CARD_DIRECTIVES,
+    LiaTimerComponent,
+    LiaInfoBlockComponent
+  ]
 })
 export class LiaDescriptionComponent {
-
   @Input()
   lia: Lia;
-
-  constructor() {}
-
 }
