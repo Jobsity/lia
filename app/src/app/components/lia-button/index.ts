@@ -1,1 +1,1 @@
-export { LiaButtonComponent } from './lia-button.component';
+export { LIA_BUTTON_DIRECTIVES } from './lia-button.component';

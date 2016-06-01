@@ -13,6 +13,7 @@ import { LiaService } from './sections/lia/lia.service';
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS, LiaService]
 })
+
 @RouteConfig([
   {
     path: '/',
