@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { HomeCardComponent } from './sections/home/home-card';
+import { HomePageComponent } from './sections/home/home-page';
 import { LiaCardComponent } from './sections/lia/lia-card';
 import { LiaPageComponent } from './sections/lia/lia-page';
 import { LiaService } from './sections/lia/lia.service';
@@ -18,7 +18,7 @@ import { LiaService } from './sections/lia/lia.service';
   {
     path: '/',
     name: 'Home',
-    component: HomeCardComponent,
+    component: HomePageComponent,
     useAsDefault: true
   },
   {

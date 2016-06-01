@@ -59,7 +59,7 @@ const barrels: string[] = [
   'app',
   'app/shared',
   'app/sections/lia/lia-card',
-  'app/sections/home/home-card',
+  'app/sections/home/home-page',
   'app/sections/lia/lia-description-card',
   'app/sections/lia/lia-page',
   'app/sections/lia/lia-description',
