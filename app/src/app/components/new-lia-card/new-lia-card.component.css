@@ -1,0 +1,47 @@
+.lia-card {
+  display: flex;
+  background: white;
+  flex-flow: column wrap;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0, .5);
+  padding: 35px 62px;
+  box-sizing: border-box;
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+  color: #000;
+}
+
+card-title-group {
+  display: block;
+  text-align: center;
+  position: relative;
+}
+
+card-title-group [card-img] {
+  position: absolute;
+  top: -90px;
+  left: 210px;
+}
+
+card-title {
+  display: block;
+  font-family: PlutoSansRegular, 'Helvetica', sans-serif;
+  font-size: 30px;
+  line-height: 37px;
+  margin-top: 40px;
+}
+
+card-subtitle, card-content p {
+  display: block;
+  font-size: 18px;
+  margin: 23px 0;
+  line-height: 26px;
+}
+
+card-actions {
+  display: block;
+  margin-top: 20px;
+  text-align: center;
+}
+
+card-actions [lia-button-link] {
+  margin-top: 25px;
+}
