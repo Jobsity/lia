@@ -9,25 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { LiaCardComponent } from './lia-card.component';
+import { LiaLandingPageComponent } from './lia-landing-page.component';
 
 describe('Component: LiaCard', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [LiaCardComponent]);
+  beforeEachProviders(() => [LiaLandingPageComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([LiaCardComponent],
-      (component: LiaCardComponent) => {
+  it('should inject the component', inject([LiaLandingPageComponent],
+      (component: LiaLandingPageComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(LiaCardComponentTestController)
+    return builder.createAsync(LiaLandingPageComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(LiaCardComponent));
+        let query = fixture.debugElement.query(By.directive(LiaLandingPageComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -37,10 +37,10 @@ describe('Component: LiaCard', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-lia-card></app-lia-card>
+    <app-lia-landing-page></app-lia-landing-page>
   `,
-  directives: [LiaCardComponent]
+  directives: [LiaLandingPageComponent]
 })
-class LiaCardComponentTestController {
+class LiaLandingPageComponentTestController {
 }
 
