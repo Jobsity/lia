@@ -4,7 +4,7 @@ import { Lia } from '../lia';
 import { LiaService } from './../lia.service';
 
 import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
-import { LIA_CARD_DIRECTIVES } from './../../../components/new-lia-card';
+import { LIA_CARD_DIRECTIVES } from '../../../components/lia-card';
 import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
 
 @Component({

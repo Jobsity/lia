@@ -65,7 +65,7 @@ const barrels: string[] = [
   'app/sections/lia/lia-description',
   'app/sections/lia/lia-code-submittion',
   'app/sections/lia/lia-timer',
-  'app/components/new-lia-card',
+  'app/components/lia-card',
   'app/components/lia-button',
   'app/components/lia-info-block',
   /** @cli-barrel */

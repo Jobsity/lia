@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { LIA_CARD_DIRECTIVES } from './../../../components/new-lia-card';
+import { LIA_CARD_DIRECTIVES } from '../../../components/lia-card';
 import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
 import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
 

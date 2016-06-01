@@ -2,21 +2,21 @@ import { Component, Type, ViewEncapsulation, ChangeDetectionStrategy } from '@an
 
 @Component({
   moduleId: module.id,
-  selector: 'new-lia-card',
-  templateUrl: 'new-lia-card.component.html',
-  styleUrls: ['new-lia-card.component.css'],
+  selector: 'lia-card',
+  templateUrl: 'lia-card.component.html',
+  styleUrls: ['lia-card.component.css'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NewLiaCardComponent {  }
+export class LiaCardComponent {  }
 
 
 @Component({
   moduleId: module.id,
   selector: 'card-title-group',
   templateUrl: 'card-title-group.component.html',
-  styleUrls: ['new-lia-card.component.css']
+  styleUrls: ['lia-card.component.css']
 })
 export class CardTitleGroupComponent {  }
 
-export const LIA_CARD_DIRECTIVES: Type[] = [NewLiaCardComponent, CardTitleGroupComponent];
+export const LIA_CARD_DIRECTIVES: Type[] = [LiaCardComponent, CardTitleGroupComponent];
