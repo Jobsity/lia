@@ -18,7 +18,12 @@
 
 </head>
 <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
-  <live-interview-app>Loading...</live-interview-app>
+  <live-interview-app>
+    <div class="preloader">
+      <img class="logo" src="img/jobsity-icon.png" alt="Loading logo">
+      <p>Hello!</p>
+    </div>
+  </live-interview-app>
 
     {{#each scripts.polyfills}}<script src="{{.}}"></script>{{/each}}
     <script>
