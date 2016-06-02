@@ -1,0 +1,20 @@
+<div class="card-container" *ngIf="lia">
+  <lia-card>
+    <card-title-group>
+      <img card-img src="img/jobsity-icon.png" alt="Jobsity logo">
+      <card-title>Welcome to Jobsity Live Coding</card-title>
+      <card-subtitle>Hi {{ lia.candidate_name }}! Today we are going to work on a live coding exerice, please follow the instructions in the next screen, good luck :)</card-subtitle>
+    </card-title-group>
+    <card-content>
+      <lia-info-block>
+        <lia-info-language>{{ lia.language }}</lia-info-language>
+        <lia-info-title>{{ lia.title }}</lia-info-title>
+        <lia-info-time><i class="material-icons">schedule</i> {{ lia.time }} minutes</lia-info-time>
+      </lia-info-block>
+    </card-content>
+    <card-actions>
+      <button lia-button (click)="launchLIA(lia)">Start Coding!</button>
+      <a href="" lia-button-link>need help?</a>
+    </card-actions>
+  </lia-card>
+</div>

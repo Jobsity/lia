@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
-import { HomeCardComponent } from './sections/home/home-card';
-import { LiaCardComponent } from './sections/lia/lia-card';
+import { HomePageComponent } from './sections/home/home-page';
+import { LiaLandingPageComponent } from './sections/lia/lia-landing-page';
 import { LiaPageComponent } from './sections/lia/lia-page';
 import { LiaService } from './sections/lia/lia.service';
 
@@ -13,17 +13,18 @@ import { LiaService } from './sections/lia/lia.service';
   directives: [ROUTER_DIRECTIVES],
   providers: [ROUTER_PROVIDERS, LiaService]
 })
+
 @RouteConfig([
   {
     path: '/',
     name: 'Home',
-    component: HomeCardComponent,
+    component: HomePageComponent,
     useAsDefault: true
   },
   {
     path: '/users/:userId/lia/:liaId',
     name: 'LiaCard',
-    component: LiaCardComponent
+    component: LiaLandingPageComponent
   },
   {
     path: '/users/:userId/lia/:liaId/launch',

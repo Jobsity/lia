@@ -23,7 +23,7 @@ module.exports = function(){
                   short_description: lia.short_description,
                   description: lia.description,
                   language: lia.language,
-                  candidate_name: user.username,
+                  candidate_name: user.first_name + ' ' + user.last_name,
                   candidate_id: user._id,
                   state: lia.state,
                   submitted_code: lia.submitted_code
@@ -47,7 +47,7 @@ module.exports = function(){
                   short_description: lia.short_description,
                   description: lia.description,
                   language: lia.language,
-                  candidate_name: user.username,
+                  candidate_name: user.first_name + ' ' + user.last_name,
                   candidate_id: user._id,
                   state: lia.state
                 }

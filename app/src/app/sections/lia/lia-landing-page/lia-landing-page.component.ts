@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteParams, Router } from '@angular/router-deprecated';
 import { Lia } from '../lia';
-import {MdButton} from '@angular2-material/button';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
 import { LiaService } from './../lia.service';
+
+import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
+import { LIA_CARD_DIRECTIVES } from '../../../components/lia-card';
+import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-lia-card',
-  templateUrl: 'lia-card.component.html',
-  styleUrls: ['lia-card.component.css'],
-  directives: [MD_CARD_DIRECTIVES,  MdButton]
+  selector: 'app-lia-landing-page',
+  templateUrl: 'lia-landing-page.component.html',
+  styleUrls: ['lia-landing-page.component.css'],
+  directives: [LIA_BUTTON_DIRECTIVES, LIA_CARD_DIRECTIVES, LiaInfoBlockComponent]
 })
-export class LiaCardComponent implements OnInit {
+export class LiaLandingPageComponent implements OnInit {
 
   lia: Lia;
 
@@ -31,8 +33,6 @@ export class LiaCardComponent implements OnInit {
     this.liaService.launchLia(userId, lia).then(res => {
       let link = ['LiaPage', { userId: userId, liaId: lia.id }];
       this.router.navigate(link);
-      console.log('LIA: ', res);
     });
   }
-
 }

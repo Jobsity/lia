@@ -2,10 +2,9 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+  margin: 175px 0 185px 0;
 }
 
-md-card {
-  width: 860px;
-  box-sizing: border-box;
-  margin: 16px;
+lia-card {
+  width: 665px;
 }
