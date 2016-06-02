@@ -20,18 +20,18 @@ import { LiaAceEditorComponent } from './../../../components/lia-ace-editor';
   encapsulation: ViewEncapsulation.None
 })
 export class LiaCodeSubmissionComponent implements OnChanges {
-  
+
   @Input() lia: Lia;
   @Output() onLiaSubmitted: EventEmitter<any> =  new EventEmitter();
   code: string;
 
   ngOnChanges() {
-    // base 64 decode snippet code
+    // base64 decode snippet code
     this.code = (this.lia && this.lia.snippet_code) ? atob(this.lia.snippet_code): '// Write your solution here';
   }
 
   submitLia() {
-    // base64 encode submitted code 
+    // base64 encode submitted code
     this.lia.submitted_code = btoa(this.lia.submitted_code);
     this.onLiaSubmitted.emit(this.lia);
   }
