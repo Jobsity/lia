@@ -1,18 +1,25 @@
-:host {
+.editor-card {
   display: flex;
-  flex-grow: 3;
-  width: 70%;
-}
-
-md-card {
-  margin: 0 20px 20px 20px;
   width: 100%;
 }
 
-textarea {
-  font-size: 14px;
-  font-style: italic;
-  padding: 15px;
-  border-color: #ccc;
-  resize: none;
+.editor-card .lia-card {
+  width: 100%;
+  padding-top: 62px;
+}
+
+.editor-area {
+  display: flex;
+  flex: 1;
+  border: 1px solid #D5D5D5;
+}
+
+.editor-area .ace-crimson-editor .ace_gutter-layer {
+  text-align: center;
+  width: 60px !important;
+}
+
+lia-ace-editor {
+  display: block;
+  width: 100%;
 }

@@ -1,10 +1,11 @@
-<md-card *ngIf="lia">
-  <md-card-content>
-    <form name="codeSubmissionForm">
-      <textarea cols="105" id="code" name="code" [(ngModel)]="lia.submitted_code" placeholder="Code area..." rows="100"></textarea>
-    </form>
-  </md-card-content>
-  <md-card-actions align="end">
-    <button md-raised-button color="accent" (click)="submitLia(lia)">SUBMIT</button>
-  </md-card-actions>
-</md-card>
+<lia-card class="editor-card" *ngIf="lia">
+  <card-content class="editor-area">
+    <lia-ace-editor [theme]="'crimson_editor'" [code]="code" [language]="lia.language" (onCodeChange)="onChange($event)"></lia-ace-editor>
+  </card-content>
+  <card-actions>
+    <button lia-button (click)="submitLia(lia)">Save</button>
+    <a href="" lia-button-link>quit</a>
+  </card-actions>
+</lia-card>
+
+

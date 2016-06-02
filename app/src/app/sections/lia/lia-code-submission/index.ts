@@ -1,1 +1,1 @@
-export { LiaCodeSubmittionComponent } from './lia-code-submittion.component';
+export { LiaCodeSubmissionComponent } from './lia-code-submission.component';
