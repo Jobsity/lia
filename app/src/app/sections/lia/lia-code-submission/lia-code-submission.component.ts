@@ -1,22 +1,20 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FORM_DIRECTIVES } from '@angular/common';
 import { Lia } from './../lia';
-import { MD_CARD_DIRECTIVES } from '@angular2-material/card';
-import {MdButton} from '@angular2-material/button';
+import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
+import { LIA_CARD_DIRECTIVES } from './../../../components/lia-card';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-lia-code-submittion',
+  selector: 'lia-code-submission',
   templateUrl: 'lia-code-submittion.component.html',
   styleUrls: ['lia-code-submittion.component.css'],
-  directives: [FORM_DIRECTIVES, MD_CARD_DIRECTIVES, MdButton]
+  directives: [FORM_DIRECTIVES, LIA_BUTTON_DIRECTIVES, LIA_CARD_DIRECTIVES]
 })
-export class LiaCodeSubmittionComponent {
+export class LiaCodeSubmissionComponent {
 
   @Input() lia: Lia;
   @Output() onLiaSubmitted: EventEmitter<any> =  new EventEmitter();
-
-  constructor() {}
 
   submitLia() {
     this.onLiaSubmitted.emit(this.lia);
