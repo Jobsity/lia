@@ -6,8 +6,6 @@ import { LiaCodeSubmissionComponent } from '../lia-code-submission/lia-code-subm
 import { LiaService } from './../lia.service';
 import { LiaHeaderComponent } from './../lia-header';
 
-
-
 @Component({
   moduleId: module.id,
   selector: 'app-lia-page',
@@ -35,7 +33,10 @@ export class LiaPageComponent implements OnInit {
 
   submitLia(lia: Lia): void {
     let userId = +this.routeParams.get('userId');
-    this.liaService.submitLia(userId, lia).then((res) => console.log(res));
+    this.liaService.submitLia(userId, lia).then(() => {
+      let link = ['LiaLandingPage', { userId: userId, liaId: lia.id }];
+      this.router.navigate(link);
+    });
   }
 
 }

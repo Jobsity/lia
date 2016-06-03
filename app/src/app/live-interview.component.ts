@@ -23,7 +23,7 @@ import { LiaService } from './sections/lia/lia.service';
   },
   {
     path: '/users/:userId/lia/:liaId',
-    name: 'LiaCard',
+    name: 'LiaLandingPage',
     component: LiaLandingPageComponent
   },
   {

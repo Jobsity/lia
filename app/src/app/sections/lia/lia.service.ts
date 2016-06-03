@@ -47,6 +47,8 @@ export class LiaService {
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', this.auth.getCurrentUserToken());
 
+    lia.state = "submitted";
+    
     return this.http.post(url, JSON.stringify(lia), {headers})
       .toPromise()
       .then(response => response.json())

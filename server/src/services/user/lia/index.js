@@ -27,7 +27,8 @@ module.exports = function(){
                   candidate_id: user._id,
                   state: lia.state,
                   snippet_code: lia.snippet_code,
-                  submitted_code: lia.submitted_code
+                  submitted_code: lia.submitted_code,
+                  submitted_at: lia.submitted_at
                 }
               });
             });
@@ -68,6 +69,13 @@ module.exports = function(){
 
   // Get our initialize service to that we can bind hooks
   const userLiaService = app.service('/users/:user_id/lia');
+  
+  // add submitted_at date
+  userLiaService.before({
+    create(hook) {
+      hook.data.submitted_at = new Date();
+    }
+  });
 
   // Set up our before hooks
   userLiaService.before(hooks.before);
