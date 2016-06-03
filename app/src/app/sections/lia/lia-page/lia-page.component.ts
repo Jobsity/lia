@@ -17,6 +17,7 @@ import { LiaHeaderComponent } from './../lia-header';
     LiaHeaderComponent
   ]
 })
+
 export class LiaPageComponent implements OnInit {
 
   lia: Lia;
@@ -28,7 +29,14 @@ export class LiaPageComponent implements OnInit {
   ngOnInit() {
     let userId = +this.routeParams.get('userId');
     let liaId = +this.routeParams.get('liaId');
-    this.liaService.getUserLia(userId, liaId).then(res => this.lia = res);
+    this.liaService.getUserLia(userId, liaId).then(res => {
+      this.lia = res;
+
+      if (this.lia.state === 'submitted' || this.lia.state === 'opened') {
+        let link = ['LiaLandingPage', { userId: userId, liaId: res.id }];
+        this.router.navigate(link);
+      }
+    });
   }
 
   submitLia(lia: Lia): void {
