@@ -8,9 +8,9 @@ import { LiaHeaderComponent } from './../lia-header';
 
 @Component({
   moduleId: module.id,
-  selector: 'app-lia-page',
-  templateUrl: 'lia-page.component.html',
-  styleUrls: ['lia-page.component.css'],
+  selector: 'lia-submission-page',
+  templateUrl: 'lia-submission-page.component.html',
+  styleUrls: ['lia-submission-page.component.css'],
   directives: [
     LiaDescriptionComponent,
     LiaCodeSubmissionComponent,
@@ -18,7 +18,7 @@ import { LiaHeaderComponent } from './../lia-header';
   ]
 })
 
-export class LiaPageComponent implements OnInit {
+export class LiaSubmissionPageComponent implements OnInit {
 
   lia: Lia;
 

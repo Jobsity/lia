@@ -61,7 +61,7 @@ const barrels: string[] = [
   'app/sections/lia/lia-landing-page',
   'app/sections/home/home-page',
   'app/sections/lia/lia-description-card',
-  'app/sections/lia/lia-page',
+  'app/sections/lia/lia-submission-page',
   'app/sections/lia/lia-description',
   'app/sections/lia/lia-code-submittion',
   'app/sections/lia/lia-timer',

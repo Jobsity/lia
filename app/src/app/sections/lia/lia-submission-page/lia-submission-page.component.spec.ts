@@ -9,25 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { LiaPageComponent } from './lia-page.component';
+import { LiaSubmissionPageComponent } from './lia-submission-page.component';
 
-describe('Component: LiaPage', () => {
+describe('Component: LiaSubmissionPage', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [LiaPageComponent]);
+  beforeEachProviders(() => [LiaSubmissionPageComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([LiaPageComponent],
-      (component: LiaPageComponent) => {
+  it('should inject the component', inject([LiaSubmissionPageComponent],
+      (component: LiaSubmissionPageComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(LiaPageComponentTestController)
+    return builder.createAsync(LiaSubmissionPageComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(LiaPageComponent));
+        let query = fixture.debugElement.query(By.directive(LiaSubmissionPageComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -37,10 +37,10 @@ describe('Component: LiaPage', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-lia-page></app-lia-page>
+    <lia-submission-page></lia-submission-page>
   `,
-  directives: [LiaPageComponent]
+  directives: [LiaSubmissionPageComponent]
 })
-class LiaPageComponentTestController {
+class LiaSubmissionPageComponentTestController {
 }
 

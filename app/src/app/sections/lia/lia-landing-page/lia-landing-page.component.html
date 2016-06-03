@@ -19,7 +19,7 @@
     </card-content>
     <card-actions>
       <button *ngIf="lia.state === 'opened'" lia-button (click)="launchLIA(lia)">Start Coding!</button>
-      <button *ngIf="lia.state === 'in_progress'" lia-button [routerLink]="['LiaPage', {userId: userId, liaId: liaId}]">Continue</button>
+      <button *ngIf="lia.state === 'in_progress'" lia-button [routerLink]="['LiaSubmissionPage', {userId: userId, liaId: liaId}]">Continue</button>
     </card-actions>
   </lia-card>
 </div>

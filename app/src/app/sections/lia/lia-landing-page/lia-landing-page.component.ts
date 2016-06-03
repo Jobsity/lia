@@ -56,7 +56,7 @@ export class LiaLandingPageComponent implements OnInit {
 
   launchLIA(lia: Lia) {
     this.liaService.launchLia(this.userId, lia).then(() => {
-      let link = ['LiaPage', { userId: this.userId, liaId: lia.id }];
+      let link = ['LiaSubmissionPage', { userId: this.userId, liaId: lia.id }];
       this.router.navigate(link);
     });
   }
