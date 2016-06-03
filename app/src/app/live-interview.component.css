@@ -1,7 +1,5 @@
 .footer {
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
+  text-align: center;
   height: 220px;
   background: #231E20;
 }
@@ -25,4 +23,10 @@
 
 .footer .logo {
   margin: 23px 0 12px 0;
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    padding: 0 30px 30px;
+  }
 }

@@ -26,7 +26,7 @@ card-title-group {
 card-title-group [card-img] {
   position: absolute;
   top: -90px;
-  left: 210px;
+  left: calc(50% - 62px);
 }
 
 card-title {
@@ -59,4 +59,35 @@ card-actions {
 
 card-actions [lia-button-link] {
   margin-top: 25px;
+}
+
+/* media query: mobile */
+@media screen and (max-width: 600px) {
+  .lia-card {
+    padding: 35px 0;
+  }
+
+  card-header .lia-info-block {
+    margin-bottom: 25px;
+  }
+
+  card-title-group [card-img] {
+    top: -65px;
+    width: 81px;
+    left: calc(50% - 35px);
+  }
+
+  card-title {
+    margin: 25px 35px 0 35px;
+    font-size: 24px;
+    line-height: 30px;
+  }
+
+  card-subtitle, card-content p {
+    margin: 0 35px 25px 35px;
+  }
+
+  card-content.thin-padding {
+    margin: 0;
+  }
 }

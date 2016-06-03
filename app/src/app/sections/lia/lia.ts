@@ -9,6 +9,7 @@ export interface Lia {
   username: string,
   user_id: number,
   state: string,
-  submitted_code?: string,
-  snippet_code: string
+  submitted_code: string,
+  snippet_code: string,
+  submitted_at: string
 }

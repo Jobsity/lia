@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from '@angular/router-deprecated';
 import { HomePageComponent } from './sections/home/home-page';
 import { LiaLandingPageComponent } from './sections/lia/lia-landing-page';
-import { LiaPageComponent } from './sections/lia/lia-page';
+import { LiaSubmissionPageComponent } from './sections/lia/lia-submission-page';
 import { LiaService } from './sections/lia/lia.service';
 
 @Component({
@@ -23,13 +23,13 @@ import { LiaService } from './sections/lia/lia.service';
   },
   {
     path: '/users/:userId/lia/:liaId',
-    name: 'LiaCard',
+    name: 'LiaLandingPage',
     component: LiaLandingPageComponent
   },
   {
     path: '/users/:userId/lia/:liaId/launch',
-    name: 'LiaPage',
-    component: LiaPageComponent
+    name: 'LiaSubmissionPage',
+    component: LiaSubmissionPageComponent
   }
 ])
 

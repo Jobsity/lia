@@ -43,6 +43,6 @@ module.exports = function(){
     "state":"opened",
     "time":60,
     "created_at":"2016-05-25",
-    "snippet_code": "ZnVuY3Rpb24gc29sdXRpb24oYSwgYiwgYykgew0KICAvLyBUT0RPOiBQbGVhc2Ugd3JpdGUgeW91IHNvbHV0aW9uIGluc2lkZSBvZiB0aGlzIGZ1bmN0aW9uDQogIA0KfQ=="
+    "snippet_code": "ZnVuY3Rpb24gc29sdXRpb24oYSwgYiwgYykgew0KICAvLyBUT0RPOiBQbGVhc2Ugd3JpdGUgeW91ciBzb2x1dGlvbiBpbnNpZGUgb2YgdGhpcyBmdW5jdGlvbg0KICANCn0="
   }).then(() => console.log('[LOG]: Created test LIA...'));
 };

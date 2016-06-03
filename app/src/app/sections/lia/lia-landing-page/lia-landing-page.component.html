@@ -2,8 +2,13 @@
   <lia-card>
     <card-title-group>
       <img card-img src="img/jobsity-icon.png" alt="Jobsity logo">
-      <card-title>Welcome to Jobsity Live Coding</card-title>
-      <card-subtitle>Hi {{ lia.candidate_name }}! Today we are going to work on a live coding exerice, please follow the instructions in the next screen, good luck :)</card-subtitle>
+      <card-title>{{ title }}</card-title>
+      <div [ngSwitch]="lia.state">
+        <card-subtitle *ngSwitchWhen="'opened'">Hi {{ lia.candidate_name }}! Today we are going to work on a live coding exercise, please follow the instructions in the next screen, good luck :)</card-subtitle>
+        <card-subtitle *ngSwitchWhen="'in_progress'">Hi {{ lia.candidate_name }}! Your live coding exercise is <strong>in progress</strong>. Click "Continue" button if you want to work more on your solution.</card-subtitle>
+      </div>
+        <card-subtitle *ngIf="lia.state === 'submitted' && isLiaJustSubmitted()">Hi {{ lia.candidate_name }}! Your code solution was successfully submitted. Thank you for your time, we will contact you back shortly. <br> Best wishes! :)</card-subtitle>
+        <card-subtitle *ngIf="lia.state === 'submitted' && !isLiaJustSubmitted()">Hi {{ lia.candidate_name }}! You have already submitted your solution. We will review it and contact you back shortly. <br> See you next time! :)</card-subtitle>
     </card-title-group>
     <card-content>
       <lia-info-block>
@@ -13,8 +18,8 @@
       </lia-info-block>
     </card-content>
     <card-actions>
-      <button lia-button (click)="launchLIA(lia)">Start Coding!</button>
-      <a href="" lia-button-link>need help?</a>
+      <button *ngIf="lia.state === 'opened'" lia-button (click)="launchLIA(lia)">Start Coding!</button>
+      <button *ngIf="lia.state === 'in_progress'" lia-button [routerLink]="['LiaSubmissionPage', {userId: userId, liaId: liaId}]">Continue</button>
     </card-actions>
   </lia-card>
 </div>

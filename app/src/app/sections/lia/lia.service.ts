@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-
 import 'rxjs/add/operator/toPromise';
-
 import { Lia } from './lia';
-
 import { AuthService } from './../auth/auth.service';
 
 @Injectable()
@@ -47,6 +44,8 @@ export class LiaService {
     headers.append('Content-Type', 'application/json');
     headers.append('Authorization', this.auth.getCurrentUserToken());
 
+    lia.state = "submitted";
+    
     return this.http.post(url, JSON.stringify(lia), {headers})
       .toPromise()
       .then(response => response.json())

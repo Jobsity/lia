@@ -6,20 +6,19 @@ import { LiaCodeSubmissionComponent } from '../lia-code-submission/lia-code-subm
 import { LiaService } from './../lia.service';
 import { LiaHeaderComponent } from './../lia-header';
 
-
-
 @Component({
   moduleId: module.id,
-  selector: 'app-lia-page',
-  templateUrl: 'lia-page.component.html',
-  styleUrls: ['lia-page.component.css'],
+  selector: 'lia-submission-page',
+  templateUrl: 'lia-submission-page.component.html',
+  styleUrls: ['lia-submission-page.component.css'],
   directives: [
     LiaDescriptionComponent,
     LiaCodeSubmissionComponent,
     LiaHeaderComponent
   ]
 })
-export class LiaPageComponent implements OnInit {
+
+export class LiaSubmissionPageComponent implements OnInit {
 
   lia: Lia;
 
@@ -30,12 +29,22 @@ export class LiaPageComponent implements OnInit {
   ngOnInit() {
     let userId = +this.routeParams.get('userId');
     let liaId = +this.routeParams.get('liaId');
-    this.liaService.getUserLia(userId, liaId).then(res => this.lia = res);
+    this.liaService.getUserLia(userId, liaId).then(res => {
+      this.lia = res;
+
+      if (this.lia.state === 'submitted' || this.lia.state === 'opened') {
+        let link = ['LiaLandingPage', { userId: userId, liaId: res.id }];
+        this.router.navigate(link);
+      }
+    });
   }
 
   submitLia(lia: Lia): void {
     let userId = +this.routeParams.get('userId');
-    this.liaService.submitLia(userId, lia).then((res) => console.log(res));
+    this.liaService.submitLia(userId, lia).then(() => {
+      let link = ['LiaLandingPage', { userId: userId, liaId: lia.id }];
+      this.router.navigate(link);
+    });
   }
 
 }
