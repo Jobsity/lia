@@ -23,3 +23,31 @@ lia-ace-editor {
   display: block;
   width: 100%;
 }
+
+/* media query: tablet */
+@media screen and (max-width: 1024px) {
+  .editor-card {
+    display: block;
+  }
+
+  .editor-card .lia-card {
+    padding: 25px 30px;
+  }
+
+  .editor-area {
+    display: block;
+    height: 100vh;
+  }
+
+  lia-ace-editor {
+    height: 100vh;
+  }
+}
+
+/* media query: mobile */
+@media screen and (max-width: 600px) {
+
+  .editor-card .lia-card {
+    padding: 25px 0;
+  }
+}

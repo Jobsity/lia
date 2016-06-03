@@ -67,6 +67,10 @@ card-actions [lia-button-link] {
     padding: 35px 0;
   }
 
+  card-header .lia-info-block {
+    margin-bottom: 25px;
+  }
+
   card-title-group [card-img] {
     top: -65px;
     width: 81px;
@@ -81,5 +85,9 @@ card-actions [lia-button-link] {
 
   card-subtitle, card-content p {
     margin: 0 35px 25px 35px;
+  }
+
+  card-content.thin-padding {
+    margin: 0;
   }
 }

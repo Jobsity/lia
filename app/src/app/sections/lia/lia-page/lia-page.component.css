@@ -6,10 +6,29 @@
 
 lia-description {
   width: 30%;
+  display: block;
 }
 
 lia-code-submission {
   display: flex;
   margin-left: 60px;
   width: calc(70% - 60px);
+}
+
+/* media query: tablet */
+@media screen and (max-width: 1024px) {
+  .container {
+    display: block;
+    margin: 0;
+  }
+
+  lia-description {
+    width: 100%;
+  }
+
+  lia-code-submission {
+    display: block;
+    width: 100%;
+    margin: 40px 0;
+  }
 }
