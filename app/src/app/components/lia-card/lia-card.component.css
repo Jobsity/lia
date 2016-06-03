@@ -9,6 +9,14 @@
   color: #000;
 }
 
+card-header {
+  display: block;
+}
+
+card-header.no-padding{
+  margin: -35px -62px 0 -62px;
+}
+
 card-title-group {
   display: block;
   text-align: center;
@@ -29,8 +37,15 @@ card-title {
   margin-top: 40px;
 }
 
-card-subtitle, card-content p {
+card-subtitle, card-content {
   display: block;
+}
+
+card-content.thin-padding {
+  margin: 0 -32px;
+}
+
+card-subtitle, card-content p {
   font-size: 18px;
   margin: 23px 0;
   line-height: 26px;

@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RouteParams, Router } from '@angular/router-deprecated';
 import { Lia } from '../lia';
 import { LiaDescriptionComponent } from './../lia-description/lia-description.component';
-import { LiaCodeSubmittionComponent } from './../lia-code-submittion/lia-code-submittion.component';
+import { LiaCodeSubmissionComponent } from '../lia-code-submission/lia-code-submission.component';
 import { LiaService } from './../lia.service';
+import { LiaHeaderComponent } from './../lia-header';
+
 
 
 @Component({
@@ -11,7 +13,11 @@ import { LiaService } from './../lia.service';
   selector: 'app-lia-page',
   templateUrl: 'lia-page.component.html',
   styleUrls: ['lia-page.component.css'],
-  directives: [LiaDescriptionComponent, LiaCodeSubmittionComponent],
+  directives: [
+    LiaDescriptionComponent,
+    LiaCodeSubmissionComponent,
+    LiaHeaderComponent
+  ]
 })
 export class LiaPageComponent implements OnInit {
 

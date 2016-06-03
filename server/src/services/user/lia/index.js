@@ -26,6 +26,7 @@ module.exports = function(){
                   candidate_name: user.first_name + ' ' + user.last_name,
                   candidate_id: user._id,
                   state: lia.state,
+                  snippet_code: lia.snippet_code,
                   submitted_code: lia.submitted_code
                 }
               });
@@ -49,7 +50,8 @@ module.exports = function(){
                   language: lia.language,
                   candidate_name: user.first_name + ' ' + user.last_name,
                   candidate_id: user._id,
-                  state: lia.state
+                  state: lia.state,
+                  snippet_code: lia.snippet_code
                 }
               });
             });

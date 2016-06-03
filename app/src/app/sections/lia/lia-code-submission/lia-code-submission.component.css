@@ -1,0 +1,25 @@
+.editor-card {
+  display: flex;
+  width: 100%;
+}
+
+.editor-card .lia-card {
+  width: 100%;
+  padding-top: 62px;
+}
+
+.editor-area {
+  display: flex;
+  flex: 1;
+  border: 1px solid #D5D5D5;
+}
+
+.editor-area .ace-crimson-editor .ace_gutter-layer {
+  text-align: center;
+  width: 60px !important;
+}
+
+lia-ace-editor {
+  display: block;
+  width: 100%;
+}

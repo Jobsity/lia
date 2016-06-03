@@ -9,25 +9,25 @@ import {
 import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { LiaCodeSubmittionComponent } from './lia-code-submittion.component';
+import { LiaCodeSubmissionComponent } from './lia-code-submission.component';
 
-describe('Component: LiaCodeSubmittion', () => {
+describe('Component: LiaCodeSubmission', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [LiaCodeSubmittionComponent]);
+  beforeEachProviders(() => [LiaCodeSubmissionComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
   }));
 
-  it('should inject the component', inject([LiaCodeSubmittionComponent],
-      (component: LiaCodeSubmittionComponent) => {
+  it('should inject the component', inject([LiaCodeSubmissionComponent],
+      (component: LiaCodeSubmissionComponent) => {
     expect(component).toBeTruthy();
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(LiaCodeSubmittionComponentTestController)
+    return builder.createAsync(LiaCodeSubmissionComponentTestController)
       .then((fixture: ComponentFixture<any>) => {
-        let query = fixture.debugElement.query(By.directive(LiaCodeSubmittionComponent));
+        let query = fixture.debugElement.query(By.directive(LiaCodeSubmissionComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
       });
@@ -37,10 +37,10 @@ describe('Component: LiaCodeSubmittion', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-lia-code-submittion></app-lia-code-submittion>
+    <lia-code-submission></lia-code-submission>
   `,
-  directives: [LiaCodeSubmittionComponent]
+  directives: [LiaCodeSubmissionComponent]
 })
-class LiaCodeSubmittionComponentTestController {
+class LiaCodeSubmissionComponentTestController {
 }
 

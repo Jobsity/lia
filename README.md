@@ -6,7 +6,7 @@ This project represents an application which allows a candidate to solve a code 
 
 It's built with _**Angular 2.0 RC**_.
 
-![Screenshot](https://cloud.githubusercontent.com/assets/3257149/15520177/9b879064-21ca-11e6-86af-75000ee6659d.png)
+![Screenshot](https://cloud.githubusercontent.com/assets/3257149/15761600/b89787e8-28de-11e6-8bad-3e801d359b5c.png)
 
 ### Installation
 
