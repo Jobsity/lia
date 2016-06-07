@@ -3,39 +3,11 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-  '@angular2-material': 'vendor/@angular2-material',
   'moment': 'vendor/moment/moment.js'
 };
 
 /** User packages configuration. */
-const materialPackages:string[] = [
-  'core',
-  'toolbar',
-  'icon',
-  'button',
-  'sidenav',
-  'list',
-  'card',
-  'input',
-  'radio',
-  'checkbox',
-  'grid-list',
-  'progress-bar',
-  'progress-circle'
-];
-
-const packages:any = createCustomConfig(materialPackages);
-
-function createCustomConfig(packages: string[]): any {
-  return packages.reduce((packageConfig: any, packageName: string) => {
-    packageConfig[`@angular2-material/${packageName}`] = {
-      format: 'cjs',
-      defaultExtension: 'js',
-      main: packageName
-    };
-    return packageConfig;
-  }, {});
-}
+const packages: any = { };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 /***********************************************************************************************
