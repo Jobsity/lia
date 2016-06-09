@@ -5,7 +5,7 @@ import {
   expect,
   inject
 } from '@angular/core/testing';
-import { AuthService } from './auth.service.ts';
+import { AuthService } from './auth.service';
 
 describe('Auth Service', () => {
   beforeEachProviders(() => [AuthService]);
