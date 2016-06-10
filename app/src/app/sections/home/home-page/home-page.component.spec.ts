@@ -89,3 +89,4 @@ describe('Component: HomePage', () => {
   directives: [HomePageComponent]
 })
 class TestApp { }
+
