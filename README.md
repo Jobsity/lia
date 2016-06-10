@@ -60,3 +60,11 @@ cd lia/server
 npm install
 npm start
 ```
+
+#### Unit testing
+
+Run the following command
+
+```shell
+ng test
+```
