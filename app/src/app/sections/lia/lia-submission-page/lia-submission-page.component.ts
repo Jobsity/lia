@@ -33,7 +33,12 @@ export class LiaSubmissionPageComponent implements OnInit {
     private liaService: LiaService,
     private route: ActivatedRoute,
     private router: Router
-  ) { }
+  ) {
+    this.leaveMsg = 'You haven\'t submitted your code yet.\nAre you sure you want to leave?';
+    this.timeWarning = 60; //seconds
+    this.timeWarningDisplayed = false;
+    this.toastMsg = '';
+  }
 
   ngOnInit() {
     let userId = +this.route.snapshot.params['userId'];
@@ -47,9 +52,12 @@ export class LiaSubmissionPageComponent implements OnInit {
         this.router.navigate(['/users/', userId, 'lia', res.id]);
       }
 
-      // Start interval that saves progress.
       if (this.lia.state === 'in_progress') {
+        // Start interval that saves progress.
         this.startSaveProgressInterval();
+
+        // This is used to alert user before leaving the page.
+        window.onbeforeunload = () => this.leaveMsg;
       }
 
       // Check if time is up.
@@ -112,8 +120,13 @@ export class LiaSubmissionPageComponent implements OnInit {
 
   submitLia(lia: ILia): void {
     let userId = +this.route.snapshot.params['userId'];
+    this.toastMsg = '';
+
     this.liaService.submitLia(userId, lia).then(() => {
       this.router.navigate(['/users/', userId, 'lia', lia.id]);
+    }, (error) => {
+      // @TODO: Consider changing to show message from API.
+      this.toastMsg = 'Oops! There was an error. Please try again later.';
     });
   }
 }
