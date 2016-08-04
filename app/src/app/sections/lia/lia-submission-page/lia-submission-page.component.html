@@ -1,5 +1,15 @@
 <lia-header></lia-header>
 <div class="container">
-  <lia-description [lia]="lia"></lia-description>
-  <lia-code-submission [lia]="lia" (onLiaSubmitted)="submitLia($event)"></lia-code-submission>
+  <lia-toast
+    [msg]="toastMsg"
+    (onChangeMsg)="handleChangeToastMsg($event)"
+  ></lia-toast>
+  <lia-description
+    [lia]="lia"
+    [remainingSeconds]="getRemainingSeconds(lia)"
+  ></lia-description>
+  <lia-code-submission
+    [lia]="lia"
+    (onLiaSubmitted)="submitLia($event)"
+  ></lia-code-submission>
 </div>

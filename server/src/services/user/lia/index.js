@@ -8,8 +8,7 @@ module.exports = function(){
   // Initialize our service with any options it requires
 
   app.use('/users/:user_id/lia', {
-
-    // load user's LIA
+    // Load user's LIA
     get(id, params) {
       return app.service('users').get(params.user_id)
         .then(user => {
@@ -28,14 +27,15 @@ module.exports = function(){
                   state: lia.state,
                   snippet_code: lia.snippet_code,
                   submitted_code: lia.submitted_code,
-                  submitted_at: lia.submitted_at
+                  submitted_at: lia.submitted_at,
+                  started_at: lia.started_at
                 }
               });
             });
         })
     },
 
-    // set LIA to be "in progress"
+    // Set LIA to be "in progress"
     patch(id, data, params) {
       return app.service('users').get(params.user_id)
         .then(user => {
@@ -52,24 +52,24 @@ module.exports = function(){
                   candidate_name: user.first_name + ' ' + user.last_name,
                   candidate_id: user._id,
                   state: lia.state,
-                  snippet_code: lia.snippet_code
+                  snippet_code: lia.snippet_code,
+                  started_at: lia.started_at
                 }
               });
             });
         })
     },
 
-    // submit solution for LIA
+    // Submit solution for LIA
     create(data, params) {
       return app.service('users').get(params.user_id)
         .then(() => app.service('lia').patch(data.id, data).then(() => Promise.resolve('OK')));
-    }
+    },
   });
-
 
   // Get our initialize service to that we can bind hooks
   const userLiaService = app.service('/users/:user_id/lia');
-  
+
   // add submitted_at date
   userLiaService.before({
     create(hook) {

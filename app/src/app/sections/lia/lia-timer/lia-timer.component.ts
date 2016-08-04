@@ -12,19 +12,16 @@ export class LiaTimerComponent implements OnInit {
   timeInMinutes: number;
   timeInSeconds: number;
 
-  @Input()
-  time: number;
+  @Input() remainingSeconds: number;
 
   constructor() {}
 
   ngOnInit() {
-    var seconds = this.time * 60;
     let timer = Observable.timer(0, 1000)
-      .takeUntil(Observable.timer( seconds * 1000 ));
+      .takeUntil(Observable.timer( this.remainingSeconds * 1000 ));
     timer.subscribe(t => {
-      this.timeInMinutes =  moment.duration(seconds - t, 'seconds').minutes();
-      this.timeInSeconds = moment.duration(seconds - t, 'seconds').seconds();
+      this.timeInMinutes =  moment.duration(this.remainingSeconds, 'seconds').minutes();
+      this.timeInSeconds = moment.duration(this.remainingSeconds, 'seconds').seconds();
     });
   }
-
 }
