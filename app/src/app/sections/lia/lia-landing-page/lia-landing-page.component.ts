@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteParams, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ILia } from '../lia';
 import { LiaService } from './../lia.service';
 import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
 import { LIA_CARD_DIRECTIVES } from '../../../components/lia-card';
 import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
-
 import * as moment from 'moment';
 
 @Component({
@@ -14,7 +13,6 @@ import * as moment from 'moment';
   templateUrl: 'lia-landing-page.component.html',
   styleUrls: ['lia-landing-page.component.css'],
   directives: [
-    ROUTER_DIRECTIVES,
     LIA_BUTTON_DIRECTIVES,
     LIA_CARD_DIRECTIVES,
     LiaInfoBlockComponent
@@ -27,13 +25,15 @@ export class LiaLandingPageComponent implements OnInit {
   userId: number;
   liaId: number;
 
-  constructor(private liaService: LiaService,
-              private routeParams: RouteParams,
-              private router: Router ) {}
+  constructor(
+    private liaService: LiaService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.userId = +this.routeParams.get('userId');
-    this.liaId = +this.routeParams.get('liaId');
+    this.userId = +this.route.snapshot.params['userId'];
+    this.liaId = +this.route.snapshot.params['liaId'];
     this.liaService.getUserLia(this.userId, this.liaId).then(res => {
       this.lia = res;
       this.setCardTitle(this.lia);
@@ -56,8 +56,7 @@ export class LiaLandingPageComponent implements OnInit {
 
   launchLIA(lia: ILia) {
     this.liaService.launchLia(this.userId, lia).then(() => {
-      let link = ['LiaSubmissionPage', { userId: this.userId, liaId: lia.id }];
-      this.router.navigate(link);
+      this.router.navigate(['/users/', this.userId, 'lia', lia.id, 'launch']);
     });
   }
 }

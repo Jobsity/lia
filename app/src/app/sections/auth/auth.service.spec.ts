@@ -1,14 +1,10 @@
-import {
-  beforeEachProviders,
-  it,
-  describe,
-  expect,
-  inject
-} from '@angular/core/testing';
+import { addProviders, inject } from '@angular/core/testing';
 import { AuthService } from './auth.service.ts';
 
 describe('Auth Service', () => {
-  beforeEachProviders(() => [AuthService]);
+  beforeEach(() => {
+    addProviders([AuthService]);
+  });
 
   it('should ...',
       inject([AuthService], (service: AuthService) => {

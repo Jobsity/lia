@@ -1,15 +1,11 @@
-import {
-  beforeEachProviders,
-  describe,
-  expect,
-  it,
-  inject
-} from '@angular/core/testing';
+import { addProviders, inject } from '@angular/core/testing';
 import { LiveInterviewAppComponent } from '../app/live-interview.component';
 
-beforeEachProviders(() => [LiveInterviewAppComponent]);
-
 describe('App: LiveInterview', () => {
+  beforeEach(() => {
+    addProviders([LiveInterviewAppComponent]);
+  });
+
   it('should create the app',
       inject([LiveInterviewAppComponent], (app: LiveInterviewAppComponent) => {
     expect(app).toBeTruthy();
