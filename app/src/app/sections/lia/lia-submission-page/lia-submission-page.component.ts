@@ -31,15 +31,16 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
     private routeParams: RouteParams
   ) {
     this.leaveMsg = 'You haven\'t submitted your code yet.\nAre you sure you want to leave?';
-
-    window.onbeforeunload = function() {
-      return this.leaveMsg;
-    }.bind(this);
   }
 
   ngOnInit() {
     let userId = +this.routeParams.get('userId');
     let liaId = +this.routeParams.get('liaId');
+
+    // This is used to alert user before leaving the page.
+    window.onbeforeunload = () => {
+      return this.leaveMsg;
+    };
 
     this.liaService.getUserLia(userId, liaId).then(res => {
       this.lia = res;
@@ -52,10 +53,6 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
   }
 
   routerCanDeactivate(next: ComponentInstruction, prev: ComponentInstruction): any {
-    if (this.lia.state === 'submitted') {
-      return true;
-    }
-
     if (this.lia.state === 'in_progress') {
       return confirm(this.leaveMsg);
     }
