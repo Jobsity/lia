@@ -38,9 +38,7 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
     let liaId = +this.routeParams.get('liaId');
 
     // This is used to alert user before leaving the page.
-    window.onbeforeunload = () => {
-      return this.leaveMsg;
-    };
+    window.onbeforeunload = () => this.leaveMsg;
 
     this.liaService.getUserLia(userId, liaId).then(res => {
       this.lia = res;
