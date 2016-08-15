@@ -37,8 +37,8 @@ module.exports = function(){
   liaService.create({
     "_id":"1",
     "title":"Test LIA 1",
-    "short_description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis expedita facilis fugit illo molestiae optio quae quo vero. Animi, officia, vitae. Alias debitis dolores expedita fugiat incidunt numquam quas, ullam.",
-    "description":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ad, aliquid architecto consequatur culpa cum debitis eligendi fuga fugiat ipsa iste laboriosam maxime nisi obcaecati quia? Adipisci eveniet hic molestias repudiandae! Asperiores assumenda autem distinctio ea est facere hic molestias perferendis? Corporis eligendi minima repellat? Deleniti dolorem eveniet, facilis incidunt inventore iure molestiae necessitatibus nobis. Autem distinctio dolore earum, eligendi et eum exercitationem hic illum in incidunt iure, magnam molestiae, nesciunt quasi vel. Ad alias aliquam asperiores dignissimos ex, hic maxime molestias perferendis provident quidem ratione recusandae, sapiente sequi suscipit unde. Aliquam autem commodi debitis dolorem doloribus ea earum, enim excepturi facilis id illum impedit incidunt ipsa itaque libero nisi non odit placeat possimus reiciendis repellat repellendus sed tempore tenetur vel velit voluptatem voluptatum. A aliquid corporis nobis, quasi reiciendis veritatis voluptate? Aut consectetur ea excepturi expedita mollitia neque officiis omnis praesentium reiciendis repellat? Dolores eveniet hic incidunt voluptatibus voluptatum. Commodi dolores illum labore nisi, officiis perspiciatis quaerat sit tempore veniam veritatis? A amet consectetur incidunt nulla officia officiis praesentium ratione, sapiente soluta suscipit ut voluptatibus voluptatum! Aliquid aperiam assumenda debitis ducimus, enim facilis fuga fugiat harum, impedit inventore laborum minima nam non perferendis quasi sint tenetur, voluptate! Quia, voluptatibus.",
+    "short_description":"Short description",
+    "description":"Long description",
     "language":"javascript",
     "state":"opened",
     "time":60,

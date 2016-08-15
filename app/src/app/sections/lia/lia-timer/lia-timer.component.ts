@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
+import { ILia, Lia } from './../lia';
 import * as moment from 'moment';
 
 @Component({
@@ -12,19 +13,18 @@ export class LiaTimerComponent implements OnInit {
   timeInMinutes: number;
   timeInSeconds: number;
 
-  @Input()
-  time: number;
+  @Input() lia: ILia;
 
   constructor() {}
 
   ngOnInit() {
-    var seconds = this.time * 60;
+    let remainingSeconds = Lia.getRemainingSeconds(this.lia);
     let timer = Observable.timer(0, 1000)
-      .takeUntil(Observable.timer( seconds * 1000 ));
+      .takeUntil(Observable.timer(remainingSeconds * 1000));
     timer.subscribe(t => {
-      this.timeInMinutes =  moment.duration(seconds - t, 'seconds').minutes();
-      this.timeInSeconds = moment.duration(seconds - t, 'seconds').seconds();
+      remainingSeconds--;
+      this.timeInMinutes = moment.duration(remainingSeconds, 'seconds').minutes();
+      this.timeInSeconds = moment.duration(remainingSeconds, 'seconds').seconds();
     });
   }
-
 }

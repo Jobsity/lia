@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouteParams, Router, ROUTER_DIRECTIVES } from '@angular/router-deprecated';
-import { Lia } from '../lia';
+import { ILia } from '../lia';
 import { LiaService } from './../lia.service';
 import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
 import { LIA_CARD_DIRECTIVES } from '../../../components/lia-card';
@@ -22,7 +22,7 @@ import * as moment from 'moment';
 })
 export class LiaLandingPageComponent implements OnInit {
 
-  lia: Lia;
+  lia: ILia;
   title: string;
   userId: number;
   liaId: number;
@@ -44,7 +44,7 @@ export class LiaLandingPageComponent implements OnInit {
     return moment(new Date()).diff(moment(this.lia.submitted_at), 'minutes') <= 15;
   }
 
-  private setCardTitle(lia: Lia) {
+  private setCardTitle(lia: ILia) {
     if (lia.state === 'in_progress') {
       this.title = 'Continue your work';
     } else if (lia.state === 'submitted') {
@@ -54,7 +54,7 @@ export class LiaLandingPageComponent implements OnInit {
     }
   }
 
-  launchLIA(lia: Lia) {
+  launchLIA(lia: ILia) {
     this.liaService.launchLia(this.userId, lia).then(() => {
       let link = ['LiaSubmissionPage', { userId: this.userId, liaId: lia.id }];
       this.router.navigate(link);

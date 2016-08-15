@@ -3,7 +3,12 @@
     <lia-info-block>
       <lia-info-language>{{ lia.language }}</lia-info-language>
       <lia-info-title>{{ lia.title }}</lia-info-title>
-      <lia-info-time><i class="material-icons">schedule</i> <app-lia-timer [time]="lia.time"></app-lia-timer></lia-info-time>
+      <lia-info-time>
+        <i class="material-icons">schedule</i>
+        <app-lia-timer
+          [lia]="lia"
+        ></app-lia-timer>
+      </lia-info-time>
     </lia-info-block>
   </card-header>
   <card-content class="thin-padding">
