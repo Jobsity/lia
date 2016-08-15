@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 
 export interface ILia {
   id: number,
@@ -61,5 +62,19 @@ export class Lia implements ILia {
     }
 
     return new Lia(copy);
+  }
+
+  static getRemainingSeconds(lia: ILia): number {
+    if (!lia) {
+      return 0;
+    }
+
+    let seconds = lia.time * 60;
+    let endsAt = moment(lia.started_at);
+    endsAt.add(seconds, 'seconds');
+    let remaining = moment(endsAt);
+    remaining.subtract(Date.now());
+
+    return parseInt(remaining.format('X'));
   }
 }

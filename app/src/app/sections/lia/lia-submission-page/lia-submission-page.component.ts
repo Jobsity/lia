@@ -7,7 +7,6 @@ import { LiaCodeSubmissionComponent } from '../lia-code-submission/lia-code-subm
 import { LiaToastComponent } from '../../../components/lia-toast/lia-toast.component';
 import { LiaService } from './../lia.service';
 import { LiaHeaderComponent } from './../lia-header';
-import * as moment from 'moment';
 
 @Component({
   moduleId: module.id,
@@ -51,7 +50,7 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
 
     this.liaService.getUserLia(userId, liaId).then(res => {
       this.lia = res;
-      let remainingSeconds = this.getRemainingSeconds(this.lia);
+      let remainingSeconds = Lia.getRemainingSeconds(this.lia);
 
       if (this.lia.state === 'submitted' || this.lia.state === 'opened') {
         let link = ['LiaLandingPage', { userId: userId, liaId: res.id }];
@@ -82,20 +81,6 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
     lia.snippet_code = '';
     lia.submitted_code = btoa(lia.submitted_code);
     this.submitLia(lia);
-  }
-
-  getRemainingSeconds(lia: ILia): number {
-    if (!lia) {
-      return 0;
-    }
-
-    let seconds = lia.time * 60;
-    let endsAt = moment(lia.started_at);
-    endsAt.add(seconds, 'seconds');
-    let remaining = moment(endsAt);
-    remaining.subtract(Date.now());
-
-    return parseInt(remaining.format('X'));
   }
 
   handleChangeToastMsg($event: any) {
@@ -131,7 +116,7 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
 
   startTimerInterval() {
     this.timeWarningIntervalId = setInterval(() => {
-      let remainingSeconds = this.getRemainingSeconds(this.lia);
+      let remainingSeconds = Lia.getRemainingSeconds(this.lia);
 
       if (!this.timeWarningDisplayed && remainingSeconds <= this.timeWarning) {
         this.toastMsg = 'You only have ' + this.timeWarning + ' seconds left to complete the challenge!';

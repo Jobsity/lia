@@ -18,5 +18,4 @@ import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
 
 export class LiaDescriptionComponent {
   @Input() lia: ILia;
-  @Input() remainingSeconds: Number;
 }
