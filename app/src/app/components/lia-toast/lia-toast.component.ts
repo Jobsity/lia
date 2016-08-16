@@ -15,6 +15,7 @@ export class LiaToastComponent implements OnChanges {
   @Output() onChangeMsg = new EventEmitter();
 
   classNames: any;
+  hideTimeoutId: number;
 
   constructor() {
     this.classNames = {
@@ -29,7 +30,8 @@ export class LiaToastComponent implements OnChanges {
         this.classNames.open = true;
       }, 10);
 
-      setTimeout(() => {
+      clearTimeout(this.hideTimeoutId);
+      this.hideTimeoutId = setTimeout(() => {
         this.resetMsg();
       }, 5000);
     }
@@ -37,6 +39,7 @@ export class LiaToastComponent implements OnChanges {
 
   handleClickOnDismiss() {
     this.resetMsg();
+    clearTimeout(this.hideTimeoutId);
   }
 
   resetMsg() {
