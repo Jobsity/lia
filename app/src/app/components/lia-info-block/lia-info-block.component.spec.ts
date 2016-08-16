@@ -25,11 +25,42 @@ describe('Component: LiaInfoBlock', () => {
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(LiaInfoBlockComponentTestController)
-      .then((fixture: ComponentFixture<any>) => {
+    return builder.createAsync(TestApp).then((fixture: ComponentFixture<any>) => {
         let query = fixture.debugElement.query(By.directive(LiaInfoBlockComponent));
         expect(query).toBeTruthy();
         expect(query.componentInstance).toBeTruthy();
+      });
+  }));
+
+  it('should be able to have base css class', inject([], () => {
+    return builder.createAsync(TestApp).then((fixture: ComponentFixture<any>) => {
+        let liaInfoBlock = fixture.debugElement.query(By.css('div'));
+
+        expect(liaInfoBlock.nativeElement.classList.contains('lia-info-block')).toBeTruthy();
+      });
+  }));
+  
+  it('should be able to display language', inject([], () => {
+    return builder.createAsync(TestApp).then((fixture: ComponentFixture<any>) => {
+        let liaInfoLanguage = fixture.debugElement.query(By.css('lia-info-language'));
+        
+        expect(liaInfoLanguage.nativeElement.textContent).toBe('javascript');
+      });
+  }));
+
+  it('should be able to display title', inject([], () => {
+    return builder.createAsync(TestApp).then((fixture: ComponentFixture<any>) => {
+        let liaInfoTitle = fixture.debugElement.query(By.css('lia-info-title'));
+
+        expect(liaInfoTitle.nativeElement.textContent).toBe('Title');
+      });
+  }));
+
+  it('should be able to display time', inject([], () => {
+    return builder.createAsync(TestApp).then((fixture: ComponentFixture<any>) => {
+        let liaInfoTime = fixture.debugElement.query(By.css('lia-info-time'));
+
+        expect(liaInfoTime.nativeElement.textContent).toBe('5 minutes');
       });
   }));
 });
@@ -37,10 +68,13 @@ describe('Component: LiaInfoBlock', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-lia-info-block></app-lia-info-block>
+    <lia-info-block>
+      <lia-info-language>javascript</lia-info-language>
+      <lia-info-title>Title</lia-info-title>
+      <lia-info-time>5 minutes</lia-info-time>
+    </lia-info-block>
   `,
   directives: [LiaInfoBlockComponent]
 })
-class LiaInfoBlockComponentTestController {
-}
+class TestApp {}
 

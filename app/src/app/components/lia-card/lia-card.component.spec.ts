@@ -25,7 +25,7 @@ describe('Component: NewLiaCard', () => {
   }));
 
   it('should create the component', inject([], () => {
-    return builder.createAsync(LiaCardComponentTestController)
+    return builder.createAsync(TestApp)
       .then((fixture: ComponentFixture<any>) => {
         let query = fixture.debugElement.query(By.directive(LiaCardComponent));
         expect(query).toBeTruthy();
@@ -37,10 +37,22 @@ describe('Component: NewLiaCard', () => {
 @Component({
   selector: 'test',
   template: `
-    <lia-card></lia-card>
+  <lia-card>
+    <card-title-group>
+      <img card-img src="img/jobsity-icon.png" alt="Jobsity logo">
+      <card-title>Title</card-title>
+      <card-subtitle>Subtitle</card-subtitle>
+    </card-title-group>
+    <card-content>
+      <p>Test content</p>
+    </card-content>
+    <card-actions>
+      <button lia-button>LAUNCH TEST LIA</button>
+    </card-actions>
+  </lia-card>
   `,
   directives: [LiaCardComponent]
 })
-class LiaCardComponentTestController {
+class TestApp {
 }
 

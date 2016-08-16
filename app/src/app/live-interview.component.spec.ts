@@ -17,6 +17,6 @@ describe('App: LiveInterview', () => {
 
   it('should have as title \'live-interview-application works!\'',
       inject([LiveInterviewAppComponent], (app: LiveInterviewAppComponent) => {
-    expect(app.title).toEqual('live-interview-application works!');
+    expect(app.title).toEqual('Welcome!');
   }));
 });

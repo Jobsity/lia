@@ -37,7 +37,7 @@ describe('Component: LiaHeader', () => {
 @Component({
   selector: 'test',
   template: `
-    <app-lia-header></app-lia-header>
+    <lia-header></lia-header>
   `,
   directives: [LiaHeaderComponent]
 })
