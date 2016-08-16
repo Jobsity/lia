@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RouteParams, Router } from '@angular/router-deprecated';
-import { CanDeactivate, ComponentInstruction } from '@angular/router-deprecated';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ILia, Lia } from '../lia';
 import { LiaDescriptionComponent } from './../lia-description/lia-description.component';
 import { LiaCodeSubmissionComponent } from '../lia-code-submission/lia-code-submission.component';
@@ -21,7 +20,7 @@ import { LiaHeaderComponent } from './../lia-header';
   ]
 })
 
-export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
+export class LiaSubmissionPageComponent implements OnInit {
   lia: ILia;
   leaveMsg: string;
   saveProgressIntervalId: number;
@@ -32,29 +31,20 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
 
   constructor(
     private liaService: LiaService,
-    private router: Router,
-    private routeParams: RouteParams
-  ) {
-    this.leaveMsg = 'You haven\'t submitted your code yet.\nAre you sure you want to leave?';
-    this.timeWarning = 60; //seconds
-    this.timeWarningDisplayed = false;
-    this.toastMsg = '';
-  }
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
-    let userId = +this.routeParams.get('userId');
-    let liaId = +this.routeParams.get('liaId');
-
-    // This is used to alert user before leaving the page.
-    window.onbeforeunload = () => this.leaveMsg;
+    let userId = +this.route.snapshot.params['userId'];
+    let liaId = +this.route.snapshot.params['liaId'];
 
     this.liaService.getUserLia(userId, liaId).then(res => {
       this.lia = res;
       let remainingSeconds = Lia.getRemainingSeconds(this.lia);
 
       if (this.lia.state === 'submitted' || this.lia.state === 'opened') {
-        let link = ['LiaLandingPage', { userId: userId, liaId: res.id }];
-        this.router.navigate(link);
+        this.router.navigate(['/users/', userId, 'lia', res.id]);
       }
 
       // Start interval that saves progress.
@@ -87,17 +77,9 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
     this.toastMsg = $event.value;
   }
 
-  routerCanDeactivate(next: ComponentInstruction, prev: ComponentInstruction): any {
-    if (this.lia.state === 'in_progress') {
-      return confirm(this.leaveMsg);
-    }
-
-    return true;
-  }
-
   startSaveProgressInterval() {
     this.saveProgressIntervalId = setInterval(() => {
-      let userId = +this.routeParams.get('userId');
+      let userId = +this.route.snapshot.params['userId'];
       let lia = Lia.copy(this.lia);
 
       if (lia.state === 'submitted') {
@@ -129,10 +111,9 @@ export class LiaSubmissionPageComponent implements OnInit, CanDeactivate {
   }
 
   submitLia(lia: ILia): void {
-    let userId = +this.routeParams.get('userId');
+    let userId = +this.route.snapshot.params['userId'];
     this.liaService.submitLia(userId, lia).then(() => {
-      let link = ['LiaLandingPage', { userId: userId, liaId: lia.id }];
-      this.router.navigate(link);
+      this.router.navigate(['/users/', userId, 'lia', lia.id]);
     });
   }
 }

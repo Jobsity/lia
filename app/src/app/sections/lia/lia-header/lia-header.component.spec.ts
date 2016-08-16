@@ -1,12 +1,4 @@
-import {
-  beforeEach,
-  beforeEachProviders,
-  describe,
-  expect,
-  it,
-  inject,
-} from '@angular/core/testing';
-import { ComponentFixture, TestComponentBuilder } from '@angular/compiler/testing';
+import { addProviders, inject, TestComponentBuilder, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { LiaHeaderComponent } from './lia-header.component';
@@ -14,9 +6,9 @@ import { LiaHeaderComponent } from './lia-header.component';
 describe('Component: LiaHeader', () => {
   let builder: TestComponentBuilder;
 
-  beforeEachProviders(() => [LiaHeaderComponent]);
   beforeEach(inject([TestComponentBuilder], function (tcb: TestComponentBuilder) {
     builder = tcb;
+    addProviders([LiaHeaderComponent]);
   }));
 
   it('should inject the component', inject([LiaHeaderComponent],
