@@ -5,8 +5,7 @@ import { LiveInterviewAppComponent, environment } from './';
 import { routing } from './live-interview.routes';
 import { SharedModule } from './shared/shared.module';
 import { HomePageModule } from './sections/home/home-page/home-page.module';
-import { LiaLandingPageModule } from './sections/lia/lia-landing-page/lia-landing-page.module';
-import { LiaSubmissionPageModule } from './sections/lia/lia-submission-page/lia-submission-page.module';
+import { LiaModule } from './sections/lia/lia.module';
 
 @NgModule({
   declarations: [
@@ -18,8 +17,7 @@ import { LiaSubmissionPageModule } from './sections/lia/lia-submission-page/lia-
     routing,
     SharedModule.forRoot(),
     HomePageModule,
-    LiaLandingPageModule,
-    LiaSubmissionPageModule
+    LiaModule
   ],
   bootstrap: [LiveInterviewAppComponent],
 })
