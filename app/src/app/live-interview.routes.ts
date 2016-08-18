@@ -1,26 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
-import { HomePageComponent } from './sections/home/home-page';
-import { LiaLandingPageComponent } from './sections/lia/lia-landing-page';
-import { LiaSubmissionPageComponent } from './sections/lia/lia-submission-page';
+import { homePageRoutes } from './sections/home/home-page/home-page.routing';
+import { liaRoutes } from './sections/lia/lia.routing';
 
-export const routes: Routes = [
-  {
-    path: '',
-    component: HomePageComponent
-  },
-  {
-    path: 'users/:userId/lia/:liaId',
-    children: [
-      {
-        path: '',
-        component: LiaLandingPageComponent
-      },
-      {
-        path: 'launch',
-        component: LiaSubmissionPageComponent
-      }
-    ]
-  }
-];
+const routes: Routes = [ ];
 
 export const routing = RouterModule.forRoot(routes);

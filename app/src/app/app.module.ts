@@ -3,21 +3,21 @@ import { HttpModule } from '@angular/http';
 import { BrowserModule  } from '@angular/platform-browser';
 import { LiveInterviewAppComponent, environment } from './';
 import { routing } from './live-interview.routes';
-import { HomePageComponent } from './sections/home/home-page';
-import { LiaLandingPageComponent } from './sections/lia/lia-landing-page';
-import { LiaSubmissionPageComponent } from './sections/lia/lia-submission-page';
+import { SharedModule } from './shared/shared.module';
+import { HomePageModule } from './sections/home/home-page/home-page.module';
+import { LiaModule } from './sections/lia/lia.module';
 
 @NgModule({
   declarations: [
-    LiveInterviewAppComponent,
-    HomePageComponent,
-    LiaLandingPageComponent,
-    LiaSubmissionPageComponent
+    LiveInterviewAppComponent
   ],
   imports: [
     HttpModule,
     BrowserModule,
-    routing
+    routing,
+    SharedModule.forRoot(),
+    HomePageModule,
+    LiaModule
   ],
   bootstrap: [LiveInterviewAppComponent],
 })

@@ -2,21 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ILia } from '../lia';
 import { LiaService } from './../lia.service';
-import { LIA_BUTTON_DIRECTIVES } from './../../../components/lia-button';
-import { LIA_CARD_DIRECTIVES } from '../../../components/lia-card';
-import { LiaInfoBlockComponent } from './../../../components/lia-info-block';
 import * as moment from 'moment';
 
 @Component({
   moduleId: module.id,
   selector: 'app-lia-landing-page',
   templateUrl: 'lia-landing-page.component.html',
-  styleUrls: ['lia-landing-page.component.css'],
-  directives: [
-    LIA_BUTTON_DIRECTIVES,
-    LIA_CARD_DIRECTIVES,
-    LiaInfoBlockComponent
-  ]
+  styleUrls: ['lia-landing-page.component.css']
 })
 export class LiaLandingPageComponent implements OnInit {
 
