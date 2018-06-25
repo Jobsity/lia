@@ -1,8 +1,0 @@
-<lia-card class="editor-card" *ngIf="lia">
-  <card-content class="editor-area">
-    <lia-ace-editor [theme]="'crimson_editor'" [code]="code" [language]="lia.language" (onCodeChange)="onChange($event)"></lia-ace-editor>
-  </card-content>
-  <card-actions>
-    <button lia-button (click)="submitLia(lia)">Save</button>
-  </card-actions>
-</lia-card>
