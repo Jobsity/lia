@@ -1,6 +1,6 @@
 import React from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
-import MonacoEditor from 'react-monaco-editor';
+import MonacoField from '../components/MonacoField/MonacoField';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -38,31 +38,19 @@ class HomepageMonaco extends React.PureComponent {
           selectOnLineNumbers: true
         };
     return [
-      <div key={"1"}>
-        <MonacoEditor
-          width="100%"
-          language="javascript"
-          theme="vs-dark"
-          value={code}
+      <div key={"1"}>{
+        <MonacoField
+          code={code}
           options={options}
           onChange={this.onChange}
           editorDidMount={this.editorDidMount}
-        />
+        />}
       </div>,
       <div key={"2"}>
         <span className="text">{"2"}</span>
       </div>,
-      <div key={"3"}>
-        <span className="text">{"3"}</span>
-      </div>,
-      <div key={"4"}>
-        <span className="text">{"3"}</span>
-      </div>,
-      <div key={"5"}>
-        <span className="text">{"3"}</span>
-      </div>,
       <div key={"6"}>
-        <span className="text">{"3"}</span>
+        <span className="text">{"6"}</span>
       </div>
     ];
   }
@@ -81,14 +69,14 @@ class HomepageMonaco extends React.PureComponent {
         x: 8,
         y: 0,
         w: 4,
-        h: 1,
+        h: 8,
         i: "2"
       },
       {
         x: 8,
         y: 0,
         w: 4,
-        h: 1.5,
+        h: 5,
         i: "3"
       },
       {
@@ -109,7 +97,7 @@ class HomepageMonaco extends React.PureComponent {
         x: 0,
         y: 1,
         w: 8,
-        h: 2.5,
+        h: 3,
         i: "6"
       }
     ];
