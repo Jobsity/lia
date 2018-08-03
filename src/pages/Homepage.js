@@ -1,10 +1,11 @@
 import React from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import MonacoField from '../components/MonacoField/MonacoField';
+import InformationTabs from '../components/InformationTabs';
 
 const ReactGridLayout = WidthProvider(RGL);
 
-class HomepageMonaco extends React.PureComponent {
+class Homepage extends React.PureComponent {
   static defaultProps = {
     className: "layout",
     items: 6,
@@ -47,7 +48,7 @@ class HomepageMonaco extends React.PureComponent {
         />}
       </div>,
       <div key={"2"}>
-        <span className="text">{"2"}</span>
+        <InformationTabs />
       </div>,
       <div key={"6"}>
         <span className="text">{"6"}</span>
@@ -120,8 +121,8 @@ class HomepageMonaco extends React.PureComponent {
   }
 }
 
-if (require.main === module) {
-  require("../test-hook.jsx")(module.exports);
-}
+// if (require.main === module) {
+//   require("../test-hook.jsx")(module.exports);
+// }
 
-export default HomepageMonaco;
+export default Homepage;

@@ -1,21 +1,21 @@
 import React from 'react';
 import MonacoEditor from 'react-monaco-editor';
 
-const MonacoField = (props) => {
-  const options = {
+const MonacoField = ({language, theme, code, options, ...rest}) => {
+  const defaultOptions = {
     selectOnLineNumbers: true,
   };
-  const code = '// type your code...';
+  const defaultCode = '// type your code...';
   return (
     <MonacoEditor
-      width='100%'
-      language={props.language ? props.language : "javascript"}
-      theme='vs-dark'
-      value={props.code ? props.code : code}
-      options={props.options ? props.options : options}
-      {...props}
+      width="100%"
+      language={language || 'javascript'}
+      theme="vs-dark"
+      value={code || defaultCode}
+      options={options || defaultOptions}
+      {...rest}
     />
-  )
-}
+  );
+};
 
 export default MonacoField;
