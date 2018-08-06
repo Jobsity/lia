@@ -6,9 +6,9 @@ Evaluate developers on the go through an interactive dashboard with integrated I
 
 ## Key Features 
 
-*  *Realtime Evaluation:* Watch the activity of the candidate in realtime during the interview. 
-* *Live IDE*: Web-based IDE with all necesary tools to develop 
-* *Live Console*: For input-output interaction with the IDE compilations 
+* **Realtime Evaluation:** Watch the activity of the candidate in realtime during the interview. 
+* **Live IDE**: Web-based IDE with all necesary tools to develop 
+* **Live Console**: For input-output interaction with the IDE compilations 
 
 ## Requeriments
 
@@ -47,7 +47,7 @@ Builds the app for production to the `build` folder.<br>
 It correctly bundles app production mode and optimizes the build for the best performance.
 
 
-For aditional guidance, FAQ and Troubleshooting please Read the full docs
+For aditional guidance, FAQ and Troubleshooting please [Read the full docs](https://github.com/Jobsity/lia/tree/readme/docs)
 
 ---
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
