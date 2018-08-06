@@ -46,10 +46,29 @@ And the server will develop at `localhost:3000`.
 Builds the app for production to the `build` folder.<br>
 It correctly bundles app production mode and optimizes the build for the best performance.
 
+## Contributors
 
-For aditional guidance, FAQ and Troubleshooting please [Read the full docs](https://github.com/Jobsity/lia/tree/readme/docs)
+- [@diaspar](https://github.com/diaspar)
+- [@m0t0r](https://github.com/m0t0r)
+- [@SebTorres](https://github.com/SebTorres)
+- [@jaduquem](https://github.com/jaduquem)
+- [@pablomoralestoro](https://github.com/pablomoralestoro)
+- [@miguelisaza](https://github.com/miguelisaza)
+- [@ArashiNoKishi](https://github.com/ArashiNoKishi)
+- [@hdt94](https://github.com/hdt94)
+- [@juliansibaja84](https://github.com/juliansibaja84)
+
+## How to Contribute
+
+Please read [CONTRIBUTE.md](./docs/contribute.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](./docs/license.md) file for details
 
 ---
+For aditional guidance, FAQ and Troubleshooting please [Read the full docs](https://github.com/Jobsity/lia/tree/readme/docs)
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 
