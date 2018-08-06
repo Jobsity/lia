@@ -4,11 +4,16 @@ Evaluate developers on the go through an interactive dashboard with integrated I
 
 ![Screenshot](https://cloud.githubusercontent.com/assets/3257149/15761600/b89787e8-28de-11e6-8bad-3e801d359b5c.png)
 
+## Key Features 
+
+*  *Realtime Evaluation:* Watch the activity of the candidate in realtime during the interview. 
+* *Live IDE*: Web-based IDE with all necesary tools to develop 
+* *Live Console*: For input-output interaction with the IDE compilations 
+
 ## Requeriments
 
 - NodeJS with NPM 
 - HTML5 web browser
-
 
 ## Getting Started 
 
@@ -30,6 +35,7 @@ To run the development server simply type:
 
 And the server will develop at `localhost:3000`
 
+
 ## Building
  ``` $ npm run build```
 
@@ -40,9 +46,8 @@ And the server will develop at `localhost:3000`
 Builds the app for production to the `build` folder.<br>
 It correctly bundles app production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-By default, it also [includes a service worker](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#making-a-progressive-web-app) so that your app loads from local cache on future visits.
 
+For aditional guidance, FAQ and Troubleshooting please Read the full docs
 
 ---
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
