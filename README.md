@@ -1,7 +1,4 @@
-#  LIA 
-![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) 
-
-> Live Interview Application 
+#  Live Interivew Application ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) 
 
 Evaluate developers on the go through an interactive dashboard with integrated IDE, I/O Console and tests platform. 
 
@@ -12,7 +9,7 @@ Evaluate developers on the go through an interactive dashboard with integrated I
 - NodeJS with NPM 
 - HTML5 web browser
 
----
+
 ## Getting Started 
 
 ### Installing dependencies
