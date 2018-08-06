@@ -38,5 +38,4 @@ Pull Requests are always welcome.
 1. When you edit the code, please run `tests` to check the formatting of your code before you `git commit`.
 2. Ensure the PR description clearly describes the problem and solution. It should include:
    * The operating system on which you tested.
-   * The Zulip-Desktop version on which you tested.
    * The relevant issue number, if applicable.
