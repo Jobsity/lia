@@ -1,0 +1,15 @@
+.panel {
+    margin: 0;
+    padding: 0;
+}
+.panel .title {
+    border-bottom: 1px solid #000;
+    margin: 0 0 5px;
+    padding: 0;
+}
+
+.panel .title h1 {
+    font-size: 1.05em;
+    border-bottom: none;
+    bottom: -1px;
+}

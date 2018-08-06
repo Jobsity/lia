@@ -4,7 +4,7 @@ import InformationTabsView from './InformationTabsView';
 class InformationTabs extends Component {
   constructor(props, context) {
     super(props, context);
-    const activeTab = 'instructions';
+    const activeTab = 'output';
 
     this.state = {
       activeTab,
