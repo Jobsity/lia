@@ -7,13 +7,13 @@ Evaluate developers on the go through an interactive dashboard with integrated I
 ## Key Features 
 
 * **Realtime Evaluation:** Watch the activity of the candidate in realtime during the interview. 
-* **Live IDE**: Web-based IDE with all necesary tools to develop 
-* **Live Console**: For input-output interaction with the IDE compilations 
+* **Live IDE**: Web-based IDE with all necesary tools to develop.
+* **Live Console**: For input-output interaction with the IDE compilations. 
 
 ## Requeriments
 
-- NodeJS with NPM 
-- HTML5 web browser
+- NodeJS with NPM.
+- HTML5 web browser.
 
 ## Getting Started 
 
@@ -33,7 +33,7 @@ To run the development server simply type:
 
 ```$ npm start```
 
-And the server will develop at `localhost:3000`
+And the server will develop at `localhost:3000`.
 
 
 ## Building
