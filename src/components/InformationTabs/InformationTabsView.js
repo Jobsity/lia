@@ -1,11 +1,10 @@
 import React from 'react';
 import { PropTypes } from 'prop-types';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
-import { Link } from 'react-router';
 import _ from 'lodash';
 import 'react-tabs/style/react-tabs.css';
 
-import Instructions from '../Instructions';
+import Output from '../Output';
 import CandidateInformation from '../CandidateInformation';
 import Evaluation from '../Evaluation';
 
@@ -13,13 +12,13 @@ function InformationTabsView({
   data, loading, activeTab, onChangeActiveTab
 }) {
   const tabs = [
-    { id: 'instructions', name: 'Instructions', component: <Instructions {...data} /> },
+    { id: 'output', name: 'Output', component: <Output {...data} /> },
     { id: 'candidate_information', name: 'Candidate Information', component: <CandidateInformation {...data} /> },
     { id: 'evaluation', name: 'Evaluation', component: <Evaluation {...data} /> },
   ];
 
   return (
-    <div style={{backgroundColor:'#FFFFFF'}}>
+    <div style={{ backgroundColor: '#FFFFFF' }}>
       <Tabs defaultIndex={_.findIndex(tabs, ['id', activeTab])}>
         <TabList>
           {tabs.map(tab => (

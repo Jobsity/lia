@@ -3,7 +3,12 @@ import { PropTypes } from 'prop-types';
 
 function InstructionsView({ data, loading }) {
   return (
-    <div>
+    <div className="panel">
+      <div className="title">
+        <h1>
+          Instructions
+        </h1>
+      </div>
       { loading
         ? (
           <span>

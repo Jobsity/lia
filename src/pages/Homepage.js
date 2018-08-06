@@ -2,6 +2,7 @@ import React from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 import MonacoField from '../components/MonacoField/MonacoField';
 import InformationTabs from '../components/InformationTabs';
+import Instructions from '../components/Instructions';
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -51,7 +52,7 @@ class Homepage extends React.PureComponent {
         <InformationTabs />
       </div>,
       <div key={"6"}>
-        <span className="text">{"6"}</span>
+        <Instructions />
       </div>
     ];
   }
