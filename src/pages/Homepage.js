@@ -25,13 +25,8 @@ class Homepage extends React.PureComponent {
     };
   }
 
-  editorDidMount(editor, monaco) {
-    console.log('editorDidMount', editor);
+  editorDidMount(editor) {
     editor.focus();
-  }
-
-  onChange(newValue, e) {
-   console.log('onChange', newValue, e);
   }
 
   generateDOM() {
@@ -44,7 +39,6 @@ class Homepage extends React.PureComponent {
         <MonacoField
           code={code}
           options={options}
-          onChange={this.onChange}
           editorDidMount={this.editorDidMount}
         />}
       </div>,
