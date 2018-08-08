@@ -1,5 +1,10 @@
 module.exports = {
-    "extends": "airbnb",
+    "extends": [
+      "airbnb",
+      "prettier",
+      "prettier/flowtype", // flow
+      "prettier/react"
+    ],
     "globals": {
       "document": true,
       "window": true,
