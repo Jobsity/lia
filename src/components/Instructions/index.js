@@ -12,7 +12,7 @@ class Instructions extends Component {
   }
 
   componentDidMount() {
-    api.get('/challenge').then((response) => {
+    api.get('/challenges/id').then((response) => {
       if (response.status === 200) {
         this.setState({ data: response.data.data, loading: false });
       }
