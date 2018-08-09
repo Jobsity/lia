@@ -68,12 +68,6 @@ mock.onGet('/candidates/:id').reply(200, {
         passion_level: "low",
         passion_comment: "Dicta dolore ut aliquam provident sapiente necessitatibus qui. Provident libero quis sit veritatis rerum. Amet odit sunt veniam ut.",
         notes: "<p>Consectetur reprehenderit iste libero saepe qui quas doloremque. Corporis molestiae sit perspiciatis dicta. Ipsa similique nihil labore optio quibusdam.</p>",
-        current_salary_value: 1977,
-        current_salary_currency: "BSD",
-        expecting_salary_value: 4908,
-        expecting_salary_currency: "MOP",
-        expecting_salary_usd: 2570,
-        expecting_salary_comment: "Aut itaque hic fugit eos et nihil. Laborum placeat quidem corrupti expedita laborum quis. Quae est illo est illum itaque."
     },
     city: {
         id: 517440,
@@ -97,7 +91,12 @@ mock.onGet('/candidates/:id').reply(200, {
                 name: "Quas sed itaque atque quia.",
                 description: "Saepe laborum maiores est. Et et ab qui enim quaerat asperiores.",
                 due_date: null,
-                client: {},
+                client: {
+                  id: "a07622f0-9433-11e8-92af-6501822d3ea9",
+                  name: "Luettgen, O'Connell and Halvorson",
+                  logo: "http://localhosthttp://localhost/storage/clients/logo-test-1.jpg",
+                  website: "harris.info",
+                },
                 active: 1,
                 candidates: [],
                 skills: []
