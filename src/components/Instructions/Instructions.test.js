@@ -7,7 +7,7 @@ import { api } from '../../mockServer';
 import store from '../../store/store';
 
 const mock = new MockAdapter(api);
-mock.onGet('/challenge').reply(200, {
+mock.onGet('/challenges/id').reply(200, {
   data: {
     instructions: 'These are test instructions',
   },
