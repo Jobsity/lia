@@ -11,7 +11,7 @@ class Homepage extends React.PureComponent {
     className: "layout",
     items: 6,
     rowHeight: 100,
-    onLayoutChange: function() {},
+    onLayoutChange() {},
     cols: 12
   };
 
@@ -35,17 +35,17 @@ class Homepage extends React.PureComponent {
           selectOnLineNumbers: true
         };
     return [
-      <div key={"1"}>{
+      <div key="1">{
         <MonacoField
           code={code}
           options={options}
           editorDidMount={this.editorDidMount}
         />}
       </div>,
-      <div key={"2"}>
+      <div key="2">
         <InformationTabs />
       </div>,
-      <div key={"6"}>
+      <div key="6">
         <Instructions />
       </div>
     ];
