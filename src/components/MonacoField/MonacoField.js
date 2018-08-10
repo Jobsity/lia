@@ -11,7 +11,11 @@ const MonacoField = ({language, theme, code, options, ...rest}) => {
       width="100%"
       language={language || 'javascript'}
       theme="vs-dark"
-      value={code || defaultCode}
+      value={
+        typeof code === 'string'
+          ? code
+          : defaultCode
+      }
       options={options || defaultOptions}
       {...rest}
     />
