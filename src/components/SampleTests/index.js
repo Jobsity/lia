@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
 import { api } from '../../mockServer';
+import getTestsResults from '../../actions/get-tests-results-action';
+
+const editorCode = 'const x = 1;\\nconsole.log(x);';
 
 class SampleTests extends Component {
   constructor(props, context) {
@@ -22,11 +25,15 @@ class SampleTests extends Component {
   }
 
   handleSelectChange(e) {
+   
     this.setState({selectedLang: e.target.value});
   }
 
   handleButtonClick() {
-    console.log(`Here the editor code from the store will be retrieved and sended to the API, and then saved in the store`);
+    const { evaluateCode } = this.props;
+    const { data, selectedLang } = this.state;
+    const testsSamples = data.testSuite.filter( tests => tests.language === selectedLang)[0];
+    evaluateCode(editorCode, testsSamples , selectedLang, api);
   }
 
   render() {
@@ -42,8 +49,8 @@ class SampleTests extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    evaluateCode: (code, tests, language) => {
-      
+    evaluateCode: (code, tests, language, api) => {
+      getTestsResults(code, tests, language, api);
     }
   }
 }
