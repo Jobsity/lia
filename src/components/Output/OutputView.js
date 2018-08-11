@@ -22,6 +22,9 @@ function InstructionsView({ data, loading, onChange, editorDidMount }) {
                 options={{
                   readOnly: true,
                   lineNumbers: 'off',
+                  minimap: {
+                    enabled: false
+                  },
                 }}
                 onChange={onChange}
                 editorDidMount={editorDidMount}
