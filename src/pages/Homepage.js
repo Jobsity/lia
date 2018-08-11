@@ -1,6 +1,7 @@
 import React from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
-import MonacoField from '../components/MonacoField/MonacoField';
+
+import Editor from '../components/Editor';
 import InformationTabs from '../components/InformationTabs';
 import Instructions from '../components/Instructions';
 
@@ -21,7 +22,6 @@ class Homepage extends React.PureComponent {
     const layout = this.generateLayout();
     this.state = {
       layout,
-      code: '// type your code...',
     };
   }
 
@@ -30,15 +30,9 @@ class Homepage extends React.PureComponent {
   }
 
   generateDOM() {
-    const code = this.state.code;
-    const options = {
-          selectOnLineNumbers: true
-        };
     return [
       <div key="1">{
-        <MonacoField
-          code={code}
-          options={options}
+        <Editor
           editorDidMount={this.editorDidMount}
         />}
       </div>,
