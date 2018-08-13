@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from "lodash";
 import InformationTabsView from './InformationTabsView';
+import SampleTests from '../SampleTests';
 import Output from "../Output";
 import CandidateInformation from "../CandidateInformation";
 import Evaluation from "../Evaluation";
@@ -36,6 +37,12 @@ class InformationTabs extends Component {
         name: "Output",
         permissions: ['candidate', 'observer', 'evaluator'],
         component: <Output {...data} />
+      },
+      {
+        id: 'sample_tests',
+        name: 'Sample Tests',
+        permissions: ['candidate', 'observer', 'evaluator'],
+        component: <SampleTests {...data} />
       },
       {
         id: "candidate_information",
