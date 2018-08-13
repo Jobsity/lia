@@ -42,6 +42,9 @@ const styles = theme => ({
   help: {
     marginTop: theme.spacing.unit * 3
   },
+  loading:{
+    padding: "2em",
+  },
   footer: {
     display: "block",
     position: "absolute",

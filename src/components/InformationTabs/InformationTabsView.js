@@ -1,49 +1,45 @@
-import React from 'react';
-import { PropTypes } from 'prop-types';
-import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
-import _ from 'lodash';
-import 'react-tabs/style/react-tabs.css';
+import React from "react";
+import { PropTypes } from "prop-types";
+import { Tabs, Tab, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
-import Output from '../Output';
-import CandidateInformation from '../CandidateInformation';
-import Evaluation from '../Evaluation';
+import { withStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import styles from "./styles";
 
-function InformationTabsView({
-  data, loading, activeTab, onChangeActiveTab
-}) {
-  const tabs = [
-    { id: 'output', name: 'Output', component: <Output {...data} /> },
-    { id: 'candidate_information', name: 'Candidate Information', component: <CandidateInformation {...data} /> },
-    { id: 'evaluation', name: 'Evaluation', component: <Evaluation {...data} /> },
-  ];
-
-  return (
-    <div style={{ backgroundColor: '#FFFFFF' }}>
-      <Tabs defaultIndex={_.findIndex(tabs, ['id', activeTab])}>
-        <TabList>
-          {tabs.map(tab => (
-            <Tab key={tab.id}>
-              {tab.name}
-            </Tab>
-          ))}
-        </TabList>
-        {tabs.map(tab => (
-          <TabPanel key={tab.id}>
-            {tab.component}
-          </TabPanel>
-        ))}
+const InformationTabsView = ({
+  data,
+  loading,
+  tabs,
+  activeTab,
+  onChangeActiveTab,
+  role,
+  classes
+}) => (
+  <div style={{ backgroundColor: "#FFFFFF" }}>
+    {loading ? (
+      <CircularProgress
+        classes={{ root: classes.loading }}
+        size={200}
+        color="secondary"
+      />
+    ) : (
+      <Tabs defaultIndex={0}>
+        <TabList>{tabs.map(tab => <Tab key={tab.id}>{tab.name}</Tab>)}</TabList>
+        {tabs.map(tab => <TabPanel key={tab.id}>{tab.component}</TabPanel>)}
       </Tabs>
-    </div>
-  );
-}
+    )}
+  </div>
+);
 
 InformationTabsView.propTypes = {
   data: PropTypes.shape({
-    task: PropTypes.string,
+    task: PropTypes.string
   }).isRequired,
   loading: PropTypes.bool.isRequired,
   activeTab: PropTypes.string.isRequired,
   onChangeActiveTab: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
-export default InformationTabsView;
+export default withStyles(styles)(InformationTabsView);
