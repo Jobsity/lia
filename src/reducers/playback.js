@@ -1,9 +1,21 @@
 import * as actionTypes from '../actions/types';
 
 const initState = {
+  currentTimestamp: null,
+  duration: null,
+  events: [],
   isPlaying: false,
+  playedEvents: [],
   startingTime: null,
 }
+
+const initEventState = {
+  descr: '',
+  highlighted: false,
+  payload: null,
+  ts: null,
+  type: '',
+};
 
 export default (state = initState, action) => {
   switch (action.type) {
