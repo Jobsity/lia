@@ -1,12 +1,17 @@
 import { combineReducers } from 'redux';
 
-import editorReducer, * as fromEditor from './editor';
-import playbackReducer, * as fromPlayback from './playback';
+import challenge from './challenge';
+import editor, * as fromEditor from './editor';
+import evaluation from './evaluation';
+import playback, * as fromPlayback from './playback';
+import session from  './session';
 
 export default combineReducers({
-  editor: editorReducer,
-  playback: playbackReducer,
-  temp: () => {return {}}
+  challenge,
+  editor,
+  evaluation,
+  playback,
+  session,
 });
 
 // Editor getters
