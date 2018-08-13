@@ -14,7 +14,10 @@ class Instructions extends Component {
   componentDidMount() {
     api.get('/challenges/id').then((response) => {
       if (response.status === 200) {
-        this.setState({ data: response.data.data, loading: false });
+       
+      // setTimeout just to watch the animation...
+      // must be removed when connected to real server
+      setInterval(() => (this.setState({ data: response.data.data, loading: false })), 1000) ;
       }
     });
   }
