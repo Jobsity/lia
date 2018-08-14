@@ -1,16 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import _ from "lodash";
-import InformationTabsView from './InformationTabsView';
-import SampleTests from '../SampleTests';
+import InformationTabsView from "./InformationTabsView";
+import SampleTests from "../SampleTests";
 import Output from "../Output";
 import CandidateInformation from "../CandidateInformation";
 import Evaluation from "../Evaluation";
-import { api } from '../../mockServer';
+import { api } from "../../mockServer";
 
 class InformationTabs extends Component {
   constructor(props, context) {
     super(props, context);
-    const activeTab = 'output';
+    const activeTab = "output";
 
     this.state = {
       activeTab,
@@ -24,53 +24,50 @@ class InformationTabs extends Component {
   }
 
   componentDidMount() {
-
-    // hardcoded roles and data, its needed a mockserver provider
-    // const roles = ["evaluator"]
-
     const data = {
-      task: 'This is the task',
+      task: "This is the task"
     };
-    
+
     const tabs = [
       {
         id: "output",
         name: "Output",
-        permissions: ['candidate', 'observer', 'evaluator'],
+        permissions: ["candidate", "observer", "evaluator"],
         component: <Output {...data} />
       },
       {
-        id: 'sample_tests',
-        name: 'Sample Tests',
-        permissions: ['candidate', 'observer', 'evaluator'],
+        id: "sample_tests",
+        name: "Sample Tests",
+        permissions: ["candidate", "observer", "evaluator"],
         component: <SampleTests {...data} />
       },
       {
         id: "candidate_information",
         name: "Candidate Information",
-        permissions: ['observer', 'evaluator'],
+        permissions: ["observer", "evaluator"],
         component: <CandidateInformation {...data} />
       },
       {
         id: "evaluation",
         name: "Evaluation",
-        permissions: ['evaluator'],
+        permissions: ["evaluator"],
         component: <Evaluation {...data} />
       }
     ];
 
-    api.get('/evaluatorToken').then((response) => {
+    api.get("/evaluatorToken").then(response => {
       if (response.status === 200) {
+        const { user } = response.data.data;
+        const { roles } = user;
 
-      const { user } = response.data.data; 
-      const { roles } = user
-      // setTimeout just to watch the animation...
-      // must be removed when connected to real server
-      setTimeout(() => (this.setState({ data, loading: false, roles, tabs })), 1000);
-
-    }});
-
-
+        // setTimeout just to watch the animation...
+        // must be removed when connected to real server
+        setTimeout(
+          () => this.setState({ data, loading: false, roles, tabs }),
+          1000
+        );
+      }
+    });
   }
 
   onChangeActiveTab(activeTab) {
@@ -89,28 +86,24 @@ class InformationTabs extends Component {
   };
 
   render() {
-
     const { roles, tabs, activeTab, loading } = this.state;
     const inclutions = [];
     const defaultIndex = _.findIndex(tabs, ["id", activeTab]);
 
-
-
-    if (!loading){
-      console.log("here")
-    // check roles in tabs permissions array
-    // and adds it into a truth array
-    tabs.forEach((tab, idx) => {
-      const { permissions } = tab;
-       roles.forEach((rol) => {
-        const truth = permissions.includes(rol);
-        inclutions.splice(idx, 1, truth);
-      })
-      
-    })}
+    if (!loading) {
+      // check roles in tabs permissions array
+      // and adds it into a truth array
+      tabs.forEach((tab, idx) => {
+        const { permissions } = tab;
+        roles.forEach(rol => {
+          const truth = permissions.includes(rol);
+          inclutions.splice(idx, 1, truth);
+        });
+      });
+    }
 
     // filtered tabs based in truth array
-    const roleTabs = this.filterTabs(inclutions, tabs)
+    const roleTabs = this.filterTabs(inclutions, tabs);
     return (
       <InformationTabsView
         onChangeActiveTab={this.onChangeActiveTab}
