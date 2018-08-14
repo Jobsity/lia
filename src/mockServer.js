@@ -283,6 +283,7 @@ mock.onPost('/submit').reply(200, {
       passed: false,
       expectedResult: 'Hello, Jobsity!',
       testResult: 'Hi I am from Jobsity',
+      message: "Failed asserting that two strings are equal.\nExpected: 'Hello, Jobsity!'\nActual  : 'Hi I am from Jobsity'\n",
     },
     {
       id: 2,
