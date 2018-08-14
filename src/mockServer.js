@@ -125,7 +125,7 @@ mock.onGet('/candidateToken').reply(200, {
       id: "b49bc530-9433-11e8-88d3-39619bf324e6",
       name: "Zoie Rogahn",
       email: "domenick95@parker.biz",
-      role: [
+      roles: [
         "candidate",
       ]
     },
