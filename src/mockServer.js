@@ -119,26 +119,152 @@ mock.onGet('/candidates/:id').reply(200, {
   }
 });
 
-mock.onGet('/id').reply(200, {
-  user: {
-    id: "64b6ede0-8384-11e8-be59-090c7768ea0e",
-    name: "Cordia Mills",
-    email: "alexys.effertz@example.org",
-    photo: {
-        "original": null,
-        "medium": null,
-        "thumbnail": null
+mock.onGet('/candidateToken').reply(200, {
+  data: {
+    user: {
+      id: "b49bc530-9433-11e8-88d3-39619bf324e6",
+      name: "Zoie Rogahn",
+      email: "domenick95@parker.biz",
+      role: [
+        "candidate",
+      ]
     },
-    roles: [
-      "evaluator"
-    ],
-    "active": 1,
-  },
-  session: {
-    active: 0,
-    id: 'id',
-    language: 'javascript',
-    code: '// type your code...',
+    session: {
+      active: 0,
+      id: 'id',
+      candidate:{
+        id: "b49bc530-9433-11e8-88d3-39619bf324e6",
+        first_name: "Zoie",
+        last_name: "Rogahn",
+        email: "domenick95@parker.biz",
+      },
+      challenge: {
+        id: '8c144b3a-22aa-45cf-8524-f9291844c6d8',
+        name: 'Hello World LIA Test',
+        slug: 'hello-world-lia-test',
+        createdAt: '2018-08-08T13:15:00+00:00',
+        createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
+        instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+        languages: [
+          'javascript',
+          'php',
+        ],
+        testSuite: [
+          {
+            language: 'javascript',
+            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+          },
+          {
+            language: 'php',
+            tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+          }
+        ],
+        difficultyLevel: 'easy',
+        max_time: '00:05:00',
+      },
+      language: 'javascript',
+      code: '// type your code...',
+    }
+  }
+});
+
+mock.onGet('/evaluatorToken').reply(200, {
+  data: {
+    user: {
+      id: "64b6ede0-8384-11e8-be59-090c7768ea0e",
+      name: "Cordia Mills",
+      email: "alexys.effertz@example.org",
+      roles: [
+        "evaluator"
+      ],
+    },
+    session: {
+      active: 0,
+      id: 'id',
+      candidate:{
+        id: "b49bc530-9433-11e8-88d3-39619bf324e6",
+        first_name: "Zoie",
+        last_name: "Rogahn",
+        email: "domenick95@parker.biz",
+      },
+      challenge: {
+        
+        id: '8c144b3a-22aa-45cf-8524-f9291844c6d8',
+        name: 'Hello World LIA Test',
+        slug: 'hello-world-lia-test',
+        createdAt: '2018-08-08T13:15:00+00:00',
+        createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
+        instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+        languages: [
+          'javascript',
+          'php',
+        ],
+        testSuite: [
+          {
+            language: 'javascript',
+            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+          },
+          {
+            language: 'php',
+            tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+          }
+        ],
+        difficultyLevel: 'easy',
+        max_time: '00:05:00',
+      },
+      language: 'javascript',
+      code: '// type your code...',
+    }
+  }
+});
+
+mock.onGet('/observerToken').reply(200, {
+  data: {
+    user: {
+      id: "64b64b80-8384-11e8-89a3-e96803490c72",
+      name: "Alex Becker",
+      email: "verner21@example.com",
+      roles: [
+        "observer"
+      ],
+    },
+    session: {
+      active: 0,
+      id: 'id',
+      candidate:{
+        id: "b49bc530-9433-11e8-88d3-39619bf324e6",
+        first_name: "Zoie",
+        last_name: "Rogahn",
+        email: "domenick95@parker.biz",
+      },
+      challenge: {
+        
+        id: '8c144b3a-22aa-45cf-8524-f9291844c6d8',
+        name: 'Hello World LIA Test',
+        slug: 'hello-world-lia-test',
+        createdAt: '2018-08-08T13:15:00+00:00',
+        createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
+        instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+        languages: [
+          'javascript',
+          'php',
+        ],
+        testSuite: [
+          {
+            language: 'javascript',
+            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+          },
+          {
+            language: 'php',
+            tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+          }
+        ],
+        difficultyLevel: 'easy',
+        max_time: '00:05:00',
+      },
+      language: 'javascript',
+      code: '// type your code...',
+    }
   }
 });
 
