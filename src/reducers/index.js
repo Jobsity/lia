@@ -5,6 +5,7 @@ import editor, * as fromEditor from './editor';
 import evaluation from './evaluation';
 import playback, * as fromPlayback from './playback';
 import session from  './session';
+import timeline from  './timeline';
 
 export default combineReducers({
   challenge,
@@ -12,12 +13,10 @@ export default combineReducers({
   evaluation,
   playback,
   session,
+  timeline,
 });
 
 // Editor getters
-
-export const getEditorChanges = state =>
-  fromEditor.getChanges(state.editor);
 
 export const getEditorCode = state =>
   fromEditor.getCode(state.editor);
@@ -30,3 +29,9 @@ export const getIsPlaying = state =>
 
 export const getStartingTime = state =>
   fromPlayback.getStartingTime(state.playback);
+
+
+
+  // TODO
+export const getEditorChanges = state =>
+fromEditor.getChanges(state.editor);
