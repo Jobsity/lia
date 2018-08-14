@@ -5,6 +5,7 @@ import SampleTests from '../SampleTests';
 import Output from "../Output";
 import CandidateInformation from "../CandidateInformation";
 import Evaluation from "../Evaluation";
+import { api } from '../../mockServer';
 
 class InformationTabs extends Component {
   constructor(props, context) {
@@ -15,7 +16,7 @@ class InformationTabs extends Component {
       activeTab,
       data: {},
       loading: true,
-      role: "",
+      roles: "",
       tabs: []
     };
 
@@ -24,8 +25,8 @@ class InformationTabs extends Component {
 
   componentDidMount() {
 
-    // hardcoded role and data, its needed a mockserver provider
-    const role = "evaluator"
+    // hardcoded roles and data, its needed a mockserver provider
+    // const roles = ["evaluator"]
 
     const data = {
       task: 'This is the task',
@@ -58,10 +59,18 @@ class InformationTabs extends Component {
       }
     ];
 
-   // setTimeout just to watch the animation...
-   // must be removed when connected to real server
-   setTimeout(() => (this.setState({ data, loading: false, role, tabs })), 1000);
-   
+    api.get('/evaluatorToken').then((response) => {
+      if (response.status === 200) {
+
+      const { user } = response.data.data; 
+      const { roles } = user
+      // setTimeout just to watch the animation...
+      // must be removed when connected to real server
+      setTimeout(() => (this.setState({ data, loading: false, roles, tabs })), 1000);
+
+    }});
+
+
   }
 
   onChangeActiveTab(activeTab) {
@@ -81,17 +90,24 @@ class InformationTabs extends Component {
 
   render() {
 
-    const { role, tabs, activeTab, loading } = this.state;
+    const { roles, tabs, activeTab, loading } = this.state;
     const inclutions = [];
     const defaultIndex = _.findIndex(tabs, ["id", activeTab]);
 
+
+
+    if (!loading){
+      console.log("here")
     // check roles in tabs permissions array
     // and adds it into a truth array
     tabs.forEach((tab, idx) => {
       const { permissions } = tab;
-      const truth = permissions.includes(role);
-      inclutions.splice(idx, 1, truth);
-    });
+       roles.forEach((rol) => {
+        const truth = permissions.includes(rol);
+        inclutions.splice(idx, 1, truth);
+      })
+      
+    })}
 
     // filtered tabs based in truth array
     const roleTabs = this.filterTabs(inclutions, tabs)
