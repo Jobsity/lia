@@ -74,10 +74,10 @@ class InformationTabs extends Component {
     this.setState({ activeTab });
   }
 
-  filterTabs = (inclutions, tabs) => {
+  filterTabs = (inclussions, tabs) => {
     const filter = [];
     tabs.forEach((tab, idx) => {
-      if (inclutions[idx]) {
+      if (inclussions[idx]) {
         filter.push(tab);
       }
     });
@@ -87,7 +87,7 @@ class InformationTabs extends Component {
 
   render() {
     const { roles, tabs, activeTab, loading } = this.state;
-    const inclutions = [];
+    const inclussions = [];
     const defaultIndex = _.findIndex(tabs, ["id", activeTab]);
 
     if (!loading) {
@@ -97,13 +97,13 @@ class InformationTabs extends Component {
         const { permissions } = tab;
         roles.forEach(rol => {
           const truth = permissions.includes(rol);
-          inclutions.splice(idx, 1, truth);
+          inclussions.splice(idx, 1, truth);
         });
       });
     }
 
     // filtered tabs based in truth array
-    const roleTabs = this.filterTabs(inclutions, tabs);
+    const roleTabs = this.filterTabs(inclussions, tabs);
     return (
       <InformationTabsView
         onChangeActiveTab={this.onChangeActiveTab}
