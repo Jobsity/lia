@@ -2,12 +2,13 @@ import * as actionTypes from './types';
 
 import { createTime, createTimestamp } from '../lib/utils/timeline';
 
-export const addEvent = (startingTime, event) => ({
+export const addEvent = (startingTime, type, data) => ({
   type: actionTypes.TIMELINE_EVENT,
   payload: {
     event: {
-      ...event,
+      data,
       ts: createTimestamp(startingTime),
+      type,
     }
   },
 });
