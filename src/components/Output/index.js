@@ -13,9 +13,10 @@ class Instructions extends Component {
   }
 
   toggleOpenCategoryItem(category) {
-    this.setState({
-      [`${category}ItemsOpen`]: !this.state[`${category}ItemsOpen`],
-    });
+    const key = `${category}ItemsOpen`;
+    this.setState(prevState => ({
+      [key]: !prevState[key],
+    }));
   }
 
   render() {

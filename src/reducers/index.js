@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 
-import challenge from './challenge';
+import challenge, * as fromChallenge from './challenge';
 import editor, * as fromEditor from './editor';
 import evaluation from './evaluation';
 import playback, * as fromPlayback from './playback';
@@ -30,3 +30,26 @@ export const getIsPlaying = state =>
 
 export const getStartingTime = state =>
   fromPlayback.getStartingTime(state.playback);
+
+// Challenge getters
+
+export const getDifficulty = state =>
+  fromChallenge.getDifficulty(state.challenge);
+
+export const getErrors = state =>
+  fromChallenge.getError(state.challenge);
+
+export const getIsLoading = state =>
+  fromChallenge.getIsLoading(state.challenge);
+
+export const getLanguages = state =>
+  fromChallenge.getLanguages(state.challenge);
+
+export const getScore = state =>
+  fromChallenge.getScore(state.challenge);
+
+export const getStats = state =>
+  fromChallenge.getStats(state.challenge);
+
+export const getTestSuite = state =>
+  fromChallenge.getTestSuite(state.challenge);

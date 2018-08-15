@@ -1,11 +1,57 @@
+import {
+  FETCH_CHALLENGE_DATA_START,
+  FETCH_CHALLENGE_DATA_SUCCESS,
+  FETCH_CHALLENGE_DATA_ERROR } from '../actions/types'; 
+
 const initialState = {
   difficulty: '',
-  lenguages: [],
+  error: '',
+  isLoading: true,
+  languages: [],
   score: null,
   stats: null,
-  testsSuite: [],
+  testSuite: [],
 };
 
 export default function (state = initialState, action) {
+  switch (action.type) {
+    case FETCH_CHALLENGE_DATA_START:
+      return {
+        ...state,
+        error: '',
+        isLoading: true,
+      };
+    case FETCH_CHALLENGE_DATA_SUCCESS:
+      return {
+        ...state,
+        languages: action.payload.languages,
+        testSuite: action.payload.testSuite,
+        error: '',
+        isLoading: false,
+      }
+    case FETCH_CHALLENGE_DATA_ERROR:
+      return {
+        ...state,
+        error: action.payload.error,
+        loading: false,
+      };
+    default:
+      break;
+  }
   return state;
 }
+
+// Getters
+export const getDifficulty = state => state.difficulty;
+
+export const getError = state => state.error;
+
+export const getIsLoading = state => state.isLoading;
+
+export const getLanguages = state => state.languages;
+
+export const getScore = state => state.score;
+
+export const getStats = state => state.stats;
+
+export const getTestSuite = state => state.testSuite;
