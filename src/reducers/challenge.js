@@ -2,6 +2,15 @@ import {
   FETCH_CHALLENGE_DATA_START,
   FETCH_CHALLENGE_DATA_SUCCESS,
   FETCH_CHALLENGE_DATA_ERROR,
+  SET_CURRENT_LANGUAGE,
+  UPDATE_CURRENT_TESTS,
+  RESET_CURRENT_TESTS,
+  RUN_SAMPLE_TESTS_START,
+  RUN_SAMPLE_TESTS_SUCCESS,
+  RUN_SAMPLE_TESTS_ERROR,
+  SUBMIT_CHALLENGE_START,
+  SUBMIT_CHALLENGE_SUCCESS,
+  SUBMIT_CHALLENGE_ERROR,
 } from '../actions/types'; 
 
 const initialState = {
@@ -12,6 +21,11 @@ const initialState = {
   score: null,
   stats: null,
   testSuite: [],
+  currentTests: '',
+  runTestsLoading: false,
+  runTestsError: '',
+  submitChallengeLoading: false,
+  submitChallengeError: '',
 };
 
 export default function (state = initialState, action) {
@@ -27,6 +41,7 @@ export default function (state = initialState, action) {
         ...state,
         languages: action.payload.data.languages,
         testSuite: action.payload.data.testSuite,
+        currentTests: action.payload.data.testSuite[0].tests,
         difficulty: action.payload.data.difficulty,
         error: '',
         isLoading: false,
@@ -37,6 +52,57 @@ export default function (state = initialState, action) {
         error: action.payload.error,
         loading: false,
       };
+    case SET_CURRENT_LANGUAGE:
+      return {
+        ...state,
+        currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests
+      }
+    case UPDATE_CURRENT_TESTS:
+      return {
+        ...state,
+        currentTests: action.payload.newTests,
+      }
+    case RESET_CURRENT_TESTS:
+      return {
+        ...state,
+        currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests
+      }
+    case RUN_SAMPLE_TESTS_START:
+      return {
+        ...state,
+        runTestsLoading: true,
+        runTestsError: '',
+      }
+    case RUN_SAMPLE_TESTS_SUCCESS:
+      return {
+        ...state,
+        runTestsLoading: false,
+        runTestsError: '',
+      }
+    case RUN_SAMPLE_TESTS_ERROR:
+      return {
+        ...state,
+        runTestsLoading: false,
+        runTestsError: action.payload.error,
+      }
+    case SUBMIT_CHALLENGE_START:
+      return {
+        ...state,
+        submitChallengeLoading: true,
+        submitChallengeError: '',
+      }
+    case SUBMIT_CHALLENGE_SUCCESS:
+      return {
+        ...state,
+        submitChallengeLoading: false,
+        submitChallengeError: '',
+      }
+    case SUBMIT_CHALLENGE_ERROR:
+      return {
+        ...state,
+        submitChallengeLoading: false,
+        submitChallengeError: action.payload.error,
+      }
     default:
       break;
   }
@@ -57,3 +123,5 @@ export const getScore = state => state.score;
 export const getStats = state => state.stats;
 
 export const getTestSuite = state => state.testSuite;
+
+export const getCurrentTests = state => state.currentTests;

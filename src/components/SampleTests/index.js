@@ -3,9 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
+import { updateCurrentTests, resetCurrentTests } from  '../../actions/challenge';
 import store from '../../store/store';
-import { FETCH_CHALLENGE_DATA_START } from '../../actions/types';
-import { getIsLoading, getLanguage, getLanguages, getTestSuite, getDifficulty } from '../../reducers';
+import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
+import {
+  getIsLoading,
+  getLanguage,
+  getLanguages,
+  getTestSuite,
+  getDifficulty,
+  getCurrentTests,
+} from '../../reducers';
 
 class SampleTests extends Component {
   componentDidMount() {
@@ -17,18 +25,41 @@ class SampleTests extends Component {
     setLanguage(e.target.value);
   }
 
-  handleButtonClick() {
-    console.log('Here the editor code will be sent to the API and the results retrieved, and then an action will be dispatched')
+  handleResetClick() {
+    const { resetTests, language } = this.props;
+    resetTests(language);
+  }
+
+  handleRunTestsClick() {
+    store.dispatch({
+      type: RUN_SAMPLE_TESTS_START,
+      payload: {}
+    });
+  }
+
+  handleSubmitClick() {
+    store.dispatch({
+      type: SUBMIT_CHALLENGE_START,
+      payload: {}
+    });
+  }
+
+  handleTestsEditorChange(newValue) {
+    const { updateTests } = this.props;
+    updateTests(newValue);
   }
 
   render() {
-    const {difficulty, isLoading, language, languages, testSuite} = this.props;
+    const {currentTests, difficulty, isLoading, language, languages, testSuite} = this.props;
     return (
       <SampleTestsView
         handleSelectChange={e => this.handleSelectChange(e)}
-        handleButtonClick={() => this.handleButtonClick()}
-        {...this.state}
+        handleResetClick={() => this.handleResetClick()}
+        handleRunTestsClick={() => this.handleRunTestsClick()}
+        handleSubmitClick={() => this.handleSubmitClick()}
+        handleTestsEditorChange={e => this.handleTestsEditorChange(e)}
         tests={{
+          currentTests,
           difficulty,
           isLoading,
           language,
@@ -41,24 +72,30 @@ class SampleTests extends Component {
 }
 
 SampleTests.propTypes = {
+  currentTests: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   language: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   testSuite: PropTypes.instanceOf(Array).isRequired,
-  difficulty: PropTypes.string.isRequired,
   setLanguage: PropTypes.func.isRequired,
+  updateTests: PropTypes.func.isRequired,
+  resetTests: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = () => ({
   setLanguage: setCurrentLanguage,
+  updateTests: updateCurrentTests,
+  resetTests: resetCurrentTests,
 });
 
 const mapStateToProps = (state) => ({
+  currentTests: getCurrentTests(state),
+  difficulty: getDifficulty(state),
   isLoading: getIsLoading(state),
   language: getLanguage(state),
   languages: getLanguages(state),
   testSuite: getTestSuite(state),
-  difficulty: getDifficulty(state),
 });
 
 export default connect(

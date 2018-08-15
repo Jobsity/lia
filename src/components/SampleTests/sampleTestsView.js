@@ -14,13 +14,12 @@ import styles from "./styles";
 function sampleTestsView({
   classes,
   tests,
-  selectedLang,
   handleSelectChange,
-  handleButtonClick,
+  handleResetClick,
+  handleRunTestsClick,
+  handleSubmitClick,
+  handleTestsEditorChange,
 }) {
-  const sampleTests = tests.isLoading
-    ? null
-    : tests.testSuite.filter(listOfTests => listOfTests.language === tests.language)[0];
   return (
     <div>
       {tests.isLoading ? (
@@ -32,34 +31,35 @@ function sampleTestsView({
       ) : (
         <div>
           <div>
-            {
-              <FormControl>
-                <Select
-                  native
-                  value={tests.language}
-                  input={<Input id="a" />}
-                  onChange={handleSelectChange}>
-                  {tests.languages.map(language => (
-                    <option key={language} value={language}>
-                      {language}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
-            }
-            <Button onClick={handleButtonClick}>Run Tests</Button>
+            <FormControl>
+              <Select
+                native
+                value={tests.language}
+                input={<Input id="a" />}
+                onChange={handleSelectChange}>
+                {tests.languages.map(language => (
+                  <option key={language} value={language}>
+                    {language}
+                  </option>
+                ))}
+              </Select>
+            </FormControl>
           </div>
           <div className="output-console">
-            <MonacoField
-              code={sampleTests ? sampleTests.tests : ""}
-              options={{
-                readOnly: true,
-                lineNumbers: "off",
-                minimap: {
-                  enabled: false
-                }
-              }}
+          <MonacoField
+            code={tests.currentTests}
+            language={tests.language}
+            onChange={e => handleTestsEditorChange(e)}
+            options={{
+              lineNumbers: "off",
+              readOnly: false,
+            }}
             />
+          </div>
+          <div>
+            <Button onClick={handleResetClick}>Reset</Button>
+            <Button onClick={handleRunTestsClick}>Run Tests</Button>
+            <Button onClick={handleSubmitClick}>Submit</Button>
           </div>
         </div>
       )}
@@ -68,7 +68,6 @@ function sampleTestsView({
 }
 
 sampleTestsView.propTypes = {
-  selectedLang: PropTypes.string.isRequired,
   handleSelectChange: PropTypes.func.isRequired,
 };
 
