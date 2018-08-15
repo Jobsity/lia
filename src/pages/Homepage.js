@@ -4,12 +4,15 @@ import RGL, { WidthProvider } from "react-grid-layout";
 import Editor from '../components/Editor';
 import InformationTabs from '../components/InformationTabs';
 import Instructions from '../components/Instructions';
+import Playback from '../components/Playback';
 
 const ReactGridLayout = WidthProvider(RGL);
 
 class Homepage extends React.PureComponent {
   static defaultProps = {
     className: "layout",
+    isDraggable: false,
+    isResizable: false,
     items: 6,
     rowHeight: 100,
     onLayoutChange() {},
@@ -31,10 +34,16 @@ class Homepage extends React.PureComponent {
 
   generateDOM() {
     return [
-      <div key="1">{
+      <div key="1">
+        {
+        // TODO
+        // render Playback only if session is not live
+        // and role is 'evaluator'
+        }
+        <Playback />
         <Editor
           editorDidMount={this.editorDidMount}
-        />}
+        />
       </div>,
       <div key="2">
         <InformationTabs />

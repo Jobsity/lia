@@ -2,34 +2,29 @@ import * as actionTypes from '../actions/types';
 
 const initState = {
   isPlaying: false,
-  startingTime: null,
-}
+  playedEvents: [],
+};
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case actionTypes.PLAYBACK_STARTING_TIME_RESET: {
-      const { startingTime } = action.payload;
-
+    case actionTypes.PLAYBACK_EVENTS_SET:
       return {
         ...state,
-        startingTime,
+        playedEvents: action.payload.playedEvents,
       };
-    }
-    case actionTypes.PLAYBACK_PLAYING_SET: {
-      const { isPlaying } = action.payload;
-
+    case actionTypes.PLAYBACK_PLAYING_SET:
       return {
         ...state,
-        isPlaying,
+        isPlaying: action.payload.isPlaying,
       };
-    }
     default:
       return state;
   }
 }
 
+
 // Getters
 
 export const getIsPlaying = state => state.isPlaying;
 
-export const getStartingTime = state => state.startingTime;
+export const getPlayedEvents = state => state.playedEvents;
