@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Radio, RadioGroup, Button, LinearProgress } from '@material-ui/core';
+import { Radio, RadioGroup, Button } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import ReactMarkdown from 'react-markdown';
 
 const title = {
   textAlign: 'center'
@@ -28,31 +31,36 @@ const button = {
   flex: '1',
 };
 
-const progress = {
-  position: 'absolute', 
-  left: '43%', 
-  top: '-0.5em', 
-  fontSize: '0.7em', 
-  fontWeight: 'bold'
-};
+const previewDiv = {
+  maxHeight: '150px',
+  overflowY: 'auto',
+  width: '100%',
+}
 
-const placeholder = `Add any notes you want to share with your team about this solution. Markdown is supported.\n\nThe Entire review is for internal use and won't be shared with the candidate.`;
+const placeholder = `Add any notes you want to share with your team about this candidate. Markdown is supported.\n\nThe Entire review is for internal use and won't be shared with the candidate.`;
 
 class Evaluation extends Component {
   constructor(props, context) {
     super(props, context);
 
     this.state = {
-      easyness: '5',
-      codeStyle: '5',
-      maintainability: '5',
-      codeStructure: '5',
-      defensiveCoding: '5',
+      overall: 'normal',
+      easyness: 'normal',
+      codeStyle: 'normal',
+      maintainability: 'normal',
+      codeStructure: 'normal',
+      defensiveCoding: 'normal',
+      preview: true,
+      feedback: '',
     };
   }
 
-  handleChange = (event, selector) => {
-    switch (selector) {
+  handleChange = (event, sel) => {
+    switch (sel) {
+      case 'overall':
+        this.setState({overall: event.target.value});
+        break;
+      
       case 'easyness':
         this.setState({easyness: event.target.value});
         break;
@@ -78,29 +86,65 @@ class Evaluation extends Component {
     }
   }
 
+  togglePreview = () => {
+    let { feedback, preview } = this.state;
+    if (feedback !== '') {
+      this.setState({preview: !preview});
+    }
+  }
+
+  handleFeedback = event => {
+    this.setState({feedback: event.target.value});
+  }
+
+  handleSubmit = event => {
+    event.preventDefault();
+    const { overall, easyness, codeStyle, codeStructure, maintainability, defensiveCoding, feedback } = this.state;
+
+    let evaluation = {
+      candidate: '',
+      evaluator: '',
+      rating: {
+        overall,
+        easyness,
+        codeStyle,
+        codeStructure,
+        maintainability,
+        defensiveCoding,
+        feedback,
+      }
+    };
+
+    // API call to add evaluation to backend
+    // axios.post(args, evaluation);
+    console.log('added evaluation: ', evaluation);
+    
+  }
+
   render() {
-    let { easyness, codeStyle, codeStructure, maintainability, defensiveCoding} = this.state;
-    let rating = (parseInt(easyness) + parseInt(codeStructure) + parseInt(codeStyle) + parseInt(maintainability) + parseInt(defensiveCoding))*100/50;
+    const { overall, easyness, codeStyle, codeStructure, maintainability, defensiveCoding, feedback, preview} = this.state;
     return (
       <div>
-        <h3 style={title}>Overall Rating</h3>
-        <div style={selector}>
-          <span style={{textAlign: 'right'}}>
-            Poor
-          </span>
-          <span style={{position: 'relative'}}>
-            <LinearProgress 
-              style={{margin: '8px 2px'}}
-              variant="determinate"
-              value={rating}
-            />
-            <span style={progress}>{rating+'%'}</span>
-          </span>
-          <span style={{textAlign: 'left'}}>
-            Great
-          </span>
-        </div>
-        <form>
+        <form onSubmit={this.handleSubmit}>
+          <h3 style={title}>Overall Rating</h3>
+          <div style={selector}>
+            <span style={leftLabel}>
+              Poor
+            </span>
+            <RadioGroup
+              name="overall"
+              value={overall}
+              row
+              onChange={(e) => this.handleChange(e, 'overall')}
+            >
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
+            </RadioGroup>
+            <span style={rightLabel}>
+              Great
+            </span>
+          </div>
           <h3 style={title}>Qualities</h3>
           <div style={selector}>
             <span style={leftLabel}>
@@ -112,9 +156,9 @@ class Evaluation extends Component {
               row
               onChange={(e) => this.handleChange(e, 'easyness')}
             >
-              <Radio value='0'/>
-              <Radio value='5'/>
-              <Radio value='10'/>
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
             <span style={rightLabel}>
               Easy to Read
@@ -131,9 +175,9 @@ class Evaluation extends Component {
               row
               onChange={(e) => this.handleChange(e, 'style')}
             >
-              <Radio value='0'/>
-              <Radio value='5'/>
-              <Radio value='10'/>
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
             <span style={rightLabel}>
               Advanced Grasp of Language
@@ -150,9 +194,9 @@ class Evaluation extends Component {
               row
               onChange={(e) => this.handleChange(e, 'mantainability')}
             >
-              <Radio value='0'/>
-              <Radio value='5'/>
-              <Radio value='10'/>
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
             <span style={rightLabel}>
               Easy to Mantain
@@ -169,9 +213,9 @@ class Evaluation extends Component {
               row
               onChange={(e) => this.handleChange(e, 'structure')}
             >
-              <Radio value='0'/>
-              <Radio value='5'/>
-              <Radio value='10'/>
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
             <span style={rightLabel}>
               Well Structured
@@ -188,24 +232,33 @@ class Evaluation extends Component {
               row
               onChange={(e) => this.handleChange(e, 'defense')}
             >
-              <Radio value='0'/>
-              <Radio value='5'/>
-              <Radio value='10'/>
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
             <span style={rightLabel}>
               Handles Edge Cases
             </span>
           </div>
-
           <h3 style={title}>Feedback Notes</h3>
-          <textarea 
-            name="feedback" 
-            cols="60" 
-            rows="10" 
-            placeholder={placeholder} 
-          />
+          <Button style={{float: 'right'}} onClick={this.togglePreview}><FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview</Button>
+          {preview?
+            <textarea 
+              placeholder={placeholder}
+              cols='59'
+              rows='10'
+              value={feedback}
+              onChange={this.handleFeedback}
+              />
+              :
+            <div style={previewDiv}>
+              <ReactMarkdown
+                source={feedback}
+                />
+            </div>
+          }
           <div style={buttonArea}>
-            <Button style={button}>Add Overall Review</Button>
+            <Button style={button} type="submit">Add Overall Review</Button>
             <Button style={button}>Close Review Editor</Button>
           </div>
         </form>
