@@ -1,9 +1,9 @@
 import * as actionTypes from './types';
 
-export const resetStartingTime = () => ({
-  type: actionTypes.PLAYBACK_STARTING_TIME_RESET,
+export const setPlayedEvents = playedEvents => ({
+  type: actionTypes.PLAYBACK_EVENTS_SET,
   payload: {
-    startingTime: new Date().getTime(),
+    playedEvents,
   },
 });
 

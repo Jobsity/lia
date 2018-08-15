@@ -5,6 +5,7 @@ import editor, * as fromEditor from './editor';
 import evaluation from './evaluation';
 import playback, * as fromPlayback from './playback';
 import session from  './session';
+import timeline, * as fromTimeline from  './timeline';
 
 export default combineReducers({
   challenge,
@@ -12,12 +13,11 @@ export default combineReducers({
   evaluation,
   playback,
   session,
+  timeline,
 });
 
-// Editor getters
 
-export const getEditorChanges = state =>
-  fromEditor.getChanges(state.editor);
+// Editor getters
 
 export const getEditorCode = state =>
   fromEditor.getCode(state.editor);
@@ -28,5 +28,26 @@ export const getEditorCode = state =>
 export const getIsPlaying = state =>
   fromPlayback.getIsPlaying(state.playback);
 
+export const getPlayedEvents = state =>
+  fromPlayback.getPlayedEvents(state.playback);
+
+
+// Timeline getters
+
+export const getTimelineEvents = state =>
+  fromTimeline.getEvents(state.timeline);
+
 export const getStartingTime = state =>
-  fromPlayback.getStartingTime(state.playback);
+  fromTimeline.getStartingTime(state.timeline);
+
+
+// Custom getters
+export const getPlayedEventsData = (state, type = null) => {
+  let playedEvents = getPlayedEvents(state);
+
+  if (typeof type === 'string' && type.length > 0) {
+    playedEvents = playedEvents.filter(e => e.type === type);
+  }
+
+  return playedEvents.map(e => e.data);
+}
