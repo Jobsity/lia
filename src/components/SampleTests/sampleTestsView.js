@@ -8,6 +8,10 @@ import Input from "@material-ui/core/Input";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
 import MonacoField from "../MonacoField/MonacoField";
 import styles from "./styles";
 
@@ -35,6 +39,7 @@ function sampleTestsView({
           <div>
             {
               <FormControl>
+              <InputLabel>Language</InputLabel>
                 <Select
                   native
                   value={selectedLang}

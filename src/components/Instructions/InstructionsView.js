@@ -2,30 +2,35 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 
 import { withStyles } from "@material-ui/core/styles";
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
+
 import styles from "./styles";
 
 const InstructionsView = ({ data, loading, classes }) => (
-    <div className="panel">
-      <div className="title">
-        <h1>
-          Instructions
-        </h1>
-      </div>
+  <Paper className={classes.root} elevation={1} square>
+        <Typography variant="headline" component="h3">
+        Instructions
+        </Typography>
+        <Divider />
       { loading
         ? (
+          <Typography component="p">
           <CircularProgress
             classes={{ root: classes.loading }}
             size={75}
             color="secondary"
           />
+          </Typography>
         ) : (
-          <span>
-            {data.instructions}
-          </span>
+          <Typography component="p">
+          {data.instructions}
+        </Typography>
         )
       }
-    </div>
+    </Paper>
   );
 
 InstructionsView.propTypes = {
