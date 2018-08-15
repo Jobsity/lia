@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import _ from "lodash";
 import InformationTabsView from "./InformationTabsView";
 import SampleTests from "../SampleTests";
 import Output from "../Output";
@@ -9,18 +8,14 @@ import { api } from "../../mockServer";
 
 class InformationTabs extends Component {
   constructor(props, context) {
-    super(props, context);
-    const activeTab = "output";
+    super(props, context)
 
     this.state = {
-      activeTab,
       data: {},
       loading: true,
       roles: "",
       tabs: []
     };
-
-    this.onChangeActiveTab = this.onChangeActiveTab.bind(this);
   }
 
   componentDidMount() {
@@ -30,16 +25,16 @@ class InformationTabs extends Component {
 
     const tabs = [
       {
-        id: "output",
-        name: "Output",
-        permissions: ["candidate", "observer", "evaluator"],
-        component: <Output {...data} />
-      },
-      {
         id: "sample_tests",
         name: "Sample Tests",
         permissions: ["candidate", "observer", "evaluator"],
         component: <SampleTests {...data} />
+      },
+      {
+        id: "output",
+        name: "Output",
+        permissions: ["candidate", "observer", "evaluator"],
+        component: <Output {...data} />
       },
       {
         id: "candidate_information",
@@ -70,10 +65,6 @@ class InformationTabs extends Component {
     });
   }
 
-  onChangeActiveTab(activeTab) {
-    this.setState({ activeTab });
-  }
-
   filterTabs = (inclussions, tabs) => {
     const filter = [];
     tabs.forEach((tab, idx) => {
@@ -86,9 +77,8 @@ class InformationTabs extends Component {
   };
 
   render() {
-    const { roles, tabs, activeTab, loading } = this.state;
+    const { roles, tabs, loading } = this.state;
     const inclussions = [];
-    const defaultIndex = _.findIndex(tabs, ["id", activeTab]);
 
     if (!loading) {
       // check roles in tabs permissions array
@@ -109,7 +99,6 @@ class InformationTabs extends Component {
         onChangeActiveTab={this.onChangeActiveTab}
         {...this.state}
         tabs={roleTabs}
-        defaultIndex={defaultIndex}
         loading={loading}
       />
     );

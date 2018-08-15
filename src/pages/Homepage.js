@@ -10,6 +10,8 @@ const ReactGridLayout = WidthProvider(RGL);
 class Homepage extends React.PureComponent {
   static defaultProps = {
     className: "layout",
+    isDraggable: false,
+    isResizable: false,
     items: 6,
     rowHeight: 100,
     onLayoutChange() {},
