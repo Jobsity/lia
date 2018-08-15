@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 
 import * as fromReducers from '../../reducers';
 import * as editorActions from '../../actions/editor';
 import * as playbackActions from '../../actions/playback';
+import * as timelineActions from '../../actions/timeline';
 
 import MonacoField from '../MonacoField/MonacoField';
 
@@ -14,75 +16,103 @@ class Editor extends Component {
 
   model = null;
 
-  timeoutId = null;
+  playedIndex = null
 
   editorDidMount = (editor) => {
     this.editor = editor;
     this.model = editor.getModel();
 
-    this.props.resetStartingTime();
-
     const { editorDidMount } = this.props;
     if (editorDidMount) {
       editorDidMount(editor);
     }
+
+    this.props.resetTimeline();
   }
 
   handleEditorChange = (newValue, event) => {
+    // When playing, model.applyEdits triggers onChange
+    // event, so verification of isPlaying is required
+    // to not add events to timeline
     if (this.props.isPlaying) {
-      return null;
+      return;
     }
 
+    const { addEditorChange, startingTime } = this.props;
     const { range, text } = event.changes[0];
-    const currentTime = new Date().getTime();
-    const newChange = {
+    const eventData = {
       edit: { range, text },
-      ts: currentTime - this.props.startingTime,
       viewState: this.editor.saveViewState(),
     };
 
-    this.props.addEditorChange(newChange, newValue);
+    addEditorChange(startingTime, eventData, newValue);
   }
 
-  togglePlayPause = () => {
-    const { isPlaying, setIsPlaying } = this.props;
+  applyEdits(edits, viewState) {
+    const { editor, model } = this;
 
-    setIsPlaying(!isPlaying);
+    try {
+      model.applyEdits(edits);
+    } catch(err) {
+      debugger
+    }
+    editor.restoreViewState(viewState);
+    this.props.setEditorCode(model.getValue());
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.isPlaying && !this.props.isPlaying) {
-      clearTimeout(this.timeoutId);
+    const { changes, startingTime } = this.props;
+
+    if (prevProps.startingTime !== startingTime) {
+      this.initChange();
+      return;
     }
 
-    if (!prevProps.isPlaying && this.props.isPlaying) {
-      this.model.setValue(this.defaultCode);
-      this.playNextChange(0, 0);
+    if (!isEqual(prevProps.changes, changes)) {
+      this.updateChanges();
     }
   }
 
-  playNextChange(nextIndex, prevTs) {
-    const { editor, model } = this;
+  updateChanges() {
     const { changes } = this.props;
-    const change = changes[nextIndex];
-    const timeout = change.ts - prevTs;
 
-    this.timeoutId = setTimeout(() => {
-      model.applyEdits([change.edit]);
-      editor.restoreViewState(change.viewState);
+    if (changes.length === 0) {
+      this.playedIndex = null;
+      return;
+    }
 
-      this.props.setEditorCode(model.getValue());
+    const index = this.playedIndex;
+    const lastIndex = changes.length - 1;
+    const edits = changes.map(c => c.edit);
+    const viewState = changes[lastIndex].viewState;
 
-      if (nextIndex + 1 < changes.length) {
-        this.playNextChange(nextIndex + 1, change.ts);
-      } else {
-        this.props.setIsPlaying(false);
-      }
-    }, timeout);
+    if (typeof index !== 'number' || index >= lastIndex) {
+      this.model.setValue('');
+      this.applyEdits(edits, viewState);
+      this.playedIndex = lastIndex;
+
+      return;
+    }
+
+    this.applyEdits(edits.slice(index + 1), viewState);
+    this.playedIndex = lastIndex;
+  }
+
+  initChange() {
+    // Default code is added to timeline when onChange is triggered
+    this.model.applyEdits([{
+      range: {
+        endColumn: 1,
+        endLineNumber: 1,
+        startColumn: 1,
+        startLineNumber: 1,
+      },
+      text: this.defaultCode,
+    }]);
   }
 
   render() {
-    const { isPlaying, onPlayPause } = this.props;
+    const { isPlaying } = this.props;
     const options = {
       lineNumbers: 'on',
       readOnly: isPlaying,
@@ -90,24 +120,19 @@ class Editor extends Component {
     };
 
     return (
-      <div>
-        <button onClick={this.togglePlayPause}>
-          {isPlaying ? 'Stop' : 'Play'}
-        </button>
-        <MonacoField
-          code={this.props.code}
-          editorDidMount={this.editorDidMount}
-          onChange={this.handleEditorChange}
-          options={options}
-          height="500"
-        />
-      </div>
+      <MonacoField
+        code={this.props.code || ''}
+        editorDidMount={this.editorDidMount}
+        onChange={this.handleEditorChange}
+        options={options}
+        height="500"
+      />
     );
   }
 };
 
 const mapState = state => ({
-  changes: fromReducers.getEditorChanges(state),
+  changes: fromReducers.getPlayedEventsData(state, 'editor'),
   code: fromReducers.getEditorCode(state),
   isPlaying: fromReducers.getIsPlaying(state),
   startingTime: fromReducers.getStartingTime(state),
@@ -115,7 +140,7 @@ const mapState = state => ({
 
 const mapDispatch = {
   addEditorChange: editorActions.addEditorChange,
-  resetStartingTime: playbackActions.resetStartingTime,
+  resetTimeline: timelineActions.resetTimeline,
   setEditorCode: editorActions.setEditorCode,
   setIsPlaying: playbackActions.setIsPlaying,
 };
