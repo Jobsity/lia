@@ -12,9 +12,10 @@ export const addEvent = (startingTime, event) => ({
   },
 });
 
-export const resetStartingTime = () => ({
-  type: actionTypes.TIMELINE_STARTING_TIME_RESET,
+export const resetTimeline = () => ({
+  type: actionTypes.TIMELINE_RESET,
   payload: {
+    events: [],
     startingTime: createTime(),
   },
 });

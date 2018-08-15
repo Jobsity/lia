@@ -8,8 +8,6 @@ export const addEditorChange = (startingTime, eventData, newCode) => ({
     code: newCode,
     event: {
       data: eventData,
-      descr: '',
-      highlighted: false,
       ts: createTimestamp(startingTime),
       type: 'editor',
     },

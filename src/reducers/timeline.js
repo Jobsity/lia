@@ -7,8 +7,6 @@ const initState = {
 
 const initEventState = {
   data: null,
-  descr: '',
-  highlighted: false,
   ts: null,
   type: '',
 };
@@ -32,19 +30,19 @@ export default (state = initState, action) => {
 
       return addEvent(state, event);
     }
-    case actionTypes.TIMELINE_STARTING_TIME_RESET: {
-      const { startingTime } = action.payload;
-
+    case actionTypes.TIMELINE_RESET:
       return {
-        ...state,
-        startingTime,
+        ...initState,
+        ...action.payload,
       };
-    }
     default:
       return state;
   }
 }
 
+
 // Getters
+
+export const getEvents = state => state.events;
 
 export const getStartingTime = state => state.startingTime;
