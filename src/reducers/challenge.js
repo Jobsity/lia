@@ -1,7 +1,8 @@
 import {
   FETCH_CHALLENGE_DATA_START,
   FETCH_CHALLENGE_DATA_SUCCESS,
-  FETCH_CHALLENGE_DATA_ERROR } from '../actions/types'; 
+  FETCH_CHALLENGE_DATA_ERROR,
+} from '../actions/types'; 
 
 const initialState = {
   difficulty: '',
@@ -24,8 +25,9 @@ export default function (state = initialState, action) {
     case FETCH_CHALLENGE_DATA_SUCCESS:
       return {
         ...state,
-        languages: action.payload.languages,
-        testSuite: action.payload.testSuite,
+        languages: action.payload.data.languages,
+        testSuite: action.payload.data.testSuite,
+        difficulty: action.payload.data.difficulty,
         error: '',
         isLoading: false,
       }

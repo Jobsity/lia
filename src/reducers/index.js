@@ -4,7 +4,7 @@ import challenge, * as fromChallenge from './challenge';
 import editor, * as fromEditor from './editor';
 import evaluation from './evaluation';
 import playback, * as fromPlayback from './playback';
-import session from  './session';
+import session, * as fromSession from  './session';
 
 export default combineReducers({
   challenge,
@@ -53,3 +53,7 @@ export const getStats = state =>
 
 export const getTestSuite = state =>
   fromChallenge.getTestSuite(state.challenge);
+
+// Session getters
+export const getLanguage = state =>
+  fromSession.getLanguage(state.session);

@@ -13,18 +13,17 @@ import styles from "./styles";
 
 function sampleTestsView({
   classes,
-  data,
-  loading,
+  tests,
   selectedLang,
   handleSelectChange,
-  handleButtonClick
+  handleButtonClick,
 }) {
-  const sampleTests = loading
+  const sampleTests = tests.isLoading
     ? null
-    : data.testSuite.filter(tests => tests.language === selectedLang)[0];
+    : tests.testSuite.filter(listOfTests => listOfTests.language === tests.language)[0];
   return (
     <div>
-      {loading ? (
+      {tests.isLoading ? (
         <CircularProgress
           classes={{ root: classes.loading }}
           size={200}
@@ -37,10 +36,10 @@ function sampleTestsView({
               <FormControl>
                 <Select
                   native
-                  value={selectedLang}
+                  value={tests.language}
                   input={<Input id="a" />}
                   onChange={handleSelectChange}>
-                  {data.languages.map(language => (
+                  {tests.languages.map(language => (
                     <option key={language} value={language}>
                       {language}
                     </option>
@@ -69,12 +68,8 @@ function sampleTestsView({
 }
 
 sampleTestsView.propTypes = {
-  data: PropTypes.shape({
-    instructions: PropTypes.string
-  }).isRequired,
-  loading: PropTypes.bool.isRequired,
   selectedLang: PropTypes.string.isRequired,
-  handleSelectChange: PropTypes.func.isRequired
+  handleSelectChange: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(sampleTestsView);

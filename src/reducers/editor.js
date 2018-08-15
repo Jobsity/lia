@@ -9,7 +9,6 @@ export default (state = initState, action) => {
   switch (action.type) {
     case actionTypes.EDITOR_CHANGE_ADD: {
       const { change, code } = action.payload;
-
       return {
         ...state,
         changes: [

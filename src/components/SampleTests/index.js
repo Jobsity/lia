@@ -1,60 +1,67 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
-import { api } from '../../mockServer';
-import * as challengeActions from '../../actions/challenge';
+import { setCurrentLanguage } from  '../../actions/session';
 import store from '../../store/store';
 import { FETCH_CHALLENGE_DATA_START } from '../../actions/types';
-
-const editorCode = 'const x = 1;\\nconsole.log(x);';
+import { getIsLoading, getLanguage, getLanguages, getTestSuite, getDifficulty } from '../../reducers';
 
 class SampleTests extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      loading: true,
-      data: {},
-      selectedLang: 'javascript',
-    };
-  }
-
   componentDidMount() {
-    api.get('/challenges/id').then((response) => {
-      if (response.status === 200) {
-        this.setState({ data: response.data.data, selectedLang: response.data.data.languages[0], loading: false });
-      }
-    });
     store.dispatch({ type: FETCH_CHALLENGE_DATA_START });
   }
 
   handleSelectChange(e) {
-    this.setState({selectedLang: e.target.value});
+    const { setLanguage } = this.props;
+    setLanguage(e.target.value);
   }
 
   handleButtonClick() {
-    const { getTestsResults } = this.props;
-    const { data, selectedLang } = this.state;
-    const testsSamples = data.testSuite.filter( tests => tests.language === selectedLang)[0];
-    getTestsResults(editorCode, testsSamples , selectedLang, api);
+    console.log('Here the editor code will be sent to the API and the results retrieved, and then an action will be dispatched')
   }
 
   render() {
+    const {difficulty, isLoading, language, languages, testSuite} = this.props;
     return (
       <SampleTestsView
         handleSelectChange={e => this.handleSelectChange(e)}
         handleButtonClick={() => this.handleButtonClick()}
         {...this.state}
+        tests={{
+          difficulty,
+          isLoading,
+          language,
+          languages,
+          testSuite,
+        }}
       />
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    getTestsResults: challengeActions.getTestsResults,
-  }
+SampleTests.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  language: PropTypes.string.isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  testSuite: PropTypes.instanceOf(Array).isRequired,
+  difficulty: PropTypes.string.isRequired,
+  setLanguage: PropTypes.func.isRequired,
 }
 
+const mapDispatchToProps = () => ({
+  setLanguage: setCurrentLanguage,
+});
+
+const mapStateToProps = (state) => ({
+  isLoading: getIsLoading(state),
+  language: getLanguage(state),
+  languages: getLanguages(state),
+  testSuite: getTestSuite(state),
+  difficulty: getDifficulty(state),
+});
+
 export default connect(
-  mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps(),
 )(SampleTests);
