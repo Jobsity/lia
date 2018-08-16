@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+
 import * as fromReducers from '../../reducers';
 import * as playbackActions from '../../actions/playback';
 
+import PlayPauseButton from './PlayPauseButton';
+import Slider from './Slider';
+
+const styles = {
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+  }
+};
+
 class Playback extends Component {
-  timeoutId = null;
+  eventsTimeoutId = null;
+
+  sliderTimeoutId = null;
+
+  state = {
+    timestamp: 0,
+  }
 
   togglePlayPause = () => {
     const { isPlaying, setIsPlaying } = this.props;
@@ -17,7 +36,7 @@ class Playback extends Component {
     const { events, isPlaying } = this.props;
 
     if (prevProps.isPlaying && !isPlaying) {
-      clearTimeout(this.timeoutId);
+      clearTimeout(this.eventsTimeoutId);
     }
 
     if (events.length > 0 && !prevProps.isPlaying && isPlaying) {
@@ -32,7 +51,7 @@ class Playback extends Component {
     const index = events.map(e => e.ts <= currentTs).indexOf(false);
 
     if (index === -1) {
-      clearTimeout(this.timeoutId);
+      clearTimeout(this.eventsTimeoutId);
       setPlayedEvents(events);
       setIsPlaying(false);
       return;
@@ -43,18 +62,28 @@ class Playback extends Component {
     const nextTs = nextEvent.ts;
     const timeout = nextTs - currentTs;
 
-    this.timeoutId = setTimeout(() => this.playEvents(nextTs), timeout);
+    this.eventsTimeoutId = setTimeout(() => this.playEvents(nextTs), timeout);
 
     setPlayedEvents(playedEvents);
   }
 
+  playSlider() {
+    // sliderTimeoutId
+  }
+
   render() {
-    const { isPlaying } = this.props;
+    const { classes, isPlaying, timestamp } = this.props;
 
     return (
-      <button onClick={this.togglePlayPause}>
-        {isPlaying ? 'Stop' : 'Play'}
-      </button>
+      <Paper className={classes.container}>
+        <PlayPauseButton
+          isPlaying={isPlaying}
+          onClick={this.togglePlayPause}
+        />
+        <Slider
+          value={timestamp}
+        />
+      </Paper>
     );
   }
 }
@@ -68,4 +97,6 @@ const mapDispatch = ({
   setIsPlaying: playbackActions.setIsPlaying,
 });
 
-export default connect(mapState, mapDispatch)(Playback);
+export default connect(mapState, mapDispatch)(
+  withStyles(styles)(Playback)
+);
