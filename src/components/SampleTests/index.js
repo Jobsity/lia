@@ -40,7 +40,7 @@ class SampleTests extends Component {
     this.setState({ resetDialogOpen: false});
   }
 
-  handlerunTestsClick() {
+  handleRunTestsClick() {
     store.dispatch({
       type: RUN_SAMPLE_TESTS_START,
       payload: {}
