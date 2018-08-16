@@ -57,7 +57,7 @@ class Evaluate extends Component {
         this.setState({codeStructure: event.target.value});
         break;
 
-      case 'mantainability':
+      case 'maintainability':
         this.setState({maintainability: event.target.value});
         break;
 
@@ -106,7 +106,40 @@ class Evaluate extends Component {
   }
 
   render() {
-    const { overall, easyness, codeStyle, codeStructure, maintainability, defensiveCoding, feedback, preview} = this.state;
+    const { overall, easyness, codeStyle, maintainability, codeStructure, defensiveCoding, feedback, preview} = this.state;
+    
+    const qualities = [
+      {
+        tag: 'easyness',
+        leftLbl: 'Hard to Understand',
+        rightLbl: 'Easy to Read',
+        value: easyness,
+      },
+      {
+        tag: 'style',
+        leftLbl: 'Rudimentary Coding Style',
+        rightLbl: 'Advanced Grasp of Language',
+        value: codeStyle,
+      },
+      {
+        tag: 'maintainability',
+        leftLbl: 'Hard to Mantain',
+        rightLbl: 'Easy to Mantain',
+        value: maintainability,
+      },
+      {
+        tag: 'structure',
+        leftLbl: 'Poorly Structured',
+        rightLbl: 'Well Structured',
+        value: codeStructure,
+      },
+      {
+        tag: 'defense',
+        leftLbl: 'Lack of Defensive Coding',
+        rightLbl: 'Handles Edge Cases',
+        value: defensiveCoding,
+      },
+    ]
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
@@ -130,100 +163,26 @@ class Evaluate extends Component {
             </span>
           </div>
           <h3 style={styles.title}>Qualities</h3>
-          <div style={styles.selector}>
-            <span style={styles.leftLabel}>
-              Hard to Understand
-            </span>
-            <RadioGroup
-              name="easyness"
-              value={easyness}
-              row
-              onChange={(e) => this.handleChange(e, 'easyness')}
-            >
-              <Radio value='poor'/>
-              <Radio value='normal'/>
-              <Radio value='great'/>
-            </RadioGroup>
-            <span style={styles.rightLabel}>
-              Easy to Read
-            </span>
-          </div>
-
-          <div style={styles.selector}>
-            <span style={styles.leftLabel}>
-              Rudimentary Coding Style
-            </span>
-            <RadioGroup
-              name="codeStyle"
-              value={codeStyle}
-              row
-              onChange={(e) => this.handleChange(e, 'style')}
-            >
-              <Radio value='poor'/>
-              <Radio value='normal'/>
-              <Radio value='great'/>
-            </RadioGroup>
-            <span style={styles.rightLabel}>
-              Advanced Grasp of Language
-            </span>
-          </div>
-
-          <div style={styles.selector}>
-            <span style={styles.leftLabel}>
-              Hard to Mantain
-            </span>
-            <RadioGroup
-              name="codeMaintain"
-              value={maintainability}
-              row
-              onChange={(e) => this.handleChange(e, 'mantainability')}
-            >
-              <Radio value='poor'/>
-              <Radio value='normal'/>
-              <Radio value='great'/>
-            </RadioGroup>
-            <span style={styles.rightLabel}>
-              Easy to Mantain
-            </span>
-          </div>
-
-          <div style={styles.selector}>
-            <span style={styles.leftLabel}>
-              Poorly Structured
-            </span>
-            <RadioGroup
-              name="codeStructure"
-              value={codeStructure}
-              row
-              onChange={(e) => this.handleChange(e, 'structure')}
-            >
-              <Radio value='poor'/>
-              <Radio value='normal'/>
-              <Radio value='great'/>
-            </RadioGroup>
-            <span style={styles.rightLabel}>
-              Well Structured
-            </span>
-          </div>
-
-          <div style={styles.selector}>
-            <span style={styles.leftLabel}>
-              Lack of Defensive Coding
-            </span>
-            <RadioGroup
-              name="codeDefense"
-              value={defensiveCoding}
-              row
-              onChange={(e) => this.handleChange(e, 'defense')}
-            >
-              <Radio value='poor'/>
-              <Radio value='normal'/>
-              <Radio value='great'/>
-            </RadioGroup>
-            <span style={styles.rightLabel}>
-              Handles Edge Cases
-            </span>
-          </div>
+          {qualities.map(quality => 
+            <div style={styles.selector}>
+              <span style={styles.leftLabel}>
+                {quality.leftLbl}
+              </span>
+              <RadioGroup
+                name={quality.tag}
+                value={quality.value}
+                row
+                onChange={(e) => this.handleChange(e, quality.tag)}
+              >
+                <Radio value='poor'/>
+                <Radio value='normal'/>
+                <Radio value='great'/>
+              </RadioGroup>
+              <span style={styles.rightLabel}>
+                {quality.rightLbl}
+              </span>
+            </div>
+          )}
           <h3 style={styles.title}>Feedback Notes</h3>
           <Button style={{float: 'right'}} onClick={this.togglePreview}><FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview</Button>
           {preview?
@@ -271,7 +230,7 @@ Evaluate.defaultProps = {
     maintainability: 'normal',
     codeStructure: 'normal',
     defensiveCoding: 'normal',
-    feedback: '',
+    feedback: [],
   }
 };
 
