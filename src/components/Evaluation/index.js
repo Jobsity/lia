@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radio, RadioGroup, Button } from '@material-ui/core';
+import { Radio, RadioGroup, Button, Paper } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import ReactMarkdown from 'react-markdown';
@@ -124,7 +124,7 @@ class Evaluation extends Component {
   render() {
     const { overall, easyness, codeStyle, codeStructure, maintainability, defensiveCoding, feedback, preview} = this.state;
     return (
-      <div>
+      <Paper square>
         <form onSubmit={this.handleSubmit}>
           <h3 style={title}>Overall Rating</h3>
           <div style={selector}>
@@ -262,7 +262,7 @@ class Evaluation extends Component {
             <Button style={button}>Close Review Editor</Button>
           </div>
         </form>
-      </div>
+      </Paper>
     );
   }
 }

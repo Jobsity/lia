@@ -1,10 +1,10 @@
 import React from "react";
 import RGL, { WidthProvider } from "react-grid-layout";
 
-import Editor from '../components/Editor';
-import InformationTabs from '../components/InformationTabs';
-import Instructions from '../components/Instructions';
-import Playback from '../components/Playback';
+import InformationTabs from "../components/Tabs/InformationTabs";
+import EditorTabs from "../components/Tabs/EditorTabs";
+import Instructions from "../components/Instructions";
+import TopBar from "../components/TopBar";
 
 const ReactGridLayout = WidthProvider(RGL);
 
@@ -24,26 +24,23 @@ class Homepage extends React.PureComponent {
 
     const layout = this.generateLayout();
     this.state = {
-      layout,
+      layout
     };
   }
 
-  editorDidMount(editor) {
-    editor.focus();
-  }
 
   generateDOM() {
     return [
+      <div key="bar">
+      <TopBar />
+      </div>,
       <div key="1">
         {
-        // TODO
-        // render Playback only if session is not live
-        // and role is 'evaluator'
+          // TODO
+          // render Playback only if session is not live
+          // and role is 'evaluator'
         }
-        <Playback />
-        <Editor
-          editorDidMount={this.editorDidMount}
-        />
+        <EditorTabs />
       </div>,
       <div key="2">
         <InformationTabs />
@@ -59,16 +56,22 @@ class Homepage extends React.PureComponent {
       {
         x: 0,
         y: 0,
+        w: 12,
+        h: 0.64,
+        i: "bar",
+      },
+      {
+        x: 0,
+        y: 1,
         w: 8,
-        h: 5,
+        h: 5.3,
         i: "1",
-        static: true
       },
       {
         x: 8,
-        y: 0,
+        y: 1,
         w: 4,
-        h: 8,
+        h: 6,
         i: "2"
       },
       {
@@ -96,7 +99,7 @@ class Homepage extends React.PureComponent {
         x: 0,
         y: 1,
         w: 8,
-        h: 3,
+        h: 2,
         i: "6"
       }
     ];
@@ -109,10 +112,10 @@ class Homepage extends React.PureComponent {
   render() {
     return (
       <ReactGridLayout
+        style={{background: "rgba(83,52,85,0.7)"}}
         layout={this.state.layout}
         onLayoutChange={this.onLayoutChange}
-        {...this.props}
-      >
+        {...this.props}>
         {this.generateDOM()}
       </ReactGridLayout>
     );
