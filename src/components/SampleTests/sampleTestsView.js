@@ -24,9 +24,7 @@ function sampleTestsView({
   classes,
   tests,
   handleSelectChange,
-  handleResetClick,
   handleRunTestsClick,
-  handleSubmitClick,
   handleTestsEditorChange,
   resetDialogOpen,
   submitDialogOpen,
@@ -45,8 +43,7 @@ function sampleTestsView({
         />
       ) : (
         <div>
-          <div>
-            
+          <div className={classes.selectors}>
             <FormControl>
               <InputLabel>Language</InputLabel>
               <Select
@@ -70,10 +67,13 @@ function sampleTestsView({
             options={{
               lineNumbers: "off",
               readOnly: false,
+              minimap: {
+                enabled: false,
+              }
             }}
             />
           </div>
-          <div>
+          <div className={classes.buttons}>
             <Button disabled={challengeSubmitted} onClick={() => handleDialogOpening('reset')}>Reset</Button>
             <Button disabled={challengeSubmitted} onClick={handleRunTestsClick}>Run Tests</Button>
             <Button disabled={challengeSubmitted} onClick={() => handleDialogOpening('submit')}>Submit</Button>
@@ -107,7 +107,18 @@ function sampleTestsView({
 }
 
 sampleTestsView.propTypes = {
+  classes: PropTypes.instanceOf(Object).isRequired,
+  tests: PropTypes.instanceOf(Object).isRequired,
   handleSelectChange: PropTypes.func.isRequired,
+  handleRunTestsClick: PropTypes.func.isRequired,
+  handleTestsEditorChange: PropTypes.func.isRequired,
+  handleDialogOpening: PropTypes.func.isRequired,
+  handleReset: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  resetDialogOpen: PropTypes.bool.isRequired,
+  submitDialogOpen: PropTypes.bool.isRequired,
+  challengeSubmitted: PropTypes.bool.isRequired,
+
 };
 
-export default withStyles(styles)(sampleTestsView);
+export default withStyles(styles, { withTheme: true })(sampleTestsView);
