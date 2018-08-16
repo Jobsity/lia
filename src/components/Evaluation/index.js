@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radio, RadioGroup, Button } from '@material-ui/core';
+import { Radio, RadioGroup, Button, Paper } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import ReactMarkdown from 'react-markdown';
