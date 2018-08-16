@@ -68,6 +68,9 @@ export const getTestSuite = state =>
 export const getCurrentTests = state =>
   fromChallenge.getCurrentTests(state.challenge);
 
+export const getSubmitted = state =>
+  fromChallenge.getSubmitted(state.challenge);
+
 // Output Getters
 export const getTestsResults = state =>
   fromOutput.getTestsResults(state.output);

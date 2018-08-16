@@ -26,6 +26,7 @@ const initialState = {
   runTestsError: '',
   submitChallengeLoading: false,
   submitChallengeError: '',
+  submitted: false,
 };
 
 export default function (state = initialState, action) {
@@ -96,6 +97,7 @@ export default function (state = initialState, action) {
         ...state,
         submitChallengeLoading: false,
         submitChallengeError: '',
+        submitted: true,
       }
     case SUBMIT_CHALLENGE_ERROR:
       return {
@@ -125,3 +127,5 @@ export const getStats = state => state.stats;
 export const getTestSuite = state => state.testSuite;
 
 export const getCurrentTests = state => state.currentTests;
+
+export const getSubmitted = state => state.submitted;
