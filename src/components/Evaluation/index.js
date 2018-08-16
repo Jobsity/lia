@@ -124,7 +124,7 @@ class Evaluation extends Component {
   render() {
     const { overall, easyness, codeStyle, codeStructure, maintainability, defensiveCoding, feedback, preview} = this.state;
     return (
-      <div>
+      <Paper square>
         <form onSubmit={this.handleSubmit}>
           <h3 style={title}>Overall Rating</h3>
           <div style={selector}>
