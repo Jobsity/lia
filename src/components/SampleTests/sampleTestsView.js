@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 
+import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -13,9 +14,9 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import { withStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 import MonacoField from '../MonacoField/MonacoField';
 import styles from './styles';
@@ -36,17 +37,26 @@ function sampleTestsView({
   challengeSubmitted,
 }) {
   return (
-    <div>
-      {tests.isLoading ? (
         <CircularProgress
           classes={{ root: classes.loading }}
           size={200}
           color="secondary"
         />
       ) : (
-        <div>
-          <div>
-            
+        <Paper square>
+          <div className="output-console">
+            <MonacoField
+              code={sampleTests ? sampleTests.tests : ""}
+              options={{
+                readOnly: true,
+                lineNumbers: "off",
+                minimap: {
+                  enabled: false
+                }
+              }}
+            />
+          </div>
+          <div>            
             <FormControl>
               <InputLabel>Language</InputLabel>
               <Select
@@ -100,9 +110,9 @@ function sampleTestsView({
               </Button>
             </DialogActions>
           </Dialog>
-        </div>
+        </Paper>
       )}
-    </div>
+    
   );
 }
 
