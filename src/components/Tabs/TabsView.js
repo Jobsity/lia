@@ -9,15 +9,15 @@ import Tab from "@material-ui/core/Tab";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import styles from "./styles";
 
-function TabContainer({ children, dir }) {
+function TabContainer({ children }) {
   return (
-    <Fragment component="div" dir={dir}>
+    <div style={{overflow: "hidden"}} >
       {children}
-    </Fragment>
+    </div>
   );
 }
 
-class InformationTabsView extends Component {
+class TabsView extends Component {
   state = {
     value: 0
   };
@@ -32,8 +32,6 @@ class InformationTabsView extends Component {
 
   render() {
     const { loading, tabs, classes, theme } = this.props;
-
-    console.log(classes);
 
     return (
       <div style={{ backgroundColor: "#FFFFFF" }}>
@@ -68,7 +66,7 @@ class InformationTabsView extends Component {
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}>
               {tabs.map(tab => (
-                <TabContainer dir={theme.direction}>
+                <TabContainer style={{overflow: "hidden"}} dir={theme.direction}>
                   {tab.component}
                 </TabContainer>
               ))}
@@ -80,15 +78,13 @@ class InformationTabsView extends Component {
   }
 }
 
-InformationTabsView.propTypes = {
+TabsView.propTypes = {
   data: PropTypes.shape({
     task: PropTypes.string
   }).isRequired,
   loading: PropTypes.bool.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  onChangeActiveTab: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(InformationTabsView);
+export default withStyles(styles, { withTheme: true })(TabsView);

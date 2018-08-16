@@ -1,17 +1,13 @@
 import React, { Component } from "react";
-import InformationTabsView from "./InformationTabsView";
+import EditorTabsView from "./EditorTabsView";
 import SampleTests from "../SampleTests";
-import Output from "../Output";
-import CandidateInformation from "../CandidateInformation";
-import Evaluation from "../Evaluation";
 import { api } from "../../mockServer";
 
-class InformationTabs extends Component {
+class EditorTabs extends Component {
   constructor(props, context) {
     super(props, context)
 
     this.state = {
-      data: {},
       loading: true,
       roles: "",
       tabs: []
@@ -19,35 +15,14 @@ class InformationTabs extends Component {
   }
 
   componentDidMount() {
-    const data = {
-      task: "This is the task"
-    };
 
     const tabs = [
       {
         id: "sample_tests",
         name: "Sample Tests",
         permissions: ["candidate", "observer", "evaluator"],
-        component: <SampleTests {...data} />
+        component: <SampleTests />
       },
-      {
-        id: "output",
-        name: "Output",
-        permissions: ["candidate", "observer", "evaluator"],
-        component: <Output {...data} />
-      },
-      {
-        id: "candidate_information",
-        name: "Candidate Information",
-        permissions: ["observer", "evaluator"],
-        component: <CandidateInformation {...data} />
-      },
-      {
-        id: "evaluation",
-        name: "Evaluation",
-        permissions: ["evaluator"],
-        component: <Evaluation {...data} />
-      }
     ];
 
     api.get("/evaluatorToken").then(response => {
@@ -58,7 +33,7 @@ class InformationTabs extends Component {
         // setTimeout just to watch the animation...
         // must be removed when connected to real server
         setTimeout(
-          () => this.setState({ data, loading: false, roles, tabs }),
+          () => this.setState({ loading: false, roles, tabs }),
           1000
         );
       }
@@ -95,7 +70,7 @@ class InformationTabs extends Component {
     // filtered tabs based in truth array
     const roleTabs = this.filterTabs(inclussions, tabs);
     return (
-      <InformationTabsView
+      <EditorTabsView
         onChangeActiveTab={this.onChangeActiveTab}
         {...this.state}
         tabs={roleTabs}
@@ -105,4 +80,4 @@ class InformationTabs extends Component {
   }
 }
 
-export default InformationTabs;
+export default EditorTabs;
