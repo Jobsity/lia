@@ -2,6 +2,7 @@ import React from 'react';
 import { PropTypes } from 'prop-types';
 import FormControl from '@material-ui/core/FormControl';
 
+import Paper from '@material-ui/core/Paper';
 import Select from '@material-ui/core/Select';
 import Button from '@material-ui/core/Button';
 import Input from '@material-ui/core/Input';
@@ -42,7 +43,7 @@ function sampleTestsView({
           color="secondary"
         />
       ) : (
-        <div>
+        <Paper square>
           <div className="output-console">
             <MonacoField
               code={sampleTests ? sampleTests.tests : ""}
@@ -109,9 +110,9 @@ function sampleTestsView({
               </Button>
             </DialogActions>
           </Dialog>
-        </div>
+        </Paper>
       )}
-    </Paper>
+    
   );
 }
 
