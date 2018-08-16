@@ -1,16 +1,16 @@
 import React from "react";
 import { PropTypes } from "prop-types";
 import FormControl from "@material-ui/core/FormControl";
-
+import Paper from '@material-ui/core/Paper';
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
 import Input from "@material-ui/core/Input";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 import MonacoField from "../MonacoField/MonacoField";
 import styles from "./styles";
@@ -27,7 +27,7 @@ function sampleTestsView({
     ? null
     : data.testSuite.filter(tests => tests.language === selectedLang)[0];
   return (
-    <div>
+    <Paper className={classes.root} elevation={1} square>
       {loading ? (
         <CircularProgress
           classes={{ root: classes.loading }}
@@ -36,10 +36,22 @@ function sampleTestsView({
         />
       ) : (
         <div>
+          <div className="output-console">
+            <MonacoField
+              code={sampleTests ? sampleTests.tests : ""}
+              options={{
+                readOnly: true,
+                lineNumbers: "off",
+                minimap: {
+                  enabled: false
+                }
+              }}
+            />
+          </div>
           <div>
             {
               <FormControl>
-              <InputLabel>Language</InputLabel>
+                <InputLabel>Language</InputLabel>
                 <Select
                   native
                   value={selectedLang}
@@ -55,21 +67,9 @@ function sampleTestsView({
             }
             <Button onClick={handleButtonClick}>Run Tests</Button>
           </div>
-          <div className="output-console">
-            <MonacoField
-              code={sampleTests ? sampleTests.tests : ""}
-              options={{
-                readOnly: true,
-                lineNumbers: "off",
-                minimap: {
-                  enabled: false
-                }
-              }}
-            />
-          </div>
         </div>
       )}
-    </div>
+    </Paper>
   );
 }
 

@@ -7,6 +7,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Paper from '@material-ui/core/Paper';
 import styles from "./styles";
 
 function TabContainer({ children }) {
@@ -34,7 +35,7 @@ class TabsView extends Component {
     const { loading, tabs, classes, theme } = this.props;
 
     return (
-      <div style={{ backgroundColor: "#FFFFFF" }}>
+      <Paper square elevation={1}>
         {loading ? (
           <CircularProgress
             classes={{ root: classes.loading }}
@@ -73,7 +74,7 @@ class TabsView extends Component {
             </SwipeableViews>
           </Fragment>
         )}
-      </div>
+      </Paper>
     );
   }
 }

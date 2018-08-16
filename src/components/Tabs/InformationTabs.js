@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import InformationTabsView from "./TabsView";
 import SampleTests from "../SampleTests";
-import Output from "../Output";
 import CandidateInformation from "../CandidateInformation";
 import Evaluation from "../Evaluation";
 import { api } from "../../mockServer";

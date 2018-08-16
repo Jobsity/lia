@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Radio, RadioGroup, Button, LinearProgress } from '@material-ui/core';
+import { Radio, RadioGroup, Button, LinearProgress, Paper } from '@material-ui/core';
 
 const title = {
   textAlign: 'center'
@@ -79,10 +79,10 @@ class Evaluation extends Component {
   }
 
   render() {
-    let { easyness, codeStyle, codeStructure, maintainability, defensiveCoding} = this.state;
-    let rating = (parseInt(easyness) + parseInt(codeStructure) + parseInt(codeStyle) + parseInt(maintainability) + parseInt(defensiveCoding))*100/50;
+    const { easyness, codeStyle, codeStructure, maintainability, defensiveCoding} = this.state;
+    const rating = (parseInt(easyness) + parseInt(codeStructure) + parseInt(codeStyle) + parseInt(maintainability) + parseInt(defensiveCoding))*100/50;
     return (
-      <div>
+      <Paper elevation={1} square>
         <h3 style={title}>Overall Rating</h3>
         <div style={selector}>
           <span style={{textAlign: 'right'}}>
@@ -94,7 +94,7 @@ class Evaluation extends Component {
               variant="determinate"
               value={rating}
             />
-            <span style={progress}>{rating+'%'}</span>
+            <span style={progress}>{`${rating}%`}</span>
           </span>
           <span style={{textAlign: 'left'}}>
             Great
@@ -209,7 +209,7 @@ class Evaluation extends Component {
             <Button style={button}>Close Review Editor</Button>
           </div>
         </form>
-      </div>
+      </Paper>
     );
   }
 }
