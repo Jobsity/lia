@@ -37,15 +37,17 @@ const styles = theme => {
 };
 
 const Slider = (props) => {
-  const { classes, value } = props;
+  const { classes } = props;
 
   return (
     <input
       className={classes.slider}
-      max="100"
+      max={props.max}
       min="0"
+      onChange={props.onChange}
+      step={props.step}
       type="range"
-      value={value}
+      value={props.value}
     />
   );
 }

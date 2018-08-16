@@ -20,10 +20,14 @@ const styles = {
 class Playback extends Component {
   eventsTimeoutId = null;
 
-  sliderTimeoutId = null;
-
   state = {
     timestamp: 0,
+  }
+
+  handleSliderChange = event => {
+    const { value } = event.target;
+
+    this.playEvents(value);
   }
 
   togglePlayPause = () => {
@@ -40,9 +44,7 @@ class Playback extends Component {
     }
 
     if (events.length > 0 && !prevProps.isPlaying && isPlaying) {
-      // TODO
-      // Up until now it is assumed playback starts from stop and not a pause
-      this.playEvents(0);
+      this.playEvents(this.state.timestamp);
     }
   }
 
@@ -52,46 +54,60 @@ class Playback extends Component {
 
     if (index === -1) {
       clearTimeout(this.eventsTimeoutId);
+      this.setState({ timestamp: 0 });
       setPlayedEvents(events);
       setIsPlaying(false);
       return;
     }
 
     const playedEvents = events.slice(0, index);
+
+    if (!this.props.isPlaying) {
+      this.setState({ timestamp: currentTs });
+      setPlayedEvents(playedEvents);
+      return;
+    }
+
     const [nextEvent] = events.slice(index, index + 1);
-    const nextTs = nextEvent.ts;
+    const nextTs = Math.min(nextEvent.ts, currentTs + this.props.step);
     const timeout = nextTs - currentTs;
 
     this.eventsTimeoutId = setTimeout(() => this.playEvents(nextTs), timeout);
-
+    this.setState({ timestamp: currentTs });
     setPlayedEvents(playedEvents);
   }
 
-  playSlider() {
-    // sliderTimeoutId
-  }
-
   render() {
-    const { classes, isPlaying, timestamp } = this.props;
+    const { classes } = this.props;
 
     return (
       <Paper className={classes.container}>
         <PlayPauseButton
-          isPlaying={isPlaying}
+          isPlaying={this.props.isPlaying}
           onClick={this.togglePlayPause}
         />
         <Slider
-          value={timestamp}
+          onChange={this.handleSliderChange}
+          max={this.props.duration}
+          value={this.state.timestamp}
         />
       </Paper>
     );
   }
 }
 
-const mapState = state => ({
-  events: fromReducers.getTimelineEvents(state),
-  isPlaying: fromReducers.getIsPlaying(state),
-});
+const mapState = state => {
+  const events = fromReducers.getTimelineEvents(state);
+  const { length } = events;
+  const duration = length === 0 ? 0 : events[length - 1].ts;
+
+  return {
+    duration,
+    events,
+    isPlaying: fromReducers.getIsPlaying(state),
+    step: Math.min(200, duration),
+  }
+};
 const mapDispatch = ({
   setPlayedEvents: playbackActions.setPlayedEvents,
   setIsPlaying: playbackActions.setIsPlaying,
