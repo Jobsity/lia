@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import InformationTabsView from "./InformationTabsView";
+import InformationTabsView from "./TabsView";
 import SampleTests from "../SampleTests";
-import Output from "../Output";
 import CandidateInformation from "../CandidateInformation";
 import Evaluation from "../Evaluation";
 import { api } from "../../mockServer";
@@ -29,12 +28,6 @@ class InformationTabs extends Component {
         name: "Sample Tests",
         permissions: ["candidate", "observer", "evaluator"],
         component: <SampleTests {...data} />
-      },
-      {
-        id: "output",
-        name: "Output",
-        permissions: ["candidate", "observer", "evaluator"],
-        component: <Output {...data} />
       },
       {
         id: "candidate_information",

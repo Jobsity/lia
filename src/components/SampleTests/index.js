@@ -1,60 +1,129 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
-import { api } from '../../mockServer';
-import getTestsResults from '../../actions/get-tests-results-action';
-
-const editorCode = 'const x = 1;\\nconsole.log(x);';
+import { setCurrentLanguage } from  '../../actions/session';
+import { updateCurrentTests, resetCurrentTests } from  '../../actions/challenge';
+import store from '../../store/store';
+import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
+import {
+  getIsLoading,
+  getLanguage,
+  getLanguages,
+  getTestSuite,
+  getDifficulty,
+  getCurrentTests,
+  getSubmitted,
+} from '../../reducers';
 
 class SampleTests extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
-      loading: true,
-      data: {},
-      selectedLang: 'javascript',
-    };
+      resetDialogOpen: false,
+      submitDialogOpen: false,
+    }
   }
 
   componentDidMount() {
-    api.get('/challenges/id').then((response) => {
-      if (response.status === 200) {
-        this.setState({ data: response.data.data, selectedLang: response.data.data.languages[0], loading: false });
-      }
-    });
+    store.dispatch({ type: FETCH_CHALLENGE_DATA_START });
   }
 
   handleSelectChange(e) {
-   
-    this.setState({selectedLang: e.target.value});
+    const { setLanguage } = this.props;
+    setLanguage(e.target.value);
   }
 
-  handleButtonClick() {
-    const { evaluateCode } = this.props;
-    const { data, selectedLang } = this.state;
-    const testsSamples = data.testSuite.filter( tests => tests.language === selectedLang)[0];
-    evaluateCode(editorCode, testsSamples , selectedLang, api);
+  handleReset() {
+    const { resetTests, language } = this.props;
+    resetTests(language);
+    this.setState({ resetDialogOpen: false});
+  }
+
+  handleRunTestsClick() {
+    store.dispatch({
+      type: RUN_SAMPLE_TESTS_START,
+      payload: {}
+    });
+  }
+
+  handleSubmit() {
+    store.dispatch({
+      type: SUBMIT_CHALLENGE_START,
+      payload: {}
+    });
+    this.setState({ submitDialogOpen: false});
+  }
+
+  handleTestsEditorChange(newValue) {
+    const { updateTests } = this.props;
+    updateTests(newValue);
+  }
+
+  handleDialogOpening(dialog) {
+    const dialogKey = [`${dialog}DialogOpen`];
+    this.setState(prevState => ({ [dialogKey]: !prevState[dialogKey]}));
   }
 
   render() {
+    const {currentTests, difficulty, isLoading, language, languages, testSuite, submitted} = this.props;
+    const { resetDialogOpen, submitDialogOpen } = this.state;
     return (
       <SampleTestsView
         handleSelectChange={e => this.handleSelectChange(e)}
-        handleButtonClick={() => this.handleButtonClick()}
-        {...this.state}
+        handleResetClick={() => this.handleResetClick()}
+        handleRunTestsClick={() => this.handleRunTestsClick()}
+        handleSubmitClick={() => this.handleSubmitClick()}
+        handleTestsEditorChange={text => this.handleTestsEditorChange(text)}
+        handleDialogOpening={(dialog) => this.handleDialogOpening(dialog)}
+        handleReset={() => this.handleReset()}
+        handleSubmit={() => this.handleSubmit()}
+        tests={{
+          currentTests,
+          difficulty,
+          isLoading,
+          language,
+          languages,
+          testSuite,
+        }}
+        challengeSubmitted={submitted}
+        resetDialogOpen={resetDialogOpen}
+        submitDialogOpen={submitDialogOpen}
       />
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    evaluateCode: (code, tests, language, api) => {
-      getTestsResults(code, tests, language, api);
-    }
-  }
+SampleTests.propTypes = {
+  currentTests: PropTypes.string.isRequired,
+  difficulty: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  language: PropTypes.string.isRequired,
+  languages: PropTypes.arrayOf(PropTypes.string).isRequired,
+  testSuite: PropTypes.instanceOf(Array).isRequired,
+  setLanguage: PropTypes.func.isRequired,
+  updateTests: PropTypes.func.isRequired,
+  resetTests: PropTypes.func.isRequired,
+  submitted: PropTypes.bool.isRequired,
 }
 
+const mapDispatchToProps = () => ({
+  setLanguage: setCurrentLanguage,
+  updateTests: updateCurrentTests,
+  resetTests: resetCurrentTests,
+});
+
+const mapStateToProps = (state) => ({
+  currentTests: getCurrentTests(state),
+  difficulty: getDifficulty(state),
+  isLoading: getIsLoading(state),
+  language: getLanguage(state),
+  languages: getLanguages(state),
+  testSuite: getTestSuite(state),
+  submitted: getSubmitted(state),
+});
+
 export default connect(
-  mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps(),
 )(SampleTests);
