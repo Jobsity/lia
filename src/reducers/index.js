@@ -40,7 +40,7 @@ export const getTimelineEvents = state =>
   fromTimeline.getEvents(state.timeline);
 
 export const getStartingTime = state =>
-  fromTimeline.getStartingTime(state.playback);
+  fromTimeline.getStartingTime(state.timeline);
 
 // Challenge getters
 

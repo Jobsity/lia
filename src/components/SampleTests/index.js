@@ -15,6 +15,7 @@ import {
   getCurrentTests,
   getSubmitted,
   getRunTestsLoading,
+  getStartingTime,
   getSubmitChallengeLoading,
   getEditorCode,
 } from '../../reducers';
@@ -46,25 +47,31 @@ class SampleTests extends Component {
   }
 
   handleRunTestsClick() {
-    const { editorCode, currentTests, language } = this.props;
+    const { editorCode, currentTests, language, startingTime } = this.props;
     store.dispatch({
       type: RUN_SAMPLE_TESTS_START,
       payload: {
-        editorCode,
-        tests: currentTests,
-        language,
+        requestData: {
+          editorCode,
+          tests: currentTests,
+          language,
+        },
+        startingTime,
       },
     });
   }
 
   handleSubmit() {
-    const { editorCode, testSuite, language } = this.props;
+    const { editorCode, language, startingTime, testSuite } = this.props;
     store.dispatch({
       type: SUBMIT_CHALLENGE_START,
       payload: {
-        editorCode,
-        tests: testSuite.filter(tests => tests.language === language)[0].tests,
-        language,
+        requestData: {
+          editorCode,
+          tests: testSuite.filter(tests => tests.language === language)[0].tests,
+          language,
+        },
+        startingTime,
       },
     });
     this.setState({ dialogOpened: ''});
@@ -105,8 +112,6 @@ class SampleTests extends Component {
         handleSubmitClick={() => this.handleSubmitClick()}
         handleTestsEditorChange={text => this.handleTestsEditorChange(text)}
         handleDialogOpening={(dialog, e) => this.handleDialogOpening(dialog, e)}
-        handleReset={() => this.handleReset()}
-        handleSubmit={() => this.handleSubmit()}
         tests={{
           currentTests,
           difficulty,
@@ -160,6 +165,7 @@ const mapStateToProps = (state) => ({
   language: getLanguage(state),
   languages: getLanguages(state),
   testSuite: getTestSuite(state),
+  startingTime: getStartingTime(state),
   submitted: getSubmitted(state),
   runTestsLoading: getRunTestsLoading(state),
   submitChallengeLoading : getSubmitChallengeLoading(state),
