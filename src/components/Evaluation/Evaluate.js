@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Radio, RadioGroup, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-regular-svg-icons';
+import { faEye, faEyeSlash, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
 import ReactMarkdown from 'react-markdown';
 import styles from './styles';
 
@@ -25,16 +25,17 @@ class Evaluate extends Component {
   }
 
   componentDidMount() {
-    const { evaluation } = this.props;
-    if(evaluation) {
+    const { evaluation, editable } = this.props;
+    if(evaluation.id) {
       this.setState({
-        overall: evaluation.overall,
-        easyness: evaluation.easyness,
-        codeStyle: evaluation.codeStyle,
-        maintainability: evaluation.maintainability,
-        codeStructure: evaluation.codeStructure,
-        defensiveCoding: evaluation.defensiveCoding,
-        feedback: evaluation.feedback,
+        overall: evaluation.rating.overall,
+        easyness: evaluation.rating.easyness,
+        codeStyle: evaluation.rating.codeStyle,
+        maintainability: evaluation.rating.maintainability,
+        codeStructure: evaluation.rating.codeStructure,
+        defensiveCoding: evaluation.rating.defensiveCoding,
+        feedback: evaluation.rating.feedback,
+        preview: editable,
       });
     }
   }
@@ -107,6 +108,7 @@ class Evaluate extends Component {
 
   render() {
     const { overall, easyness, codeStyle, maintainability, codeStructure, defensiveCoding, feedback, preview} = this.state;
+    const { editable, hideEvaluation } = this.props;
     
     const qualities = [
       {
@@ -139,10 +141,13 @@ class Evaluate extends Component {
         rightLbl: 'Handles Edge Cases',
         value: defensiveCoding,
       },
-    ]
+    ];
+
     return (
       <div>
+        <h3>Evaluation</h3>
         <form onSubmit={this.handleSubmit}>
+          <Button size='small' onClick={hideEvaluation} style={{float: 'right'}}><FontAwesomeIcon icon={faTimesCircle}/></Button>
           <h3 style={styles.title}>Overall Rating</h3>
           <div style={styles.selector}>
             <span style={styles.leftLabel}>
@@ -152,7 +157,7 @@ class Evaluate extends Component {
               name="overall"
               value={overall}
               row
-              onChange={(e) => this.handleChange(e, 'overall')}
+              onChange={(e) => editable?this.handleChange(e, 'overall'):null}
             >
               <Radio value='poor'/>
               <Radio value='normal'/>
@@ -172,7 +177,7 @@ class Evaluate extends Component {
                 name={quality.tag}
                 value={quality.value}
                 row
-                onChange={(e) => this.handleChange(e, quality.tag)}
+                onChange={(e) => editable?this.handleChange(e, quality.tag):null}
               >
                 <Radio value='poor'/>
                 <Radio value='normal'/>
@@ -184,14 +189,15 @@ class Evaluate extends Component {
             </div>
           )}
           <h3 style={styles.title}>Feedback Notes</h3>
-          <Button style={{float: 'right'}} onClick={this.togglePreview}><FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview</Button>
+          {editable&&
+          <Button style={{float: 'right'}} onClick={this.togglePreview}><FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview</Button>}
           {preview?
             <textarea 
               placeholder={placeholder}
               cols='59'
               rows='10'
               value={feedback?feedback.join('\n'):null}
-              onChange={this.handleFeedback}
+              onChange={editable?this.handleFeedback:null}
               />
               :
             <div style={styles.previewDiv}>
@@ -200,10 +206,11 @@ class Evaluate extends Component {
                 />
             </div>
           }
+          {editable&&
           <div style={styles.buttonArea}>
             <Button style={styles.button} type="submit">Add Overall Review</Button>
-            <Button style={styles.button}>Close Review Editor</Button>
-          </div>
+            <Button style={styles.button} onClick={hideEvaluation}>Close Review Editor</Button>
+          </div>}
         </form>
       </div>
     );
@@ -219,7 +226,8 @@ Evaluate.propTypes = {
     codeStructure: PropTypes.string,
     defensiveCoding: PropTypes.string,
     feedback: PropTypes.array,
-  })
+  }),
+  editable: PropTypes.bool,
 };
 
 Evaluate.defaultProps = {
@@ -231,7 +239,8 @@ Evaluate.defaultProps = {
     codeStructure: 'normal',
     defensiveCoding: 'normal',
     feedback: [],
-  }
+  },
+  editable: true,
 };
 
 export default Evaluate;
