@@ -1,4 +1,4 @@
-import { UPDATE_CURRENT_TESTS, RESET_CURRENT_TESTS } from './types';
+import { UPDATE_CURRENT_TESTS, RESET_EDITORS } from './types';
 
 export function updateCurrentTests(newTests) {
   return {
@@ -8,9 +8,9 @@ export function updateCurrentTests(newTests) {
 }
 
 
-export function resetCurrentTests(language) {
+export function resetEditors(language) {
   return {
-    type: RESET_CURRENT_TESTS,
+    type: RESET_EDITORS,
     payload: { language },
   };
 }
