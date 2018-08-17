@@ -33,6 +33,8 @@ export const getIsPlaying = state =>
 export const getPlayedEvents = state =>
   fromPlayback.getPlayedEvents(state.playback);
 
+export const getPlaybackWasInteracted = state =>
+  fromPlayback.getWasInteracted(state.playback);
 
 // Timeline getters
 
@@ -40,7 +42,7 @@ export const getTimelineEvents = state =>
   fromTimeline.getEvents(state.timeline);
 
 export const getStartingTime = state =>
-  fromTimeline.getStartingTime(state.playback);
+  fromTimeline.getStartingTime(state.timeline);
 
 // Challenge getters
 
@@ -94,6 +96,10 @@ export const getLanguage = state =>
 // Custom getters
 export const getPlayedEventsData = (state, type = null) => {
   let playedEvents = getPlayedEvents(state);
+
+  if (!playedEvents) {
+    return playedEvents;
+  }
 
   if (typeof type === 'string' && type.length > 0) {
     playedEvents = playedEvents.filter(e => e.type === type);
