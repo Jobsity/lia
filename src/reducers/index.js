@@ -73,6 +73,18 @@ export const getCurrentTests = state =>
 export const getSubmitted = state =>
   fromChallenge.getSubmitted(state.challenge);
 
+export const getRunTestsLoading = state =>
+  fromChallenge.getRunTestsLoading(state.challenge);
+
+export const getRunTestsError = state =>
+  fromChallenge.getRunTestsError(state.challenge);
+
+export const getSubmitChallengeLoading = state =>
+  fromChallenge.getSubmitChallengeLoading(state.challenge);
+
+export const getSubmitChallengeError = state =>
+  fromChallenge.getSubmitChallengeError(state.challenge);
+
 // Output Getters
 export const getTestsResults = state =>
   fromOutput.getTestsResults(state.output);
