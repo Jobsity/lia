@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
-import { updateCurrentTests, resetCurrentTests } from  '../../actions/challenge';
+import { updateCurrentTests, resetEditors } from  '../../actions/challenge';
 import store from '../../store/store';
 import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
 import {
@@ -40,8 +40,8 @@ class SampleTests extends Component {
   }
 
   handleReset() {
-    const { resetTests, language } = this.props;
-    resetTests(language);
+    const { resetEditorsCode, language } = this.props;
+    resetEditorsCode(language);
     this.setState({ dialogOpened: ''});
   }
 
@@ -140,7 +140,7 @@ SampleTests.propTypes = {
   testSuite: PropTypes.instanceOf(Array).isRequired,
   setLanguage: PropTypes.func.isRequired,
   updateTests: PropTypes.func.isRequired,
-  resetTests: PropTypes.func.isRequired,
+  resetEditorsCode: PropTypes.func.isRequired,
   submitted: PropTypes.bool.isRequired,
   runTestsLoading: PropTypes.bool.isRequired,
   submitChallengeLoading : PropTypes.bool.isRequired,
@@ -150,7 +150,7 @@ SampleTests.propTypes = {
 const mapDispatchToProps = () => ({
   setLanguage: setCurrentLanguage,
   updateTests: updateCurrentTests,
-  resetTests: resetCurrentTests,
+  resetEditorsCode: resetEditors,
 });
 
 const mapStateToProps = (state) => ({
