@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
-import { updateCurrentTests, resetCurrentTests } from  '../../actions/challenge';
+import { updateCurrentTests, resetEditors } from  '../../actions/challenge';
 import store from '../../store/store';
 import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
 import {
@@ -14,14 +14,17 @@ import {
   getDifficulty,
   getCurrentTests,
   getSubmitted,
+  getRunTestsLoading,
+  getSubmitChallengeLoading,
+  getEditorCode,
 } from '../../reducers';
 
 class SampleTests extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      resetDialogOpen: false,
-      submitDialogOpen: false,
+      dialogOpened: null,
+      newSelectedLanguage: '',
     }
   }
 
@@ -29,30 +32,42 @@ class SampleTests extends Component {
     store.dispatch({ type: FETCH_CHALLENGE_DATA_START });
   }
 
-  handleSelectChange(e) {
+  handleSelectChange() {
     const { setLanguage } = this.props;
-    setLanguage(e.target.value);
+    const { newSelectedLanguage } = this.state;
+    setLanguage(newSelectedLanguage);
+    this.setState({ dialogOpened: ''});
   }
 
   handleReset() {
-    const { resetTests, language } = this.props;
-    resetTests(language);
-    this.setState({ resetDialogOpen: false});
+    const { resetEditorsCode, language } = this.props;
+    resetEditorsCode(language);
+    this.setState({ dialogOpened: ''});
   }
 
   handleRunTestsClick() {
+    const { editorCode, currentTests, language } = this.props;
     store.dispatch({
       type: RUN_SAMPLE_TESTS_START,
-      payload: {}
+      payload: {
+        editorCode,
+        tests: currentTests,
+        language,
+      },
     });
   }
 
   handleSubmit() {
+    const { editorCode, testSuite, language } = this.props;
     store.dispatch({
       type: SUBMIT_CHALLENGE_START,
-      payload: {}
+      payload: {
+        editorCode,
+        tests: testSuite.filter(tests => tests.language === language)[0].tests,
+        language,
+      },
     });
-    this.setState({ submitDialogOpen: false});
+    this.setState({ dialogOpened: ''});
   }
 
   handleTestsEditorChange(newValue) {
@@ -60,14 +75,28 @@ class SampleTests extends Component {
     updateTests(newValue);
   }
 
-  handleDialogOpening(dialog) {
+  handleDialogOpening(dialog, e) {
     const dialogKey = [`${dialog}DialogOpen`];
-    this.setState(prevState => ({ [dialogKey]: !prevState[dialogKey]}));
+    this.setState(prevState => ({ 
+      [dialogKey]: !prevState[dialogKey],
+      dialogOpened: (prevState.dialogOpened === dialog) ? '' : dialog,
+      newSelectedLanguage: e ? e.target.value : '',
+    }));
   }
 
   render() {
-    const {currentTests, difficulty, isLoading, language, languages, testSuite, submitted} = this.props;
-    const { resetDialogOpen, submitDialogOpen } = this.state;
+    const {
+      currentTests,
+      difficulty,
+      isLoading,
+      language,
+      languages,
+      testSuite,
+      submitted,
+      runTestsLoading,
+      submitChallengeLoading ,
+    } = this.props;
+    const { dialogOpened } = this.state;
     return (
       <SampleTestsView
         handleSelectChange={e => this.handleSelectChange(e)}
@@ -75,7 +104,7 @@ class SampleTests extends Component {
         handleRunTestsClick={() => this.handleRunTestsClick()}
         handleSubmitClick={() => this.handleSubmitClick()}
         handleTestsEditorChange={text => this.handleTestsEditorChange(text)}
-        handleDialogOpening={(dialog) => this.handleDialogOpening(dialog)}
+        handleDialogOpening={(dialog, e) => this.handleDialogOpening(dialog, e)}
         handleReset={() => this.handleReset()}
         handleSubmit={() => this.handleSubmit()}
         tests={{
@@ -86,9 +115,17 @@ class SampleTests extends Component {
           languages,
           testSuite,
         }}
+        status={{
+          runTestsLoading,
+          submitChallengeLoading,
+        }}
+        dialogHandlers={{
+          reset: () => this.handleReset(),
+          changeLanguage: () => this.handleSelectChange(),
+          submit: () => this.handleSubmit(),
+        }}
+        dialogOpened={dialogOpened}
         challengeSubmitted={submitted}
-        resetDialogOpen={resetDialogOpen}
-        submitDialogOpen={submitDialogOpen}
       />
     );
   }
@@ -103,14 +140,17 @@ SampleTests.propTypes = {
   testSuite: PropTypes.instanceOf(Array).isRequired,
   setLanguage: PropTypes.func.isRequired,
   updateTests: PropTypes.func.isRequired,
-  resetTests: PropTypes.func.isRequired,
+  resetEditorsCode: PropTypes.func.isRequired,
   submitted: PropTypes.bool.isRequired,
+  runTestsLoading: PropTypes.bool.isRequired,
+  submitChallengeLoading : PropTypes.bool.isRequired,
+  editorCode: PropTypes.string.isRequired,
 }
 
 const mapDispatchToProps = () => ({
   setLanguage: setCurrentLanguage,
   updateTests: updateCurrentTests,
-  resetTests: resetCurrentTests,
+  resetEditorsCode: resetEditors,
 });
 
 const mapStateToProps = (state) => ({
@@ -121,6 +161,9 @@ const mapStateToProps = (state) => ({
   languages: getLanguages(state),
   testSuite: getTestSuite(state),
   submitted: getSubmitted(state),
+  runTestsLoading: getRunTestsLoading(state),
+  submitChallengeLoading : getSubmitChallengeLoading(state),
+  editorCode: getEditorCode(state),
 });
 
 export default connect(
