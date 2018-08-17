@@ -7,51 +7,54 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandibleListItem from './ExpandibleListItem'
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faAngleDoubleDown, faAngleDoubleUp, faAngry, faBug } from "@fortawesome/free-solid-svg-icons";
 
-const testsResultsData = {
-  tests: [
-    {
-      id: 0,
-      passed: true,
-      expectedResult: 'Hello World',
-      testResult: 'Hello World',
-    },
-    {
-      id: 1,
-      passed: false,
-      expectedResult: 'Hi I am from Jobsity',
-      testResult: 'Hi I am from Jobsity',
-    },
-    {
-      id: 2,
-      passed: true,
-      expectedResult: 'Hello World',
-      testResult: 'Hello World',
-    },
-  ],
-  executionTime: 230, // time in milliseconds
-  err: 'Mocked Error from db output',
-}
-
 function OutputView({
   loading,
+  testsResults,
   handleClickCategoryItem,
   passedItemsOpen,
   failedItemsOpen,
   errorItemsOpen,
   classes
   }) {
-  const passedTests = testsResultsData.tests.filter(test => test.passed);
-  const failedTests = testsResultsData.tests.filter(test => !test.passed);
+  let testsResultsData = {
+    tests: [
+      {
+        id: 0,
+        passed: true,
+        expectedResult: 'Hello World',
+        testResult: 'Hello World',
+      },
+      {
+        id: 1,
+        passed: false,
+        expectedResult: 'Hi I am from Jobsity',
+        testResult: 'Hi I am from Jobsity',
+      },
+      {
+        id: 2,
+        passed: true,
+        expectedResult: 'Hello World',
+        testResult: 'Hello World',
+      },
+    ],
+    executionTime: 230, // time in milliseconds
+    err: 'Mocked Error from db output',
+  }
+  testsResultsData = testsResults;
+  const passedTests = testsResultsData ? testsResultsData.tests.filter(test => test.passed) : null;
+  const failedTests = testsResultsData ? testsResultsData.tests.filter(test => !test.passed) : null;
   return (
     <Paper elevation={1} square>
-      { loading
+      { (!testsResultsData)
         ? (
           <span>
-            Loading...
+            Not data yet
           </span>
         )
         : (
@@ -60,20 +63,17 @@ function OutputView({
               component="nav"
               subheader={
                 <ListSubheader component="div">
-                  {`Output From tests. Execution time: ${testsResultsData.executionTime}ms`}
+                  {`Output from tests. Execution time: ${testsResultsData.executionTime}ms`}
                 </ListSubheader>
               }
             >
-              <ListItem button onClick={() => handleClickCategoryItem('passed')}>
-                <ListItemIcon>
-                  <FontAwesomeIcon icon={faCheck} />
-                </ListItemIcon>
-                <ListItemText inset primary={`Passed (${passedTests.length})`} />
-                {passedItemsOpen ? <FontAwesomeIcon icon={faAngleDoubleUp} /> : <FontAwesomeIcon icon={faAngleDoubleDown} />}
-              </ListItem>
-              {(!passedItemsOpen)
-                ? null
-                : (
+              <ExpandibleListItem
+                render={passedTests.length > 0}
+                mainText={`Passed (${passedTests.length})`}
+                icon={faCheck}
+                trigger={passedItemsOpen}
+                toggleFunction={() => handleClickCategoryItem('passed')}
+                contentComponent={
                   <List component="div" disablePadding>
                     {passedTests.map( test => (
                       <ListItem key={test.id}>
@@ -81,18 +81,15 @@ function OutputView({
                       </ListItem>
                     ))}
                   </List>
-                )
-              }
-              <ListItem button onClick={() => handleClickCategoryItem('failed')}>
-                <ListItemIcon>
-                <FontAwesomeIcon icon={faAngry} />
-                </ListItemIcon>
-                <ListItemText inset primary={`Failed (${failedTests.length})`} />
-                {failedItemsOpen ? <FontAwesomeIcon icon={faAngleDoubleUp} /> : <FontAwesomeIcon icon={faAngleDoubleDown} />}
-              </ListItem>
-              {(!failedItemsOpen)
-                ? null
-                : (
+                }
+              />
+              <ExpandibleListItem
+                render={failedTests.length > 0}
+                mainText={`Passed (${failedTests.length})`}
+                icon={faAngry}
+                trigger={failedItemsOpen}
+                toggleFunction={() => handleClickCategoryItem('failed')}
+                contentComponent={
                   <List component="div" disablePadding>
                     {failedTests.map( test => (
                       <ListItem key={test.id}>
@@ -101,32 +98,25 @@ function OutputView({
                       </ListItem>
                     ))}
                   </List>
-                )
-              }
-              {(!testsResultsData.err)
-                ? null
-                : ( 
-                    <React.Fragment>
-                      <ListItem button onClick={() => handleClickCategoryItem('error')}>
-                        <ListItemIcon>
-                        <FontAwesomeIcon icon={faBug} />
-                        </ListItemIcon>
-                        <ListItemText inset primary="Errors" />
-                        {errorItemsOpen ? <FontAwesomeIcon icon={faAngleDoubleUp} /> : <FontAwesomeIcon icon={faAngleDoubleDown} />}
+                }
+              />
+              <ExpandibleListItem
+                render={testsResultsData.err}
+                mainText="Errors"
+                icon={faBug}
+                trigger={errorItemsOpen}
+                toggleFunction={() => handleClickCategoryItem('error')}
+                contentComponent={
+                  <List component="div" disablePadding>
+                    <List component="div">
+                      <ListItem>
+                        <ListItemText primary="STDERR" />
+                        <ListItemText secondary={testsResultsData.err} />
                       </ListItem>
-                      {(!errorItemsOpen)
-                        ? null
-                        : (
-                          <List component="div">
-                            <ListItem>
-                              <ListItemText primary={testsResultsData.err} />
-                            </ListItem>
-                          </List>
-                        )
-                      }
-                    </React.Fragment>
-                  )
-              }
+                    </List>
+                  </List>
+                }
+              />
             </List>
           </div>
         )
