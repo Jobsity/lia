@@ -8,6 +8,7 @@ import {
   getRunTestsError,
   getSubmitChallengeLoading,
   getSubmitChallengeError,
+  getSubmitted,
 } from '../../reducers';
 
 class Output extends Component {
@@ -35,6 +36,7 @@ class Output extends Component {
       runTestsError,
       submitChallengeLoading,
       submitChallengeError,
+      submitted,
     } = this.props;
     return (
       <OutputView
@@ -46,6 +48,7 @@ class Output extends Component {
           runTestsError,
           submitChallengeLoading,
           submitChallengeError,
+          submitted
         }}
       />
     );
@@ -58,6 +61,7 @@ Output.propTypes = {
   runTestsError: PropTypes.string.isRequired,
   submitChallengeLoading: PropTypes.string.isRequired,
   submitChallengeError: PropTypes.string.isRequired,
+  submitted: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -66,6 +70,7 @@ const mapStateToProps = (state) => ({
   runTestsError: getRunTestsError(state),
   submitChallengeLoading: getSubmitChallengeLoading(state),
   submitChallengeError: getSubmitChallengeError(state),
+  submitted: getSubmitted(state),
 });
 
 export default connect(
