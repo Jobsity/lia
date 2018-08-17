@@ -1,39 +1,35 @@
-import React from "react";
-import { PropTypes } from "prop-types";
-import FormControl from "@material-ui/core/FormControl";
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import FormControl from '@material-ui/core/FormControl';
 
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import { withStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
-import MonacoField from "../MonacoField/MonacoField";
-import styles from "./styles";
+import MonacoField from '../MonacoField/MonacoField';
+import dialogs from './dialogs';
+import styles from './styles';
 
 function sampleTestsView({
   classes,
   tests,
-  handleSelectChange,
-  handleResetClick,
+  dialogOpened,
+  status,
+  dialogHandlers,
   handleRunTestsClick,
-  handleSubmitClick,
   handleTestsEditorChange,
-  resetDialogOpen,
-  submitDialogOpen,
   handleDialogOpening,
-  handleReset,
-  handleSubmit,
-  challengeSubmitted
+  challengeSubmitted,
 }) {
   return (
     <div>
@@ -52,72 +48,84 @@ function sampleTestsView({
               onChange={e => handleTestsEditorChange(e)}
               options={{
                 lineNumbers: "off",
-                readOnly: false
+                readOnly: false,
+                minimap: {
+                  enabled: false,
+                }
               }}
             />
           </div>
-          <div>
+          <div className={classes.selectors}>
             <FormControl>
-              <InputLabel>Language</InputLabel>
+              <InputLabel color="secondary">Language</InputLabel>
               <Select
                 value={tests.language}
-                input={<Input id="a" />}
-                onChange={handleSelectChange}>
+                input={<Input />}
+                color="secondary"
+                onChange={(e) => handleDialogOpening('changeLanguage',e)}
+              >
                 {tests.languages.map(language => (
                   <MenuItem key={language} value={language}>
                     {language}
                   </MenuItem>
                 ))}
               </Select>
-              <FormHelperText>Sets the language for the tests</FormHelperText>
             </FormControl>
           </div>
-          <div>
+          <div className={classes.buttons}>
             <Button
-              disabled={challengeSubmitted}
-              onClick={() => handleDialogOpening("reset")}>
+              disabled={challengeSubmitted || status.runTestsLoading || status.submitChallengeLoading}
+              color="secondary"
+              onClick={() => handleDialogOpening('reset')}>
               Reset
             </Button>
-            <Button disabled={challengeSubmitted} onClick={handleRunTestsClick}>
+            <Button
+              disabled={challengeSubmitted || status.runTestsLoading || status.submitChallengeLoading}
+              color="secondary"
+              onClick={handleRunTestsClick}>
               Run Tests
             </Button>
             <Button
-              disabled={challengeSubmitted}
-              onClick={() => handleDialogOpening("submit")}>
+              disabled={challengeSubmitted || status.runTestsLoading || status.submitChallengeLoading}
+              onClick={() => handleDialogOpening('submit')}>
               Submit
             </Button>
           </div>
-          <Dialog
-            open={resetDialogOpen || submitDialogOpen}
-            onClose={() =>
-              handleDialogOpening(resetDialogOpen ? "reset" : "submit")
-            }>
-            <DialogTitle>
-              {resetDialogOpen ? "Reset tests" : "Submit Challenge"}
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText id="alert-dialog-description">
-                {resetDialogOpen
-                  ? "The changes to the editor and tests will be lost..."
-                  : "Are you sure you want to submit the challenge?"}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={resetDialogOpen ? handleReset : handleSubmit}
-                color="primary">
-                {resetDialogOpen ? "Reset" : "Submit"}
-              </Button>
-              <Button
-                onClick={() =>
-                  handleDialogOpening(resetDialogOpen ? "reset" : "submit")
-                }
-                color="primary"
-                autoFocus>
-                Cancel
-              </Button>
-            </DialogActions>
-          </Dialog>
+          { 
+            (dialogOpened && Object.prototype.hasOwnProperty.call(dialogs, dialogOpened))
+            ? 
+              (
+                <Dialog
+                  open
+                  onClose={() =>
+                    handleDialogOpening(dialogOpened)
+                  }>
+                  <DialogTitle>
+                    {dialogs[dialogOpened].title}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      {dialogs[dialogOpened].content}
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button
+                      onClick={dialogHandlers[dialogOpened]}
+                      color="secondary">
+                      {dialogs[dialogOpened].confirmationText}
+                    </Button>
+                    <Button
+                      onClick={() =>
+                        handleDialogOpening(dialogOpened)
+                      }
+                      color="secondary"
+                      autoFocus>
+                      Cancel
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+              )
+            : null}
         </div>
       )}
     </div>
@@ -125,7 +133,15 @@ function sampleTestsView({
 }
 
 sampleTestsView.propTypes = {
-  handleSelectChange: PropTypes.func.isRequired
+  classes: PropTypes.instanceOf(Object).isRequired,
+  tests: PropTypes.instanceOf(Object).isRequired,
+  status: PropTypes.instanceOf(Object).isRequired,
+  handleRunTestsClick: PropTypes.func.isRequired,
+  handleTestsEditorChange: PropTypes.func.isRequired,
+  handleDialogOpening: PropTypes.func.isRequired,
+  challengeSubmitted: PropTypes.bool.isRequired,
+  dialogOpened: PropTypes.string.isRequired,
+  dialogHandlers: PropTypes.arrayOf(PropTypes.func).isRequired,
 };
 
-export default withStyles(styles)(sampleTestsView);
+export default withStyles(styles, { withTheme: true })(sampleTestsView);
