@@ -29,3 +29,5 @@ const styles = theme => ({
     fontWeight: "bold"
   }
 });
+
+export default styles;
