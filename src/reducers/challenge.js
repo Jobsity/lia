@@ -4,7 +4,7 @@ import {
   FETCH_CHALLENGE_DATA_ERROR,
   SET_CURRENT_LANGUAGE,
   UPDATE_CURRENT_TESTS,
-  RESET_CURRENT_TESTS,
+  RESET_EDITORS,
   RUN_SAMPLE_TESTS_START,
   RUN_SAMPLE_TESTS_SUCCESS,
   RUN_SAMPLE_TESTS_ERROR,
@@ -63,7 +63,7 @@ export default function (state = initialState, action) {
         ...state,
         currentTests: action.payload.newTests,
       }
-    case RESET_CURRENT_TESTS:
+    case RESET_EDITORS:
       return {
         ...state,
         currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests
@@ -97,7 +97,7 @@ export default function (state = initialState, action) {
         ...state,
         submitChallengeLoading: false,
         submitChallengeError: '',
-        submitted: true,
+        submitted: action.payload.results.tests.filter(test => test.passed).length === action.payload.results.tests.length,
       }
     case SUBMIT_CHALLENGE_ERROR:
       return {
@@ -129,3 +129,11 @@ export const getTestSuite = state => state.testSuite;
 export const getCurrentTests = state => state.currentTests;
 
 export const getSubmitted = state => state.submitted;
+
+export const getRunTestsLoading = state => state.runTestsLoading;
+
+export const getRunTestsError = state => state.runTestsError;
+
+export const getSubmitChallengeLoading = state => state.submitChallengeLoading;
+
+export const getSubmitChallengeError = state => state.submitChallengeError;
