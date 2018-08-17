@@ -1,4 +1,4 @@
-export const dialog = {
+const dialogs = {
   changeLanguage: {
     title: "Change language",
     content: "The changes to the editor and tests will be lost...",
@@ -15,3 +15,5 @@ export const dialog = {
     confirmationText: "Submit"
   }
 };
+
+export default dialogs;

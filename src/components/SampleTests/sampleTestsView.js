@@ -17,7 +17,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 
 import MonacoField from '../MonacoField/MonacoField';
-import { dialog } from '../../lib/utils/sampleTests';
+import dialogs from './dialogs';
 import styles from './styles';
 
 function sampleTestsView({
@@ -92,7 +92,7 @@ function sampleTestsView({
             </Button>
           </div>
           { 
-            (dialogOpened && Object.prototype.hasOwnProperty.call(dialog, dialogOpened))
+            (dialogOpened && Object.prototype.hasOwnProperty.call(dialogs, dialogOpened))
             ? 
               (
                 <Dialog
@@ -101,18 +101,18 @@ function sampleTestsView({
                     handleDialogOpening(dialogOpened)
                   }>
                   <DialogTitle>
-                    {dialog[dialogOpened].title}
+                    {dialogs[dialogOpened].title}
                   </DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                      {dialog[dialogOpened].content}
+                      {dialogs[dialogOpened].content}
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>
                     <Button
                       onClick={dialogHandlers[dialogOpened]}
                       color="secondary">
-                      {dialog[dialogOpened].confirmationText}
+                      {dialogs[dialogOpened].confirmationText}
                     </Button>
                     <Button
                       onClick={() =>
