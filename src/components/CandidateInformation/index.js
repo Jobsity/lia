@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
+import Typography from '@material-ui/core/Typography';
 
 class CandidateInformation extends Component {
-  constructor(props, context) {
+/*   constructor(props, context) {
     super(props, context);
   }
-
+ */
   render() {
     return (
-      <div>
-        <h3>This is the information</h3>
-      </div>
+        <Typography>This is the information</Typography>
     );
   }
 }
