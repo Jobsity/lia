@@ -27,6 +27,8 @@ function* submitChallenge(payload) {
 }
 
 export default function* watchSubmitChallenge() {
-  const action = yield take(SUBMIT_CHALLENGE_START);
-  yield* submitChallenge(action.payload);
+  while (true) {
+    const action = yield take(SUBMIT_CHALLENGE_START);
+    yield* submitChallenge(action.payload);
+  }
 }

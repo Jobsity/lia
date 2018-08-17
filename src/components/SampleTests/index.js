@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
-import { updateCurrentTests, resetEditors } from  '../../actions/challenge';
+import { updateCurrentTests, resetEditors, runTests, submitChallenge } from  '../../actions/challenge';
 import store from '../../store/store';
 import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
 import {
@@ -47,33 +47,13 @@ class SampleTests extends Component {
   }
 
   handleRunTestsClick() {
-    const { editorCode, currentTests, language, startingTime } = this.props;
-    store.dispatch({
-      type: RUN_SAMPLE_TESTS_START,
-      payload: {
-        requestData: {
-          editorCode,
-          tests: currentTests,
-          language,
-        },
-        startingTime,
-      },
-    });
+    const { editorCode, currentTests, language, startingTime, run} = this.props;
+    run(editorCode, currentTests, language, startingTime);
   }
 
   handleSubmit() {
-    const { editorCode, language, startingTime, testSuite } = this.props;
-    store.dispatch({
-      type: SUBMIT_CHALLENGE_START,
-      payload: {
-        requestData: {
-          editorCode,
-          tests: testSuite.filter(tests => tests.language === language)[0].tests,
-          language,
-        },
-        startingTime,
-      },
-    });
+    const { editorCode, language, startingTime, testSuite, submit } = this.props;
+    submit(editorCode, testSuite, language, startingTime);
     this.setState({ dialogOpened: ''});
   }
 
@@ -150,12 +130,17 @@ SampleTests.propTypes = {
   runTestsLoading: PropTypes.bool.isRequired,
   submitChallengeLoading : PropTypes.bool.isRequired,
   editorCode: PropTypes.string.isRequired,
+  startingTime: PropTypes.number.isRequired,
+  submit: PropTypes.func.isRequired,
+  run: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = () => ({
   setLanguage: setCurrentLanguage,
   updateTests: updateCurrentTests,
   resetEditorsCode: resetEditors,
+  submit: submitChallenge,
+  run: runTests,
 });
 
 const mapStateToProps = (state) => ({

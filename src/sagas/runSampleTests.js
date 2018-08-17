@@ -7,6 +7,7 @@ import { RUN_SAMPLE_TESTS_START, RUN_SAMPLE_TESTS_SUCCESS, RUN_SAMPLE_TESTS_ERRO
 function* runSampleTests(payload) {
   const { requestData, startingTime } = payload;
   const response = yield call(runTests, requestData);
+  
   if (Object.prototype.hasOwnProperty.call(response, 'error')) {
     yield put({
       type: RUN_SAMPLE_TESTS_ERROR,
@@ -28,6 +29,8 @@ function* runSampleTests(payload) {
 }
 
 export default function* watchRunSampleTests() {
-  const action = yield take(RUN_SAMPLE_TESTS_START);
-  yield* runSampleTests(action.payload);
+  while (true) {
+    const action = yield take(RUN_SAMPLE_TESTS_START);
+    yield* runSampleTests(action.payload);
+  }
 }
