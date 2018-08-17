@@ -33,6 +33,8 @@ export const getIsPlaying = state =>
 export const getPlayedEvents = state =>
   fromPlayback.getPlayedEvents(state.playback);
 
+export const getPlaybackWasInteracted = state =>
+  fromPlayback.getWasInteracted(state.playback);
 
 // Timeline getters
 
