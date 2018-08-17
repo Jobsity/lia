@@ -129,3 +129,11 @@ export const getTestSuite = state => state.testSuite;
 export const getCurrentTests = state => state.currentTests;
 
 export const getSubmitted = state => state.submitted;
+
+export const getRunTestsLoading = state => state.runTestsLoading;
+
+export const getRunTestsError = state => state.runTestsError;
+
+export const getSubmitChallengeLoading = state => state.submitChallengeLoading;
+
+export const getSubmitChallengeError = state => state.submitChallengeError;

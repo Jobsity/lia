@@ -10,10 +10,8 @@ const styles = theme => ({
   buttons: {
     margin: '1em',
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'end',
+    justifyContent: 'flex-end',
   }
-  
 });
 
 export default styles;
