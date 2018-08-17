@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
 
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -9,6 +10,7 @@ import * as playbackActions from '../../actions/playback';
 
 import PlayPauseButton from './PlayPauseButton';
 import Slider from './Slider';
+import Timer from './Timer';
 
 const styles = {
   container: {
@@ -18,19 +20,29 @@ const styles = {
 };
 
 class Playback extends Component {
-  eventsTimeoutId = null;
+  timeoutId = null;
 
   state = {
     timestamp: 0,
   }
 
   handleSliderChange = event => {
-    const { value } = event.target;
+    if (!event.target) {
+      return;
+    }
 
-    this.playEvents(value);
+    clearTimeout(this.timeoutId);
+    const { value } = event.target;
+    this.timer(Number(value));
   }
 
   togglePlayPause = () => {
+    const { events } = this.props;
+
+    if (events.length === 0) {
+      return;
+    }
+
     const { isPlaying, setIsPlaying } = this.props;
 
     setIsPlaying(!isPlaying);
@@ -40,41 +52,51 @@ class Playback extends Component {
     const { events, isPlaying } = this.props;
 
     if (prevProps.isPlaying && !isPlaying) {
-      clearTimeout(this.eventsTimeoutId);
+      clearTimeout(this.timeoutId);
     }
 
     if (events.length > 0 && !prevProps.isPlaying && isPlaying) {
-      this.playEvents(this.state.timestamp);
+      this.timer(this.state.timestamp);
     }
   }
 
-  playEvents(currentTs) {
-    const { events, setIsPlaying, setPlayedEvents } = this.props;
+  playEvents(newEvents) {
+    const { playedEvents, setPlayedEvents } = this.props;
+
+    if (!isEqual(newEvents, playedEvents)) {
+      setPlayedEvents(newEvents);
+    }
+  }
+
+  stop() {
+    clearTimeout(this.timeoutId);
+    this.setState({ timestamp: this.props.maxTs });
+    this.props.setIsPlaying(false);
+  }
+
+  timer(currentTs) {
+    const { events } = this.props;
     const index = events.map(e => e.ts <= currentTs).indexOf(false);
 
     if (index === -1) {
-      clearTimeout(this.eventsTimeoutId);
-      this.setState({ timestamp: 0 });
-      setPlayedEvents(events);
-      setIsPlaying(false);
+      this.playEvents(events);
+      this.stop();
       return;
     }
+
+    if (this.props.isPlaying) {
+      const nextEvent = events[index];
+      const nextTs = Math.min(nextEvent.ts, currentTs + this.props.step);
+      const timeout = nextTs - currentTs;
+
+      this.timeoutId = setTimeout(() => this.timer(nextTs), timeout);
+    }
+
 
     const playedEvents = events.slice(0, index);
 
-    if (!this.props.isPlaying) {
-      this.setState({ timestamp: currentTs });
-      setPlayedEvents(playedEvents);
-      return;
-    }
-
-    const [nextEvent] = events.slice(index, index + 1);
-    const nextTs = Math.min(nextEvent.ts, currentTs + this.props.step);
-    const timeout = nextTs - currentTs;
-
-    this.eventsTimeoutId = setTimeout(() => this.playEvents(nextTs), timeout);
+    this.playEvents(playedEvents);
     this.setState({ timestamp: currentTs });
-    setPlayedEvents(playedEvents);
   }
 
   render() {
@@ -86,9 +108,13 @@ class Playback extends Component {
           isPlaying={this.props.isPlaying}
           onClick={this.togglePlayPause}
         />
+        <Timer
+          currentTime={this.state.timestamp / 1000}
+          duration={this.props.maxTs / 1000}
+        />
         <Slider
           onChange={this.handleSliderChange}
-          max={this.props.duration}
+          max={this.props.maxTs}
           value={this.state.timestamp}
         />
       </Paper>
@@ -99,13 +125,14 @@ class Playback extends Component {
 const mapState = state => {
   const events = fromReducers.getTimelineEvents(state);
   const { length } = events;
-  const duration = length === 0 ? 0 : events[length - 1].ts;
+  const maxTs = length === 0 ? 0 : events[length - 1].ts;
 
   return {
-    duration,
     events,
     isPlaying: fromReducers.getIsPlaying(state),
-    step: Math.min(200, duration),
+    maxTs,
+    playedEvents: fromReducers.getPlayedEvents(state),
+    step: Math.min(100, maxTs),
   }
 };
 const mapDispatch = ({

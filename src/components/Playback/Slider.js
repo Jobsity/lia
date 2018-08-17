@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => {
@@ -17,7 +17,6 @@ const styles = theme => {
       height: '0.5rem',
       borderRadius: '0.33rem',
       background: theme.palette.primary.main,
-      outline: 'none',
       opacity: 0.7,
       '-webkit-transition': '.2s',
       transition: 'opacity .2s',
