@@ -66,19 +66,21 @@ export default function (state = initialState, action) {
     case RESET_EDITORS:
       return {
         ...state,
-        currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests
+        currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests,
       }
     case RUN_SAMPLE_TESTS_START:
       return {
         ...state,
         runTestsLoading: true,
         runTestsError: '',
+        submitChallengeError: '',
       }
     case RUN_SAMPLE_TESTS_SUCCESS:
       return {
         ...state,
         runTestsLoading: false,
         runTestsError: '',
+        submitChallengeError: '',
       }
     case RUN_SAMPLE_TESTS_ERROR:
       return {
@@ -91,12 +93,14 @@ export default function (state = initialState, action) {
         ...state,
         submitChallengeLoading: true,
         submitChallengeError: '',
+        runTestsError: '',
       }
     case SUBMIT_CHALLENGE_SUCCESS:
       return {
         ...state,
         submitChallengeLoading: false,
         submitChallengeError: '',
+        runTestsError: '',
         submitted: action.payload.results.tests.filter(test => test.passed).length === action.payload.results.tests.length,
       }
     case SUBMIT_CHALLENGE_ERROR:
