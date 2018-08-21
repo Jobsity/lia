@@ -27,6 +27,9 @@ const styles = theme => ({
     top: "-0.5em",
     fontSize: "0.7em",
     fontWeight: "bold"
+  },
+  markdown: {
+    color: "#FFFFFF"
   }
 });
 
