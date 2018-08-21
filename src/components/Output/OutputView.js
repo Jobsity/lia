@@ -98,7 +98,7 @@ function OutputView({
             <List component="div">
               {failedTests.map( test => (
                 <ExpandableListItem
-                  render={test}
+                  render={!!test}
                   mainText={test.name}
                   componentClass={classes.failedList}
                   key={test.id}
@@ -111,7 +111,7 @@ function OutputView({
             </List>
           </ExpandableListItem>
           <ExpandableListItem
-            render={testsResults.err}
+            render={!!testsResults.err}
             mainText="Errors"
             icon={faBug}
             componentClass={classes.error}
@@ -148,8 +148,11 @@ function OutputView({
 
 OutputView.propTypes = {
   status: PropTypes.instanceOf(Object).isRequired,
-  testsResults: PropTypes.instanceOf(Object).isRequired,
+  testsResults: PropTypes.instanceOf(Object),
   classes: PropTypes.instanceOf(Object).isRequired,
 };
 
+OutputView.defaultProps = {
+  testsResults: null,
+};
 export default withStyles(styles)(OutputView);

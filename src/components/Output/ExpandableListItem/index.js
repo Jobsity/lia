@@ -34,7 +34,6 @@ class ExpandableListItem extends React.Component {
       classes,
     } = this.props;
     const { open } = this.state; 
-    console.log(icon)
     return (
       (render)
         ? (
@@ -57,11 +56,11 @@ class ExpandableListItem extends React.Component {
 }
 
 ExpandableListItem.propTypes = {
-  render: PropTypes.instanceOf(PropTypes.object).isRequired,
+  render: PropTypes.bool.isRequired,
   mainText: PropTypes.string.isRequired,
   icon: PropTypes.instanceOf(Object),
   componentClass: PropTypes.instanceOf(Object).isRequired,
-  children: PropTypes.instanceOf(PropTypes.element).isRequired,
+  children: PropTypes.instanceOf(Object).isRequired,
   classes: PropTypes.instanceOf(Object).isRequired,
 };
 
