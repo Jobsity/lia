@@ -35,11 +35,6 @@ class Homepage extends React.PureComponent {
       <TopBar />
       </div>,
       <div key="1">
-        {
-          // TODO
-          // render Playback only if session is not live
-          // and role is 'evaluator'
-        }
         <EditorTabs />
       </div>,
       <div key="2">
