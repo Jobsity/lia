@@ -10,13 +10,13 @@ import * as timelineActions from '../../actions/timeline';
 import MonacoField from '../MonacoField/MonacoField';
 
 class Editor extends Component {
-  defaultCode = '// type your code...';
+  defaultCode = '';
 
   editor = null;
 
   model = null;
 
-  playedIndex = null
+  playedIndex = null;
 
   editorDidMount = (editor) => {
     this.editor = editor;
@@ -31,10 +31,9 @@ class Editor extends Component {
   }
 
   handleEditorChange = (newValue, event) => {
-    // When playing, model.applyEdits triggers onChange
-    // event, so verification of isPlaying is required
-    // to not add events to timeline
-    if (this.props.isPlaying) {
+    // model.setValue() and model.applyEdits() trigger
+    // onChange event, so change must be ignored
+    if (this.props.playbackWasInteracted) {
       return;
     }
 
@@ -51,11 +50,12 @@ class Editor extends Component {
   applyEdits(edits, viewState) {
     const { editor, model } = this;
 
-    try {
-      model.applyEdits(edits);
-    } catch(err) {
-      debugger
-    }
+    // In monaco editor overlapping ranges are not allowed,
+    // because of that, edits are individually applied.
+    // Performance can be improved by groupping edits with
+    // no overlapping.
+    edits.forEach(e => model.applyEdits([e]));
+
     editor.restoreViewState(viewState);
     this.props.setEditorCode(model.getValue());
   }
@@ -77,16 +77,17 @@ class Editor extends Component {
     const { changes } = this.props;
 
     if (changes.length === 0) {
+      this.props.setEditorCode('');
       this.playedIndex = null;
       return;
     }
 
-    const index = this.playedIndex;
+    const { playedIndex } = this;
     const lastIndex = changes.length - 1;
     const edits = changes.map(c => c.edit);
     const viewState = changes[lastIndex].viewState;
 
-    if (typeof index !== 'number' || index >= lastIndex) {
+    if (typeof playedIndex !== 'number' || playedIndex >= lastIndex) {
       this.model.setValue('');
       this.applyEdits(edits, viewState);
       this.playedIndex = lastIndex;
@@ -94,7 +95,7 @@ class Editor extends Component {
       return;
     }
 
-    this.applyEdits(edits.slice(index + 1), viewState);
+    this.applyEdits(edits.slice(playedIndex + 1), viewState);
     this.playedIndex = lastIndex;
   }
 
@@ -112,10 +113,9 @@ class Editor extends Component {
   }
 
   render() {
-    const { isPlaying } = this.props;
     const options = {
       lineNumbers: 'on',
-      readOnly: isPlaying,
+      readOnly: this.props.playbackWasInteracted,
       selectOnLineNumbers: true,
     };
 
@@ -123,6 +123,7 @@ class Editor extends Component {
       <MonacoField
         code={this.props.code || ''}
         editorDidMount={this.editorDidMount}
+        language={this.props.language}
         onChange={this.handleEditorChange}
         options={options}
         height="500"
@@ -134,8 +135,9 @@ class Editor extends Component {
 const mapState = state => ({
   changes: fromReducers.getPlayedEventsData(state, 'editor'),
   code: fromReducers.getEditorCode(state),
-  isPlaying: fromReducers.getIsPlaying(state),
+  language: fromReducers.getLanguage(state),
   startingTime: fromReducers.getStartingTime(state),
+  playbackWasInteracted: fromReducers.getPlaybackWasInteracted(state),
 });
 
 const mapDispatch = {
