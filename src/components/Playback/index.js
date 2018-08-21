@@ -1,13 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import isEqual from 'lodash/isEqual';
+
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 
 import * as fromReducers from '../../reducers';
 import * as playbackActions from '../../actions/playback';
 
+import PlayPauseButton from './PlayPauseButton';
+import Slider from './Slider';
+import Timer from './Timer';
+
+const styles = {
+  container: {
+    alignItems: 'center',
+    display: 'flex',
+  }
+};
+
 class Playback extends Component {
   timeoutId = null;
 
+  state = {
+    timestamp: 0,
+  }
+
+  handleSliderChange = event => {
+    if (!event.target) {
+      return;
+    }
+
+    clearTimeout(this.timeoutId);
+    const { value } = event.target;
+    this.timer(Number(value));
+  }
+
   togglePlayPause = () => {
+    const { events } = this.props;
+
+    if (events.length === 0) {
+      return;
+    }
+
     const { isPlaying, setIsPlaying } = this.props;
 
     setIsPlaying(!isPlaying);
@@ -21,51 +56,90 @@ class Playback extends Component {
     }
 
     if (events.length > 0 && !prevProps.isPlaying && isPlaying) {
-      // TODO
-      // Up until now it is assumed playback starts from stop and not a pause
-      this.playEvents(0);
+      this.timer(this.state.timestamp);
     }
   }
 
-  playEvents(currentTs) {
-    const { events, setIsPlaying, setPlayedEvents } = this.props;
+  playEvents(newEvents) {
+    const { playedEvents, setPlayedEvents } = this.props;
+
+    if (!isEqual(newEvents, playedEvents)) {
+      setPlayedEvents(newEvents);
+    }
+  }
+
+  stop() {
+    clearTimeout(this.timeoutId);
+    this.setState({ timestamp: this.props.maxTs });
+    this.props.setIsPlaying(false);
+  }
+
+  timer(currentTs) {
+    const { events } = this.props;
     const index = events.map(e => e.ts <= currentTs).indexOf(false);
 
     if (index === -1) {
-      clearTimeout(this.timeoutId);
-      setPlayedEvents(events);
-      setIsPlaying(false);
+      this.playEvents(events);
+      this.stop();
       return;
     }
 
+    if (this.props.isPlaying) {
+      const nextEvent = events[index];
+      const nextTs = Math.min(nextEvent.ts, currentTs + this.props.step);
+      const timeout = nextTs - currentTs;
+
+      this.timeoutId = setTimeout(() => this.timer(nextTs), timeout);
+    }
+
+
     const playedEvents = events.slice(0, index);
-    const [nextEvent] = events.slice(index, index + 1);
-    const nextTs = nextEvent.ts;
-    const timeout = nextTs - currentTs;
 
-    this.timeoutId = setTimeout(() => this.playEvents(nextTs), timeout);
-
-    setPlayedEvents(playedEvents);
+    this.playEvents(playedEvents);
+    this.setState({ timestamp: currentTs });
   }
 
   render() {
-    const { isPlaying } = this.props;
+    const { classes } = this.props;
 
     return (
-      <button onClick={this.togglePlayPause}>
-        {isPlaying ? 'Stop' : 'Play'}
-      </button>
+      <Paper className={classes.container}>
+        <PlayPauseButton
+          isPlaying={this.props.isPlaying}
+          onClick={this.togglePlayPause}
+        />
+        <Timer
+          currentTime={this.state.timestamp / 1000}
+          duration={this.props.maxTs / 1000}
+        />
+        <Slider
+          onChange={this.handleSliderChange}
+          max={this.props.maxTs}
+          value={this.state.timestamp}
+        />
+      </Paper>
     );
   }
 }
 
-const mapState = state => ({
-  events: fromReducers.getTimelineEvents(state),
-  isPlaying: fromReducers.getIsPlaying(state),
-});
+const mapState = state => {
+  const events = fromReducers.getTimelineEvents(state);
+  const { length } = events;
+  const maxTs = length === 0 ? 0 : events[length - 1].ts;
+
+  return {
+    events,
+    isPlaying: fromReducers.getIsPlaying(state),
+    maxTs,
+    playedEvents: fromReducers.getPlayedEvents(state),
+    step: Math.min(100, maxTs),
+  }
+};
 const mapDispatch = ({
   setPlayedEvents: playbackActions.setPlayedEvents,
   setIsPlaying: playbackActions.setIsPlaying,
 });
 
-export default connect(mapState, mapDispatch)(Playback);
+export default connect(mapState, mapDispatch)(
+  withStyles(styles)(Playback)
+);

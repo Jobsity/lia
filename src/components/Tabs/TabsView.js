@@ -7,15 +7,11 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from '@material-ui/core/Paper';
+import Paper from "@material-ui/core/Paper";
 import styles from "./styles";
 
 function TabContainer({ children }) {
-  return (
-    <div style={{overflow: "hidden"}} >
-      {children}
-    </div>
-  );
+  return <div style={{ overflow: "hidden" }}>{children}</div>;
 }
 
 class TabsView extends Component {
@@ -35,7 +31,7 @@ class TabsView extends Component {
     const { loading, tabs, classes, theme } = this.props;
 
     return (
-      <Paper square elevation={1}>
+      <Paper className={classes.tabPaper} square elevation={1}>
         {loading ? (
           <CircularProgress
             classes={{ root: classes.loading }}
@@ -53,7 +49,7 @@ class TabsView extends Component {
                 {tabs.map(tab => (
                   <Tab
                     classes={{
-                      root: classes.tabRoot,
+                      root: classes.tabRoot
                     }}
                     key={tab.id}
                     label={tab.name}
@@ -67,7 +63,9 @@ class TabsView extends Component {
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}>
               {tabs.map(tab => (
-                <TabContainer style={{overflow: "hidden"}} dir={theme.direction}>
+                <TabContainer
+                  style={{ overflow: "hidden", height: "" }}
+                  dir={theme.direction}>
                   {tab.component}
                 </TabContainer>
               ))}

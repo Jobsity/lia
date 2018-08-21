@@ -1,4 +1,7 @@
 const styles = theme => ({
+  tabPaper: {
+    height: "-webkit-fill-available"
+  },
   loading: {
     position: "absolute",
     top: "8em",

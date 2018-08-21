@@ -1,4 +1,7 @@
 const styles = theme => ({
+  paper: {
+    height: "inherit"
+  },
   root: {
     // ...theme.mixins.gutters(),
     position: "relative",
