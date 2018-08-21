@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import OutputView from './OutputView';
@@ -11,48 +11,26 @@ import {
   getSubmitted,
 } from '../../reducers';
 
-class Output extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      loading: false,
-      passedItemsOpen: false,
-      failedItemsOpen: false,
-      errorItemsOpen: false,
-    };
-  }
-
-  toggleOpenCategoryItem(category) {
-    const key = `${category}ItemsOpen`;
-    this.setState(prevState => ({
-      [key]: !prevState[key],
-    }));
-  }
-
-  render() {
-    const {
-      testsResults,
-      runTestsLoading,
-      runTestsError,
-      submitChallengeLoading,
-      submitChallengeError,
-      submitted,
-    } = this.props;
-    return (
-      <OutputView
-      handleClickCategoryItem={ category => this.toggleOpenCategoryItem(category)}
-        {...this.state}
-        testsResults={testsResults}
-        status={{
-          runTestsLoading,
-          runTestsError,
-          submitChallengeLoading,
-          submitChallengeError,
-          submitted
-        }}
-      />
-    );
-  }
+function Output({
+  testsResults,
+  runTestsLoading,
+  runTestsError,
+  submitChallengeLoading,
+  submitChallengeError,
+  submitted,
+}) {
+  return (
+    <OutputView
+      testsResults={testsResults}
+      status={{
+        runTestsLoading,
+        runTestsError,
+        submitChallengeLoading,
+        submitChallengeError,
+        submitted
+      }}
+    />
+  );
 }
 
 Output.propTypes = {

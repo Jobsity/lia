@@ -4,29 +4,68 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
-
+import { withStyles } from '@material-ui/core/styles';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDoubleDown, faAngleDoubleUp} from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp} from "@fortawesome/free-solid-svg-icons";
 
-function ExpandableListItem({render, mainText, icon, trigger, toggleFunction, contentComponent, componentClass}) {
-  return (
-    (render)
-      ? (
-        <React.Fragment>
-          <ListItem button onClick={toggleFunction}>
-            <ListItemIcon>
-              <FontAwesomeIcon icon={icon} className={componentClass}/>
-            </ListItemIcon>
-            <ListItemText inset primary={mainText} className={componentClass}/>
-            {trigger ? <FontAwesomeIcon icon={faAngleDoubleUp} /> : <FontAwesomeIcon icon={faAngleDoubleDown} />}
-          </ListItem>
-          <Collapse in={trigger} timeout="auto" unmountOnExit>
-            {contentComponent}
-          </Collapse>
-        </React.Fragment>
-      ) 
-      : null
-  );
+import styles from '../styles';
+
+class ExpandableListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    }
+  }
+
+  toggleOpen() {
+    this.setState(prevState => ({
+      open: !prevState.open,
+    }));
+  }
+
+  render() {
+    const {
+      render,
+      mainText,
+      icon,
+      componentClass,
+      children,
+      classes,
+    } = this.props;
+    const { open } = this.state; 
+    console.log(icon)
+    return (
+      (render)
+        ? (
+          <React.Fragment>
+            <ListItem button onClick={() => this.toggleOpen()} className={componentClass}>
+              <ListItemIcon>
+                <FontAwesomeIcon icon={icon} className={componentClass}/>
+              </ListItemIcon>
+              {open ? <FontAwesomeIcon icon={faAngleUp} className={componentClass}/> : <FontAwesomeIcon icon={faAngleDown} className={componentClass}/>}
+              <ListItemText inset primary={mainText}/>
+            </ListItem>
+            <Collapse in={open} timeout="auto" unmountOnExit className={classes.expandedContent}>
+              {children}
+            </Collapse>
+          </React.Fragment>
+        ) 
+        : null
+    );
+  }
 }
 
-export default ExpandableListItem;
+ExpandableListItem.propTypes = {
+  render: PropTypes.instanceOf(PropTypes.object).isRequired,
+  mainText: PropTypes.string.isRequired,
+  icon: PropTypes.instanceOf(Object),
+  componentClass: PropTypes.instanceOf(Object).isRequired,
+  children: PropTypes.instanceOf(PropTypes.element).isRequired,
+  classes: PropTypes.instanceOf(Object).isRequired,
+};
+
+ExpandableListItem.defaultProps = {
+  icon: {},
+};
+export default withStyles(styles)(ExpandableListItem);
