@@ -10,8 +10,6 @@ import * as timelineActions from '../../actions/timeline';
 import MonacoField from '../MonacoField/MonacoField';
 
 class Editor extends Component {
-  defaultCode = '';
-
   editor = null;
 
   model = null;
@@ -73,6 +71,19 @@ class Editor extends Component {
     }
   }
 
+  initChange() {
+    // Default code is added to timeline when onChange is triggered
+    this.model.applyEdits([{
+      range: {
+        endColumn: 1,
+        endLineNumber: 1,
+        startColumn: 1,
+        startLineNumber: 1,
+      },
+      text: this.props.defaultCode,
+    }]);
+  }
+
   updateChanges() {
     const { changes } = this.props;
 
@@ -99,19 +110,6 @@ class Editor extends Component {
     this.playedIndex = lastIndex;
   }
 
-  initChange() {
-    // Default code is added to timeline when onChange is triggered
-    this.model.applyEdits([{
-      range: {
-        endColumn: 1,
-        endLineNumber: 1,
-        startColumn: 1,
-        startLineNumber: 1,
-      },
-      text: this.defaultCode,
-    }]);
-  }
-
   render() {
     const options = {
       lineNumbers: 'on',
@@ -135,6 +133,7 @@ class Editor extends Component {
 const mapState = state => ({
   changes: fromReducers.getPlayedEventsData(state, 'editor'),
   code: fromReducers.getEditorCode(state),
+  defaultCode: '',
   language: fromReducers.getLanguage(state),
   startingTime: fromReducers.getStartingTime(state),
   playbackWasInteracted: fromReducers.getPlaybackWasInteracted(state),
