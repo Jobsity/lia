@@ -5,7 +5,7 @@ import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
 import { updateCurrentTests, resetEditors, runTests, submitChallenge } from  '../../actions/challenge';
 import store from '../../store/store';
-import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
+import { FETCH_CHALLENGE_DATA_START } from '../../actions/types';
 import {
   getIsLoading,
   getLanguage,
