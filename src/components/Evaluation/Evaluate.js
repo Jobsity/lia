@@ -26,16 +26,17 @@ class Evaluate extends Component {
   }
 
   componentDidMount() {
-    const { evaluation } = this.props;
-    if (evaluation) {
+    const { evaluation, editable } = this.props;
+    if(evaluation.id) {
       this.setState({
-        overall: evaluation.overall,
-        easyness: evaluation.easyness,
-        codeStyle: evaluation.codeStyle,
-        maintainability: evaluation.maintainability,
-        codeStructure: evaluation.codeStructure,
-        defensiveCoding: evaluation.defensiveCoding,
-        feedback: evaluation.feedback
+        overall: evaluation.rating.overall,
+        easyness: evaluation.rating.easyness,
+        codeStyle: evaluation.rating.codeStyle,
+        maintainability: evaluation.rating.maintainability,
+        codeStructure: evaluation.rating.codeStructure,
+        defensiveCoding: evaluation.rating.defensiveCoding,
+        feedback: evaluation.rating.feedback,
+        preview: editable,
       });
     }
   }
@@ -125,7 +126,7 @@ class Evaluate extends Component {
       preview
     } = this.state;
 
-    const { classes } = this.props; 
+    const { editable, classes } = this.props; 
 
     const qualities = [
       {
@@ -153,15 +154,18 @@ class Evaluate extends Component {
         value: codeStructure
       },
       {
-        tag: "defense",
-        leftLbl: "Lack of Defensive Coding",
-        rightLbl: "Handles Edge Cases",
-        value: defensiveCoding
-      }
+        tag: 'defense',
+        leftLbl: 'Lack of Defensive Coding',
+        rightLbl: 'Handles Edge Cases',
+        value: defensiveCoding,
+      },
     ];
+
     return (
       <div>
+        <h3>Evaluation</h3>
         <form onSubmit={this.handleSubmit}>
+          <Button size='small' onClick={hideEvaluation} style={{float: 'right'}}><FontAwesomeIcon icon={faTimesCircle}/></Button>
           <h3 style={styles.title}>Overall Rating</h3>
           <div style={styles.selector}>
             <span style={styles.leftLabel}>Poor</span>
@@ -169,10 +173,11 @@ class Evaluate extends Component {
               name="overall"
               value={overall}
               row
-              onChange={e => this.handleChange(e, "overall")}>
-              <Radio value="poor" />
-              <Radio value="normal" />
-              <Radio value="great" />
+              onChange={(e) => editable?this.handleChange(e, 'overall'):null}
+            >
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
             <span style={styles.rightLabel}>Great</span>
           </div>
@@ -184,37 +189,38 @@ class Evaluate extends Component {
                 name={quality.tag}
                 value={quality.value}
                 row
-                onChange={e => this.handleChange(e, quality.tag)}>
-                <Radio value="poor" />
-                <Radio value="normal" />
-                <Radio value="great" />
+                onChange={(e) => editable?this.handleChange(e, quality.tag):null}
+              >
+                <Radio value='poor'/>
+                <Radio value='normal'/>
+                <Radio value='great'/>
               </RadioGroup>
               <span style={styles.rightLabel}>{quality.rightLbl}</span>
             </div>
           ))}
           <h3 style={styles.title}>Feedback Notes</h3>
-          <Button style={{ float: "right" }} onClick={this.togglePreview}>
-            <FontAwesomeIcon icon={preview ? faEye : faEyeSlash} /> Preview
-          </Button>
-          {preview ? (
-            <textarea
+          {editable&&
+          <Button style={{float: 'right'}} onClick={this.togglePreview}>
+            <FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview
+          </Button>}
+          {preview?
+            <textarea 
               placeholder={placeholder}
-              cols="59"
-              rows="10"
-              value={feedback ? feedback.join("\n") : null}
-              onChange={this.handleFeedback}
-            />
-          ) : (
+              cols='59'
+              rows='10'
+              value={feedback?feedback.join('\n'):null}
+              onChange={editable?this.handleFeedback:null}
+              />
+              :
             <div style={styles.previewDiv}>
               <ReactMarkdown className={classes.markdown} source={feedback ? feedback.join("  \n") : null} />
             </div>
-          )}
+          }
+          {editable&&
           <div style={styles.buttonArea}>
-            <Button style={styles.button} type="submit">
-              Add Overall Review
-            </Button>
-            <Button style={styles.button}>Close Review Editor</Button>
-          </div>
+            <Button style={styles.button} type="submit">Add Overall Review</Button>
+            <Button style={styles.button} onClick={hideEvaluation}>Close Review Editor</Button>
+          </div>}
         </form>
       </div>
     );
@@ -229,20 +235,22 @@ Evaluate.propTypes = {
     maintainability: PropTypes.string,
     codeStructure: PropTypes.string,
     defensiveCoding: PropTypes.string,
-    feedback: PropTypes.array
-  })
+    feedback: PropTypes.array,
+  }),
+  editable: PropTypes.bool,
 };
 
 Evaluate.defaultProps = {
   evaluation: {
-    overall: "normal",
-    easyness: "normal",
-    codeStyle: "normal",
-    maintainability: "normal",
-    codeStructure: "normal",
-    defensiveCoding: "normal",
-    feedback: []
-  }
+    overall: 'normal',
+    easyness: 'normal',
+    codeStyle: 'normal',
+    maintainability: 'normal',
+    codeStructure: 'normal',
+    defensiveCoding: 'normal',
+    feedback: [],
+  },
+  editable: true,
 };
 
 export default withStyles(styles)(Evaluate);
