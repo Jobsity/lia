@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Paper, Collapse, Button } from '@material-ui/core';
-import { ListItem } from 'material-ui';
+import { withStyles } from "@material-ui/core/styles";
+import { Collapse, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faTimesCircle, faEdit, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { Typography } from 'material-ui/styles/typography';
@@ -25,7 +25,7 @@ class Evaluation extends Component {
   }
 
   handleDelete() {
-    // backend delete method
+    // backend delete method 
     this.setState({
       toggleView: false,
       evaluationView: {}
@@ -64,7 +64,7 @@ class Evaluation extends Component {
   
   render() {
 
-    // mock server data needed for list of evaluations
+    // mock server data needed for list of evaluations 
     const evaluationList = [
       {
         id: 1,
@@ -95,14 +95,15 @@ class Evaluation extends Component {
     ];
 
     const { toggleView, evaluationView, editable } = this.state;
+    const { classes } = this.props;
 
     return (
-      <div>
-        <ul style={styles.list}>
+      <div style={{padding: '0.2em'}}>
+        <ul className={classes.list}>
           <li><h3>List of Evaluations</h3></li>
           {evaluationList.map(evaluation => 
-            <li key={evaluation.id} style={styles.listItem}>
-              <span style={styles.itemTitle}>
+            <li key={evaluation.id} className={classes.listItem}>
+              <span className={classes.itemTitle}>
                 {evaluation.title}
               </span>
               <span>
@@ -123,4 +124,4 @@ class Evaluation extends Component {
   }
 }
 
-export default Evaluation;
+export default withStyles(styles)(Evaluation);
