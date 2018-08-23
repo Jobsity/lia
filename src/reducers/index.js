@@ -95,3 +95,21 @@ export const getTestsResults = state =>
 // Session getters
 export const getLanguage = state =>
   fromSession.getLanguage(state.session);
+
+export const getUser = state =>
+  fromSession.getUser(state.session);
+
+// Custom getters
+export const getPlayedEventsData = (state, type = null) => {
+  let playedEvents = getPlayedEvents(state);
+
+  if (!playedEvents) {
+    return playedEvents;
+  }
+
+  if (typeof type === 'string' && type.length > 0) {
+    playedEvents = playedEvents.filter(e => e.type === type);
+  }
+
+  return playedEvents.map(e => e.data);
+}

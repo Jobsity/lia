@@ -269,46 +269,78 @@ mock.onGet('/observerToken').reply(200, {
 });
 
 mock.onPost('/submit').reply(200, {
-  tests: [
-    {
-      id: 0,
-      name: 'Test without parameters',
-      passed: true,
-      expectedResult: 'Hello World!',
-      testResult: 'Hello World',
-    },
-    {
-      id: 1,
-      name: 'Test with given name',
-      passed: false,
-      expectedResult: 'Hello, Jobsity!',
-      testResult: 'Hi I am from Jobsity',
-      message: "Failed asserting that two strings are equal.\nExpected: 'Hello, Jobsity!'\nActual  : 'Hi I am from Jobsity'\n",
-    },
-    {
-      id: 2,
-      name: 'Sample test',
-      passed: true,
-      expectedResult: 'Hello World',
-      testResult: 'Hello World',
-    },
-  ],
-  executionTime: 1500, // time in milliseconds
-  err: 'Error in sample.test.js: no such file found.',
+  clientTests: {
+    tests: [
+      {
+        id: 0,
+        name: 'Test without parameters',
+        passed: true,
+        expectedResult: 'Hello World!',
+        testResult: 'Hello World!',
+      },
+      {
+        id: 1,
+        name: 'Sample test',
+        passed: true,
+        expectedResult: 'Hello World',
+        testResult: 'Hello World',
+      },
+    ],
+    executionTime: 1500,
+    err: 'Error in sample.test.js: no such file found.',
+  },
+  internalTests: {
+    tests: [
+      {
+        id: 0,
+        name: 'Test without parameters',
+        passed: true,
+        expectedResult: 'Hello World!',
+        testResult: 'Hello World!',
+      },
+      {
+        id: 1,
+        name: 'Sample test',
+        passed: true,
+        expectedResult: 'Hello World',
+        testResult: 'Hello World',
+      },
+      {
+        id: 2,
+        name: 'Test with given name',
+        passed: false,
+        expectedResult: 'Hello, Jobsity!',
+        testResult: 'Hi I am from Jobsity',
+        message: "Failed asserting that two strings are equal.\nExpected: 'Hello, Jobsity!'\nActual  : 'Hi I am from Jobsity'\n",
+      },
+    ],
+    executionTime: 1200,
+    err: '',
+  },
+  
 })
 
 mock.onPost('/test').reply(200, {
-  tests: [
-    {
-      id: 0,
-      name: 'Sample test',
-      passed: true,
-      expectedResult: 'Hello World',
-      testResult: 'Hello World',
-    },
-  ],
-  executionTime: 1500, // time in milliseconds
-  err: '',
+  clientTests: {
+    tests: [
+      {
+        id: 0,
+        name: 'Test without parameters',
+        passed: true,
+        expectedResult: 'Hello World!',
+        testResult: 'Hello World!',
+      },
+      {
+        id: 1,
+        name: 'Sample test',
+        passed: true,
+        expectedResult: 'Hello World',
+        testResult: 'Hello World',
+      },
+    ],
+    executionTime: 1500, // time in milliseconds
+    err: '',
+  },
 })
 
 export { api };

@@ -7,7 +7,10 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  testsResults: null,
+  testsResults: {
+    clientTests: null,
+    internalTests: null,
+  },
 };
 
 export default function (state = initialState, action) {
@@ -35,7 +38,7 @@ export default function (state = initialState, action) {
     case RUN_SAMPLE_TESTS_ERROR:
       return {
         ...state,
-        testsResults: null,
+        testsResults: initialState.testsResults,
       }
     case SUBMIT_CHALLENGE_SUCCESS:
       return {
@@ -45,7 +48,7 @@ export default function (state = initialState, action) {
     case SUBMIT_CHALLENGE_ERROR:
       return {
         ...state,
-        testsResults: null,
+        testsResults: initialState.testsResults,
       }
     default:
       break;
