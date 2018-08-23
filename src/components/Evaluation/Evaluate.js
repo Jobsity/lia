@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import { Radio, RadioGroup, Button } from "@material-ui/core";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import ReactMarkdown from "react-markdown";
-import styles from "./styles";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import { Radio, RadioGroup, Button, Typography } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import ReactMarkdown from 'react-markdown';
+import styles from './styles';
 
 const placeholder = `Add any notes you want to share with your team about this candidate. Markdown is supported.\n\nThe Entire review is for internal use and won't be shared with the candidate.`;
 
@@ -26,43 +26,44 @@ class Evaluate extends Component {
   }
 
   componentDidMount() {
-    const { evaluation } = this.props;
-    if (evaluation) {
+    const { evaluation, editable } = this.props;
+    if(evaluation.id) {
       this.setState({
-        overall: evaluation.overall,
-        easyness: evaluation.easyness,
-        codeStyle: evaluation.codeStyle,
-        maintainability: evaluation.maintainability,
-        codeStructure: evaluation.codeStructure,
-        defensiveCoding: evaluation.defensiveCoding,
-        feedback: evaluation.feedback
+        overall: evaluation.rating.overall,
+        easyness: evaluation.rating.easyness,
+        codeStyle: evaluation.rating.codeStyle,
+        maintainability: evaluation.rating.maintainability,
+        codeStructure: evaluation.rating.codeStructure,
+        defensiveCoding: evaluation.rating.defensiveCoding,
+        feedback: evaluation.rating.feedback,
+        preview: editable,
       });
     }
   }
 
   handleChange = (event, sel) => {
     switch (sel) {
-      case "overall":
+      case 'overall':
         this.setState({ overall: event.target.value });
         break;
 
-      case "easyness":
+      case 'easyness':
         this.setState({ easyness: event.target.value });
         break;
 
-      case "style":
+      case 'style':
         this.setState({ codeStyle: event.target.value });
         break;
 
-      case "structure":
+      case 'structure':
         this.setState({ codeStructure: event.target.value });
         break;
 
-      case "maintainability":
+      case 'maintainability':
         this.setState({ maintainability: event.target.value });
         break;
 
-      case "defense":
+      case 'defense':
         this.setState({ defensiveCoding: event.target.value });
         break;
 
@@ -73,14 +74,14 @@ class Evaluate extends Component {
 
   togglePreview = () => {
     const { feedback, preview } = this.state;
-    if (feedback !== "") {
+    if (feedback !== '') {
       this.setState({ preview: !preview });
     }
   };
 
   handleFeedback = event => {
-    this.setState({ feedback: event.target.value.split("\n") });
-  };
+    this.setState({ feedback: event.target.value.split('\n') });
+  }
 
   handleSubmit = event => {
     event.preventDefault();
@@ -91,7 +92,7 @@ class Evaluate extends Component {
       codeStructure,
       maintainability,
       defensiveCoding,
-      feedback
+      feedback,
     } = this.state;
 
     const evaluation = {
@@ -110,8 +111,8 @@ class Evaluate extends Component {
 
     // API call to add evaluation to backend
     // axios.post(args, evaluation);
-    console.log("added evaluation: ", evaluation);
-  };
+    console.log('added evaluation: ', evaluation);
+  }
 
   render() {
     const {
@@ -122,99 +123,127 @@ class Evaluate extends Component {
       codeStructure,
       defensiveCoding,
       feedback,
-      preview
+      preview 
     } = this.state;
 
-    const { classes } = this.props; 
+    const { editable, classes, hideEvaluation } = this.props; 
 
     const qualities = [
       {
-        tag: "easyness",
-        leftLbl: "Hard to Understand",
-        rightLbl: "Easy to Read",
-        value: easyness
+        id: 1,
+        tag: 'easyness',
+        leftLbl: 'Hard to Understand',
+        rightLbl: 'Easy to Read',
+        value: easyness 
       },
       {
-        tag: "style",
-        leftLbl: "Rudimentary Coding Style",
-        rightLbl: "Advanced Grasp of Language",
-        value: codeStyle
+        id: 2,
+        tag: 'style',
+        leftLbl: 'Rudimentary Coding Style',
+        rightLbl: 'Advanced Grasp of Language',
+        value: codeStyle 
       },
       {
-        tag: "maintainability",
-        leftLbl: "Hard to Mantain",
-        rightLbl: "Easy to Mantain",
-        value: maintainability
+        id: 3,
+        tag: 'maintainability',
+        leftLbl: 'Hard to Mantain',
+        rightLbl: 'Easy to Mantain',
+        value: maintainability 
       },
       {
-        tag: "structure",
-        leftLbl: "Poorly Structured",
-        rightLbl: "Well Structured",
-        value: codeStructure
+        id: 4,
+        tag: 'structure',
+        leftLbl: 'Poorly Structured',
+        rightLbl: 'Well Structured',
+        value: codeStructure 
       },
       {
-        tag: "defense",
-        leftLbl: "Lack of Defensive Coding",
-        rightLbl: "Handles Edge Cases",
-        value: defensiveCoding
-      }
+        id: 5,
+        tag: 'defense',
+        leftLbl: 'Lack of Defensive Coding',
+        rightLbl: 'Handles Edge Cases',
+        value: defensiveCoding 
+      },
     ];
+
     return (
-      <div>
+      <div style={{position: 'relative'}}>
+        <Typography variant='display1' className={classes.title}>
+          Evaluation 
+        </Typography>
         <form onSubmit={this.handleSubmit}>
-          <h3 style={styles.title}>Overall Rating</h3>
-          <div style={styles.selector}>
-            <span style={styles.leftLabel}>Poor</span>
-            <RadioGroup
-              name="overall"
+          <Button size='small' onClick={hideEvaluation} style={{position: 'absolute', right: '0'}}>
+            <FontAwesomeIcon icon={faTimesCircle}/>
+          </Button>
+          <Typography variant='title' component='h3' className={classes.title}>
+            Overall Rating 
+          </Typography>
+          <Typography component='div' className={classes.selector}>
+            <Typography variant='subheading' component='span' className={classes.leftLabel}>
+              Poor 
+            </Typography>
+            <RadioGroup 
+              name='overall'
               value={overall}
-              row
-              onChange={e => this.handleChange(e, "overall")}>
-              <Radio value="poor" />
-              <Radio value="normal" />
-              <Radio value="great" />
+              row 
+              onChange={(e) => editable?this.handleChange(e, 'overall'):null}
+            >
+              <Radio value='poor'/>
+              <Radio value='normal'/>
+              <Radio value='great'/>
             </RadioGroup>
-            <span style={styles.rightLabel}>Great</span>
-          </div>
-          <h3 style={styles.title}>Qualities</h3>
+            <Typography variant='subheading' component='span' className={classes.rightLabel}>
+              Great 
+            </Typography>
+          </Typography>
+          <Typography variant='title' component='h3' className={classes.title}>
+            Qualities 
+          </Typography>
           {qualities.map(quality => (
-            <div style={styles.selector}>
-              <span style={styles.leftLabel}>{quality.leftLbl}</span>
-              <RadioGroup
+            <Typography key={quality.id} component='div' className={classes.selector}>
+              <Typography variant='subheading' component='span' className={classes.leftLabel}>
+                {quality.leftLbl}
+              </Typography>
+              <RadioGroup 
                 name={quality.tag}
                 value={quality.value}
-                row
-                onChange={e => this.handleChange(e, quality.tag)}>
-                <Radio value="poor" />
-                <Radio value="normal" />
-                <Radio value="great" />
+                row 
+                onChange={(e) => editable?this.handleChange(e, quality.tag):null}
+              >
+                <Radio value='poor'/>
+                <Radio value='normal'/>
+                <Radio value='great'/>
               </RadioGroup>
-              <span style={styles.rightLabel}>{quality.rightLbl}</span>
-            </div>
+              <Typography variant='subheading' component='span' className={classes.rightLabel}>
+                {quality.rightLbl}
+              </Typography>
+            </Typography>
           ))}
-          <h3 style={styles.title}>Feedback Notes</h3>
-          <Button style={{ float: "right" }} onClick={this.togglePreview}>
-            <FontAwesomeIcon icon={preview ? faEye : faEyeSlash} /> Preview
-          </Button>
-          {preview ? (
-            <textarea
+          <Typography variant='title' component='h3' className={classes.title}>
+            Feedback Notes 
+          </Typography>
+          {editable&&
+          <Button style={{float: 'right'}} onClick={this.togglePreview}>
+            <FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview 
+          </Button>}
+          {preview?
+            <textarea 
               placeholder={placeholder}
-              cols="59"
-              rows="10"
-              value={feedback ? feedback.join("\n") : null}
-              onChange={this.handleFeedback}
-            />
-          ) : (
-            <div style={styles.previewDiv}>
-              <ReactMarkdown className={classes.markdown} source={feedback ? feedback.join("  \n") : null} />
-            </div>
-          )}
-          <div style={styles.buttonArea}>
-            <Button style={styles.button} type="submit">
-              Add Overall Review
-            </Button>
-            <Button style={styles.button}>Close Review Editor</Button>
-          </div>
+              cols='59'
+              rows='10'
+              value={feedback?feedback.join('\n'):null}
+              onChange={editable?this.handleFeedback:null}
+              />
+              :
+            <Typography variant='body1' component='div' className={classes.previewDiv}>
+              <ReactMarkdown className={classes.markdown} source={feedback ? feedback.join('  \n') : null} />
+            </Typography>
+          }
+          {editable&&
+          <div className={classes.buttonArea}>
+            <Button className={classes.button} type='submit'>Add Overall Review</Button>
+            <Button className={classes.button} onClick={hideEvaluation}>Close Review Editor</Button>
+          </div>}
         </form>
       </div>
     );
@@ -229,20 +258,22 @@ Evaluate.propTypes = {
     maintainability: PropTypes.string,
     codeStructure: PropTypes.string,
     defensiveCoding: PropTypes.string,
-    feedback: PropTypes.array
-  })
+    feedback: PropTypes.array,
+  }),
+  editable: PropTypes.bool,
 };
 
 Evaluate.defaultProps = {
   evaluation: {
-    overall: "normal",
-    easyness: "normal",
-    codeStyle: "normal",
-    maintainability: "normal",
-    codeStructure: "normal",
-    defensiveCoding: "normal",
-    feedback: []
-  }
+    overall: 'normal',
+    easyness: 'normal',
+    codeStyle: 'normal',
+    maintainability: 'normal',
+    codeStructure: 'normal',
+    defensiveCoding: 'normal',
+    feedback: [''],
+  },
+  editable: true,
 };
 
 export default withStyles(styles)(Evaluate);
