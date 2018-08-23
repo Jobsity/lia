@@ -30,3 +30,5 @@ export default function (state = initialState, action) {
 
 // Getters
 export const getLanguage = state => state.language;
+
+export const getUser = state => state.user;

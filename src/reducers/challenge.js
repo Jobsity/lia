@@ -101,7 +101,7 @@ export default function (state = initialState, action) {
         submitChallengeLoading: false,
         submitChallengeError: '',
         runTestsError: '',
-        submitted: action.payload.results.tests.filter(test => test.passed).length === action.payload.results.tests.length,
+        submitted: true,
       }
     case SUBMIT_CHALLENGE_ERROR:
       return {

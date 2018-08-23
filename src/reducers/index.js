@@ -93,6 +93,9 @@ export const getTestsResults = state =>
 export const getLanguage = state =>
   fromSession.getLanguage(state.session);
 
+export const getUser = state =>
+  fromSession.getUser(state.session);
+
 // Custom getters
 export const getPlayedEventsData = (state, type = null) => {
   let playedEvents = getPlayedEvents(state);

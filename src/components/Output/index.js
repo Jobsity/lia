@@ -9,6 +9,7 @@ import {
   getSubmitChallengeLoading,
   getSubmitChallengeError,
   getSubmitted,
+  getUser,
 } from '../../reducers';
 
 function Output({
@@ -18,16 +19,17 @@ function Output({
   submitChallengeLoading,
   submitChallengeError,
   submitted,
+  user,
 }) {
   return (
     <OutputView
-      testsResults={testsResults}
+      testsResults={(user.role === 'evaluator') ? testsResults.internalTests : testsResults.clientTests}
       status={{
         runTestsLoading,
         runTestsError,
         submitChallengeLoading,
         submitChallengeError,
-        submitted
+        submitted,
       }}
     />
   );
@@ -40,6 +42,7 @@ Output.propTypes = {
   submitChallengeLoading: PropTypes.bool.isRequired,
   submitChallengeError: PropTypes.string.isRequired,
   submitted: PropTypes.bool.isRequired,
+  user: PropTypes.instanceOf(Object).isRequired,
 };
 
 Output.defaultProps = {
@@ -53,6 +56,7 @@ const mapStateToProps = (state) => ({
   submitChallengeLoading: getSubmitChallengeLoading(state),
   submitChallengeError: getSubmitChallengeError(state),
   submitted: getSubmitted(state),
+  user: getUser(state),
 });
 
 export default connect(
