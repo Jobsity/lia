@@ -9,7 +9,7 @@ import * as fromReducers from '../../reducers';
 import * as playbackActions from '../../actions/playback';
 
 import PlayPauseButton from './PlayPauseButton';
-import Slider from './Slider';
+import Timeline from './Timeline';
 import Timer from './Timer';
 
 const styles = {
@@ -26,14 +26,9 @@ class Playback extends Component {
     timestamp: 0,
   }
 
-  handleSliderChange = event => {
-    if (!event.target) {
-      return;
-    }
-
+  handleChange = (currentTs) => {
     clearTimeout(this.timeoutId);
-    const { value } = event.target;
-    this.timer(Number(value));
+    this.timer(currentTs);
   }
 
   togglePlayPause = () => {
@@ -112,10 +107,11 @@ class Playback extends Component {
           currentTime={this.state.timestamp / 1000}
           duration={this.props.maxTs / 1000}
         />
-        <Slider
-          onChange={this.handleSliderChange}
-          max={this.props.maxTs}
-          value={this.state.timestamp}
+        <Timeline
+          currentTs={this.state.timestamp}
+          events={this.props.events}
+          maxTs={this.props.maxTs}
+          onChange={this.handleChange}
         />
       </Paper>
     );
