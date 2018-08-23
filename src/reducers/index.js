@@ -95,7 +95,6 @@ export const getTestsResults = state =>
 // Session getters
 export const getLanguage = state =>
   fromSession.getLanguage(state.session);
-<<<<<<< HEAD
 
 export const getUser = state =>
   fromSession.getUser(state.session);
@@ -114,5 +113,3 @@ export const getPlayedEventsData = (state, type = null) => {
 
   return playedEvents.map(e => e.data);
 }
-=======
->>>>>>> ef54ecf2cfa1042d8533039e087a87599fe38ffb
