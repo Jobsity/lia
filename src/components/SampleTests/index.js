@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
-import { updateCurrentTests, resetEditors } from  '../../actions/challenge';
+import { updateCurrentTests, resetEditors, runTests, submitChallenge } from  '../../actions/challenge';
 import store from '../../store/store';
 import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
 import {
@@ -15,6 +15,7 @@ import {
   getCurrentTests,
   getSubmitted,
   getRunTestsLoading,
+  getStartingTime,
   getSubmitChallengeLoading,
   getEditorCode,
 } from '../../reducers';
@@ -46,27 +47,13 @@ class SampleTests extends Component {
   }
 
   handleRunTestsClick() {
-    const { editorCode, currentTests, language } = this.props;
-    store.dispatch({
-      type: RUN_SAMPLE_TESTS_START,
-      payload: {
-        editorCode,
-        tests: currentTests,
-        language,
-      },
-    });
+    const { editorCode, currentTests, language, startingTime, run} = this.props;
+    run(editorCode, currentTests, language, startingTime);
   }
 
   handleSubmit() {
-    const { editorCode, testSuite, language } = this.props;
-    store.dispatch({
-      type: SUBMIT_CHALLENGE_START,
-      payload: {
-        editorCode,
-        tests: testSuite.filter(tests => tests.language === language)[0].tests,
-        language,
-      },
-    });
+    const { editorCode, language, startingTime, testSuite, submit } = this.props;
+    submit(editorCode, testSuite, language, startingTime);
     this.setState({ dialogOpened: ''});
   }
 
@@ -105,8 +92,6 @@ class SampleTests extends Component {
         handleSubmitClick={() => this.handleSubmitClick()}
         handleTestsEditorChange={text => this.handleTestsEditorChange(text)}
         handleDialogOpening={(dialog, e) => this.handleDialogOpening(dialog, e)}
-        handleReset={() => this.handleReset()}
-        handleSubmit={() => this.handleSubmit()}
         tests={{
           currentTests,
           difficulty,
@@ -145,12 +130,17 @@ SampleTests.propTypes = {
   runTestsLoading: PropTypes.bool.isRequired,
   submitChallengeLoading : PropTypes.bool.isRequired,
   editorCode: PropTypes.string.isRequired,
+  startingTime: PropTypes.number.isRequired,
+  submit: PropTypes.func.isRequired,
+  run: PropTypes.func.isRequired,
 }
 
 const mapDispatchToProps = () => ({
   setLanguage: setCurrentLanguage,
   updateTests: updateCurrentTests,
   resetEditorsCode: resetEditors,
+  submit: submitChallenge,
+  run: runTests,
 });
 
 const mapStateToProps = (state) => ({
@@ -160,6 +150,7 @@ const mapStateToProps = (state) => ({
   language: getLanguage(state),
   languages: getLanguages(state),
   testSuite: getTestSuite(state),
+  startingTime: getStartingTime(state),
   submitted: getSubmitted(state),
   runTestsLoading: getRunTestsLoading(state),
   submitChallengeLoading : getSubmitChallengeLoading(state),

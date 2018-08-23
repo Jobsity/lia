@@ -14,14 +14,14 @@ class Evaluate extends Component {
     super(props, context);
 
     this.state = {
-      overall: 'normal',
-      easyness: 'normal',
-      codeStyle: 'normal',
-      maintainability: 'normal',
-      codeStructure: 'normal',
-      defensiveCoding: 'normal',
+      overall: "normal",
+      easyness: "normal",
+      codeStyle: "normal",
+      maintainability: "normal",
+      codeStructure: "normal",
+      defensiveCoding: "normal",
       preview: true,
-      feedback: '',
+      feedback: ""
     };
   }
 
@@ -70,14 +70,14 @@ class Evaluate extends Component {
       default:
         break;
     }
-  }
+  };
 
   togglePreview = () => {
     const { feedback, preview } = this.state;
     if (feedback !== '') {
       this.setState({ preview: !preview });
     }
-  }
+  };
 
   handleFeedback = event => {
     this.setState({ feedback: event.target.value.split('\n') });
@@ -96,8 +96,8 @@ class Evaluate extends Component {
     } = this.state;
 
     const evaluation = {
-      candidate: '',
-      evaluator: '',
+      candidate: "",
+      evaluator: "",
       rating: {
         overall,
         easyness,
@@ -105,7 +105,7 @@ class Evaluate extends Component {
         codeStructure,
         maintainability,
         defensiveCoding,
-        feedback,
+        feedback
       }
     };
 

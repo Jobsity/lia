@@ -2,7 +2,8 @@ import * as actionTypes from '../actions/types';
 
 const initState = {
   isPlaying: false,
-  playedEvents: [],
+  playedEvents: null,
+  wasInteracted: false,
 };
 
 export default (state = initState, action) => {
@@ -11,11 +12,13 @@ export default (state = initState, action) => {
       return {
         ...state,
         playedEvents: action.payload.playedEvents,
+        wasInteracted: true,
       };
     case actionTypes.PLAYBACK_PLAYING_SET:
       return {
         ...state,
         isPlaying: action.payload.isPlaying,
+        wasInteracted: true,
       };
     default:
       return state;
@@ -28,3 +31,5 @@ export default (state = initState, action) => {
 export const getIsPlaying = state => state.isPlaying;
 
 export const getPlayedEvents = state => state.playedEvents;
+
+export const getWasInteracted = state => state.wasInteracted;
