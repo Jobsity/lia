@@ -59,7 +59,7 @@ ExpandableListItem.propTypes = {
   render: PropTypes.bool.isRequired,
   mainText: PropTypes.string.isRequired,
   icon: PropTypes.instanceOf(Object),
-  componentClass: PropTypes.instanceOf(Object).isRequired,
+  componentClass: PropTypes.string.isRequired,
   children: PropTypes.instanceOf(Object).isRequired,
   classes: PropTypes.instanceOf(Object).isRequired,
 };
