@@ -39,9 +39,7 @@ class ExpandableListItem extends React.Component {
         ? (
           <React.Fragment>
             <ListItem button onClick={() => this.toggleOpen()} className={componentClass}>
-              <ListItemIcon>
-                <FontAwesomeIcon icon={icon} className={componentClass}/>
-              </ListItemIcon>
+              {icon ? <ListItemIcon><FontAwesomeIcon icon={icon} className={componentClass}/></ListItemIcon>: null}
               {open ? <FontAwesomeIcon icon={faAngleUp} className={componentClass}/> : <FontAwesomeIcon icon={faAngleDown} className={componentClass}/>}
               <ListItemText inset primary={mainText}/>
             </ListItem>
@@ -65,6 +63,6 @@ ExpandableListItem.propTypes = {
 };
 
 ExpandableListItem.defaultProps = {
-  icon: {},
+  icon: null,
 };
 export default withStyles(styles)(ExpandableListItem);

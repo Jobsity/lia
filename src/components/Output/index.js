@@ -23,7 +23,7 @@ function Output({
 }) {
   return (
     <OutputView
-      testsResults={(user.role === 'evaluator') ? testsResults.internalTests : testsResults.clientTests}
+      testsResults={(user.role === 'evaluator' && testsResults.internalTests) ? testsResults.internalTests : testsResults.clientTests}
       status={{
         runTestsLoading,
         runTestsError,
