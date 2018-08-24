@@ -87,7 +87,6 @@ class Playback extends Component {
       this.timeoutId = setTimeout(() => this.timer(nextTs), timeout);
     }
 
-
     const playedEvents = events.slice(0, index);
 
     this.playEvents(playedEvents);

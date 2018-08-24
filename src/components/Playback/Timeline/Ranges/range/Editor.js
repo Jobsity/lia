@@ -1,23 +1,24 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = {
   container: {
-    bottom: 0,
-    color: '#00FF00',
-    position: 'absolute',
-    transform: 'translate(-50%, 0)',
+    'background-size': '1rem 1rem',
+    'background-image': 'radial-gradient(#fff 0%, #fff 20%, transparent 20%)',
+    height: '100%',
+    minWidth: '1rem',
   },
 };
 
-const Output = (props) => {
+const Editor = (props) => {
   const { classes } = props;
 
   return (
-    <FontAwesomeIcon
-      className={classes.container} icon={faCheck}
-    />
+    <Tooltip title="Editor typing">
+      <div className={classes.container} />
+    </Tooltip>
   )
 }
 
-export default withStyles(styles)(Output);
+export default withStyles(styles)(Editor);

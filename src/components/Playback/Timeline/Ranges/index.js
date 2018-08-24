@@ -2,17 +2,42 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import isEqual from 'lodash/isEqual';
 
-import createRanges from './ranges';
+import createRanges from './createRanges';
 
-import Range from './Range';
+import Editor from './range/Editor';
+import Output from './range/Output';
 
-const styles = theme => ({
+const typedComponents = {
+  editor: Editor,
+  output: Output,
+}
+
+
+const styles = () => ({
+  box: {
+    cursor: 'pointer',
+    display: 'inline-block',
+    height: 'inherit',
+    opacity: 0.7,
+    position: 'absolute',
+    textAlign: 'center',
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+  boxInternal: {
+    bottom: 0,
+    display: 'inline-block',
+    height: '100%',
+    transform: 'translate(-50%, 0)',
+    zIndex: 4,
+  },
   container: {
     alignItems: 'center',
-    // borderRadius: '0.33rem',
-    display: 'flex',
+    position: 'relative',
     height: '1rem',
-  }
+    minWidth: '100px',
+  },
 });
 
 class Ranges extends React.Component {
@@ -33,31 +58,46 @@ class Ranges extends React.Component {
   updateRanges() {
     const { events } = this.props;
 
-    if (events.length === 0) {
-      this.setState({ ranges: [] });
-    } else {
-      this.setState({ ranges: createRanges(events) });
-    }
+    this.setState({ ranges: createRanges(events) });
+  }
+
+  renderOneRange(range) {
+    const { classes, maxTs, onClick } = this.props;
+    const Component = typedComponents[range.type];
+    const children = <Component dataArray={range.dataArray}/>;
+    const left = `${100 * range.start / maxTs}%`;
+    const widthRate = (range.end - range.start) / maxTs;
+    const width = `${100 * widthRate}%`;
+
+    return (
+      <div
+        className={classes.box}
+        onClick={() => onClick(range.start)}
+        style={{ left, width }}
+      >
+        {
+          widthRate < 0.01
+            ? (
+              <div className={classes.boxInternal}>
+                {children}
+              </div>
+            ) : children
+        }
+      </div>
+    );
   }
 
   render() {
+    const { classes } = this.props;
     const { ranges } = this.state;
 
     if (ranges.length === 0) {
       return null;
     }
 
-    const { classes, maxTs } = this.props;
-
     return (
       <div className={classes.container}>
-        {ranges.map(range => (
-          <Range
-            maxTs={maxTs}
-            onClick={this.props.onClick}
-            range={range}
-          />
-        ))}
+        {ranges.map(range => this.renderOneRange(range))}
       </div>
     );
   }

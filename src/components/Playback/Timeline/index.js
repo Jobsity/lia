@@ -9,11 +9,10 @@ const styles = {
     borderRadius: '0.33rem',
     display: 'flex',
     flexDirection: 'column',
-    margin: '0 0.5rem',
-    // overflow: 'hidden',
+    margin: '0 1rem',
     width: '100%',
-  }
-}
+  },
+};
 
 class Timeline extends React.Component {
 
