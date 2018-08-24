@@ -18,7 +18,6 @@ export default function (state = initialState, action) {
         language: action.payload.language,
       }
     case FETCH_SESSION_DATA_SUCCESS:
-      console.log(action);
       return {
         ...state,
         user: action.payload.data.user,
