@@ -5,7 +5,7 @@ import SampleTestsView from './sampleTestsView';
 import { setCurrentLanguage } from  '../../actions/session';
 import { updateCurrentTests, resetEditors, runTests, submitChallenge } from  '../../actions/challenge';
 import store from '../../store/store';
-import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
+import { FETCH_CHALLENGE_DATA_START } from '../../actions/types';
 import {
   getIsLoading,
   getLanguage,
@@ -81,9 +81,11 @@ class SampleTests extends Component {
       testSuite,
       submitted,
       runTestsLoading,
-      submitChallengeLoading ,
+      submitChallengeLoading,
+      setLanguage,
     } = this.props;
     const { dialogOpened } = this.state;
+    if (languages.length !== 0 &&  language === '') setLanguage(languages[0]);
     return (
       <SampleTestsView
         handleSelectChange={e => this.handleSelectChange(e)}
@@ -135,13 +137,16 @@ SampleTests.propTypes = {
   run: PropTypes.func.isRequired,
 }
 
+SampleTests.defaultProps = {
+  editorCode: '',
+}
+
 const mapDispatchToProps = () => ({
   setLanguage: setCurrentLanguage,
   updateTests: updateCurrentTests,
   resetEditorsCode: resetEditors,
   submit: submitChallenge,
   run: runTests,
-  editorCode: '',
 });
 
 const mapStateToProps = (state) => ({
