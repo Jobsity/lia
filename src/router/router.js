@@ -11,9 +11,10 @@ import texts from '../components/Styleguide/texts';
 
 const Router = () => (
   <Switch>
-    <Route path="/" exact render={() => <Redirect to="/welcome" />} />
-    <Route exact path="/home" component={Homepage} />
-    <Route exact path="/welcome" component={Welcome} />
+    <Route path="/" exact render={() => <Redirect to="/evaluatorToken/welcome" />} />
+    <Redirect from="/:token" exact to="/:token/welcome" />
+    <Route exact path="/:token/home" component={Homepage} />
+    <Route exact path="/:token/welcome" component={Welcome} />
   
     {/* Style guides */}
     <Route exact path="/styles/inputs" component={inputs} />

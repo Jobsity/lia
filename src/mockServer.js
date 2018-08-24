@@ -23,7 +23,7 @@ mock.onGet('/challenges/id').reply(200, {
       },
       {
         language: 'php',
-        tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+        tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
       }
     ],
     difficultyLevel: 'easy',
@@ -156,7 +156,7 @@ mock.onGet('/candidateToken').reply(200, {
           },
           {
             language: 'php',
-            tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
           }
         ],
         difficultyLevel: 'easy',
@@ -206,7 +206,7 @@ mock.onGet('/evaluatorToken').reply(200, {
           },
           {
             language: 'php',
-            tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
           }
         ],
         difficultyLevel: 'easy',
@@ -256,7 +256,7 @@ mock.onGet('/observerToken').reply(200, {
           },
           {
             language: 'php',
-            tests: `class SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
           }
         ],
         difficultyLevel: 'easy',
