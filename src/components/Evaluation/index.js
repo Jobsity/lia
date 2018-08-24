@@ -113,7 +113,7 @@ class Evaluation extends Component {
               </span>
             </li>
           )}
-          <li><Button variant="primary" onClick={this.handleAdd}><FontAwesomeIcon icon={faPlusSquare}/>Add Evaluation</Button></li>
+          <li><Button onClick={this.handleAdd}><FontAwesomeIcon icon={faPlusSquare}/>Add Evaluation</Button></li>
         </ul>
         <Collapse in={toggleView}>
           {toggleView&&

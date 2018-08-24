@@ -271,7 +271,7 @@ Evaluate.defaultProps = {
     maintainability: 'normal',
     codeStructure: 'normal',
     defensiveCoding: 'normal',
-    feedback: [''],
+    feedback: '',
   },
   editable: true,
 };

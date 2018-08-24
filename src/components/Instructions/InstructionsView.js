@@ -18,7 +18,7 @@ const InstructionsView = ({ data, loading, classes }) => (
         <Divider />
       { loading
         ? (
-          <Typography component="p">
+          <Typography component="div">
           <CircularProgress
             classes={{ root: classes.loading }}
             size={75}
@@ -26,11 +26,10 @@ const InstructionsView = ({ data, loading, classes }) => (
           />
           </Typography>
         ) : (
-          <Typography component="p">
+          <Typography component="div">
           <ReactMarkdown 
             source={data.instructions.split('\n').join('  \n')}
           />
-          
         </Typography>
         )
       }
