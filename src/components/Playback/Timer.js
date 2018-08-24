@@ -22,7 +22,6 @@ const Timer = (props) => {
   return (
     <Typography
       className={classes.text}
-      gutterBottom
       variant="body2"
     >
       {formatStartEnd(currentTime || 0, duration)}
