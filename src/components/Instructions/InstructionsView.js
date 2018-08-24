@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
+import ReactMarkdown from 'react-markdown';
 
 import styles from "./styles";
 
@@ -26,7 +27,10 @@ const InstructionsView = ({ data, loading, classes }) => (
           </Typography>
         ) : (
           <Typography component="p">
-          {data.instructions}
+          <ReactMarkdown 
+            source={data.instructions.split('\n').join('  \n')}
+          />
+          
         </Typography>
         )
       }

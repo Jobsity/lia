@@ -139,7 +139,7 @@ sampleTestsView.propTypes = {
   handleDialogOpening: PropTypes.func.isRequired,
   challengeSubmitted: PropTypes.bool.isRequired,
   dialogOpened: PropTypes.string.isRequired,
-  dialogHandlers: PropTypes.arrayOf(PropTypes.func).isRequired
+  dialogHandlers: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(sampleTestsView);

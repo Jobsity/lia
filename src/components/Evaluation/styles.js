@@ -2,7 +2,6 @@ const styles = theme => ({
   title: {
     textAlign: "center"
   },
-
   selector: {
     display: "grid",
     gridTemplateColumns: "1fr 144px 1fr"
@@ -21,16 +20,15 @@ const styles = theme => ({
   button: {
     flex: "1"
   },
-  progress: {
-    position: "absolute",
-    left: "43%",
-    top: "-0.5em",
-    fontSize: "0.7em",
-    fontWeight: "bold"
+  list: {
+    listStyle: 'none',
+    padding: '0',
+    margin: '0',
   },
-  markdown: {
-    color: "#FFFFFF"
-  }
+  listItem: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 192px'
+  },
 });
 
 export default styles;

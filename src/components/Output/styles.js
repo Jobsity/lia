@@ -1,24 +1,19 @@
 const styles = theme => ({
   container: {
     height: '100%',
+    whiteSpace: 'pre-line',
   },
   passedList: {
     color: '#00FF00',
-    backgroundColor: 'background-color: rgba(0, 255, 0, 0.3)',
   },
   failedList: {
     color: '#FF0000',
-    backgroundColor: 'background-color: rgba(0, 255, 0, 0.3)',
   },
   error: {
     color: '#FF4800',
-    backgroundColor: 'background-color: rgba(255, 72, 0, 0.3)',
   },
   noTestsResults: {
     margin: '1rem'
-  },
-  expandible: {
-    color: '#FFFFFF',
   },
   typography: {
     margin: '1rem',
@@ -35,6 +30,9 @@ const styles = theme => ({
     margin: '1rem',
     color: 'inherit',
   },
+  expandedContent: {
+    marginLeft: '2rem',
+  }
 });
 
 export default styles;
