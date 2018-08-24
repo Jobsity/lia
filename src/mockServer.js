@@ -31,6 +31,21 @@ mock.onGet('/challenges/id').reply(200, {
   },
 });
 
+mock.onGet('/challenges/id/scores').reply(200, {
+  data: {
+    chartData: {
+      labels: ['37.5%','100%'],
+      data: [1,8]
+    },
+    total: 9,
+    passRate: 88.9,
+    minScore: 37.5,
+    maxScore: 100,
+    averageScore: 93.1,
+    deviationStd: 19.6,
+  },
+});
+
 mock.onGet('/candidates/:id').reply(200, {
   data: {
     id: "b49bc530-9433-11e8-88d3-39619bf324e6",

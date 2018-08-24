@@ -3,6 +3,7 @@ import InformationTabsView from "./TabsView";
 import SampleTests from "../SampleTests";
 import CandidateInformation from "../CandidateInformation";
 import Evaluation from "../Evaluation";
+import Scores from "../Scores";
 import { api } from "../../mockServer";
 
 class InformationTabs extends Component {
@@ -40,6 +41,12 @@ class InformationTabs extends Component {
         name: "Evaluation",
         permissions: ["evaluator"],
         component: <Evaluation {...data} />
+      },
+      {
+        id: "scores",
+        name: "Scores",
+        permissions: ["evaluator", "observer"],
+        component: <Scores {...data} />
       }
     ];
 
