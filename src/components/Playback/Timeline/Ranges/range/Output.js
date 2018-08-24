@@ -11,7 +11,8 @@ const styles = {
 };
 
 const Output = (props) => {
-  const { classes, dataArray: [{ err, tests }] } = props;
+  const { classes, dataArray: [data] } = props;
+  const { err, tests } = data.internalTests || data.clientTests;
   const testsLen = tests.length;
   const passedLen = tests.filter(t => t.passed).length;
   let color = '#00FF00';
