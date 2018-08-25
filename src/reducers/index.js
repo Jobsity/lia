@@ -27,6 +27,8 @@ export const getEditorChanges = state =>
 export const getEditorCode = state =>
   fromEditor.getCode(state.editor);
 
+export const getEditorResetCounter = state =>
+  fromEditor.getResetCounter(state.editor);
 
 // Playback getters
 
