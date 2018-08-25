@@ -129,7 +129,7 @@ SampleTests.propTypes = {
   submitted: PropTypes.bool.isRequired,
   runTestsLoading: PropTypes.bool.isRequired,
   submitChallengeLoading : PropTypes.bool.isRequired,
-  editorCode: PropTypes.string.isRequired,
+  editorCode: PropTypes.string,
   startingTime: PropTypes.number.isRequired,
   submit: PropTypes.func.isRequired,
   run: PropTypes.func.isRequired,

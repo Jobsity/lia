@@ -56,10 +56,10 @@ class Output extends Component {
 }
 
 Output.propTypes = {
-  testsResults: PropTypes.instanceOf(Object).isRequired,
+  testsResults: PropTypes.instanceOf(Object),
   runTestsLoading: PropTypes.bool.isRequired,
   runTestsError: PropTypes.string.isRequired,
-  submitChallengeLoading: PropTypes.string.isRequired,
+  submitChallengeLoading: PropTypes.bool.isRequired,
   submitChallengeError: PropTypes.string.isRequired,
   submitted: PropTypes.bool.isRequired,
 };

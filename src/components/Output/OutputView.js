@@ -157,7 +157,7 @@ OutputView.propTypes = {
   failedItemsOpen: PropTypes.bool.isRequired,
   errorItemsOpen: PropTypes.bool.isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
-  testsResults: PropTypes.instanceOf(Object).isRequired,
+  testsResults: PropTypes.instanceOf(Object),
   classes: PropTypes.instanceOf(Object).isRequired,
 };
 
