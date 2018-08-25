@@ -3,6 +3,7 @@ import * as actionTypes from '../actions/types';
 const initState = {
   changes: [],
   code: null,
+  resetCounter: 0,
 };
 
 export default (state = initState, action) => {
@@ -21,6 +22,11 @@ export default (state = initState, action) => {
         ...state,
         changes: action.payload.eventsData.editor || [],
       }
+    case actionTypes.RESET_EDITORS:
+    return {
+      ...state,
+      resetCounter: state.resetCounter + 1,
+    }
     default:
       return state;
   }
@@ -31,3 +37,5 @@ export default (state = initState, action) => {
 export const getChanges = state => state.changes;
 
 export const getCode = state => state.code;
+
+export const getResetCounter = state => state.resetCounter;
