@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { Bar } from "react-chartjs";
 import { withStyles } from "@material-ui/core/styles";
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { api } from '../../mockServer';
 
 import styles from "./styles";
 
@@ -11,15 +11,18 @@ class ScoresView extends Component {
   constructor() {
     super();
     this.state = {
-
+      chartData: {},
     };
   }
 
   render() {
     const { loading, data, classes } = this.props;
 
-    const dataa = {
-      labels: ['0%','10%','20%','30%','40%','50%','60%','70%','80%','90%','100%'],
+    let labels = data.chartData?data.chartData.labels:[];
+    let dataValue = data.chartData?data.chartData.data:[];
+
+    const chart = {
+      labels,
       datasets: [
         {
           label: "Completed",
@@ -29,10 +32,11 @@ class ScoresView extends Component {
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(220,220,220,1)",
-          data: [0,0,0,1,0,0,0,0,0,0,8]
+          data: dataValue,
         }
       ]
     };
+    
 
     return(
       <div>
@@ -46,7 +50,7 @@ class ScoresView extends Component {
           </Typography>
         ) : (
           <div>
-            <Bar data={dataa} />
+            <Bar data={chart} ref="barChart"/>
             <table>
               <tr>
                 <td>
