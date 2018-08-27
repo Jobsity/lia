@@ -138,7 +138,7 @@ sampleTestsView.propTypes = {
   handleTestsEditorChange: PropTypes.func.isRequired,
   handleDialogOpening: PropTypes.func.isRequired,
   challengeSubmitted: PropTypes.bool.isRequired,
-  dialogOpened: PropTypes.string.isRequired,
+  dialogOpened: PropTypes.string,
   dialogHandlers: PropTypes.instanceOf(Object).isRequired,
 };
 

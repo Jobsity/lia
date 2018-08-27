@@ -62,8 +62,9 @@ class TabsView extends Component {
               axis={theme.direction === "rtl" ? "x-reverse" : "x"}
               index={this.state.value}
               onChangeIndex={this.handleChangeIndex}>
-              {tabs.map(tab => (
+              {tabs.map((tab, index) => (
                 <TabContainer
+                  key={index}
                   style={{ overflow: "hidden", height: "" }}
                   dir={theme.direction}>
                   {tab.component}
@@ -80,7 +81,7 @@ class TabsView extends Component {
 TabsView.propTypes = {
   data: PropTypes.shape({
     task: PropTypes.string
-  }).isRequired,
+  }),
   loading: PropTypes.bool.isRequired,
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired
