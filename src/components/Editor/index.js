@@ -133,7 +133,7 @@ class Editor extends Component {
 };
 
 const mapState = state => ({
-  changes: fromReducers.getPlayedEventsData(state, 'editor'),
+  changes: fromReducers.getEditorChanges(state),
   code: fromReducers.getEditorCode(state),
   language: fromReducers.getLanguage(state),
   startingTime: fromReducers.getStartingTime(state),

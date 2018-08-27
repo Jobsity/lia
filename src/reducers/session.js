@@ -1,4 +1,4 @@
-import { SET_CURRENT_LANGUAGE, FETCH_CHALLENGE_DATA_SUCCESS } from "../actions/types";
+import { SET_CURRENT_LANGUAGE, FETCH_SESSION_DATA_SUCCESS } from "../actions/types";
 
 const initialState = {
   isLive: true,
@@ -17,10 +17,13 @@ export default function (state = initialState, action) {
         ...state,
         language: action.payload.language,
       }
-    case FETCH_CHALLENGE_DATA_SUCCESS:
+    case FETCH_SESSION_DATA_SUCCESS:
+      console.log(action);
       return {
         ...state,
-        language: action.payload.data.languages[0],
+        user: action.payload.data.user,
+        language: action.payload.data.language,
+        isLive: action.payload.data.isLive,
       }
     default:
       break;
@@ -30,3 +33,5 @@ export default function (state = initialState, action) {
 
 // Getters
 export const getLanguage = state => state.language;
+
+export const getUser = state => state.user;

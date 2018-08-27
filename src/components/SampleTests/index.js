@@ -24,7 +24,7 @@ class SampleTests extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialogOpened: null,
+      dialogOpened: '',
       newSelectedLanguage: '',
     }
   }
@@ -141,6 +141,7 @@ const mapDispatchToProps = () => ({
   resetEditorsCode: resetEditors,
   submit: submitChallenge,
   run: runTests,
+  editorCode: '',
 });
 
 const mapStateToProps = (state) => ({

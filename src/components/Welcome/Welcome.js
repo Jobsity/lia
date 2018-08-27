@@ -13,18 +13,24 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import logo from "../../assets/img/logo.svg";
 import footerLogo from "../../assets/img/jobsity-footer.png";
 import styles from "./styles";
+import store from '../../store/store';
+import { FETCH_SESSION_DATA_START } from '../../actions/types';
 import { api } from "../../mockServer";
 
 class Welcome extends Component {
-  state = {
-    isLoading: true,
-    toMain: false,
-    chal: false,
-    cand: false,
-    lock: false,
-    challengeData: {},
-    candidateData: {}
-  };
+  constructor(props, context) {
+    super(props, context);
+    this.state = {
+      token: this.props.match.params.token,
+      isLoading: true,
+      toMain: false,
+      chal: false,
+      cand: false,
+      lock: false,
+      challengeData: {},
+      candidateData: {}
+    };
+  }
 
   componentDidMount() {
     // mock server calls 
@@ -39,6 +45,7 @@ class Welcome extends Component {
         this.setState({ candidateData: response.data.data, cand: true });
       }
     });
+    store.dispatch( {type: FETCH_SESSION_DATA_START, payload: { token: this.state.token }  });
   }
 
   componentDidUpdate() {
@@ -64,7 +71,7 @@ class Welcome extends Component {
     const { languages, max_time, name } = challengeData;
 
     if (toMain) {
-      return <Redirect to="/home" />;
+      return <Redirect to={`/${this.state.token}/home`} />;
     }
 
     // to be injected in props
@@ -92,12 +99,15 @@ class Welcome extends Component {
               <Typography className={classes.par} component="p">
                 {`Hello ${
                   data.candidate
-                }!, today we gonna work on a live coding excercise, please
-          follow the instructions in the next screen, good luck!`}
+                }!, today we will work on a live coding exercise. Please
+          follow the instructions in the next screen.`}
               </Typography>
-              <Paper square elevation="0" className={classes.subPaper}>
-                {languages.map(lan => (
-                  <Typography className={classes.headline} variant="title">
+              <Typography className={classes.par} component="p">
+               Good luck!
+              </Typography>
+              <Paper square elevation={0} className={classes.subPaper}>
+                {languages.map((lan, idx) => (
+                  <Typography key={idx} className={classes.headline} variant="title">
                     {lan.toUpperCase()}
                   </Typography>
                 ))}

@@ -9,7 +9,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import LinearProgress from '@material-ui/core/LinearProgress'
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import { faCheck, faAngry, faBug } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faBug, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import ExpandableListItem from './ExpandableListItem';
 
 import styles from './styles';
@@ -18,10 +18,6 @@ import styles from './styles';
 function OutputView({
   status,
   testsResults,
-  handleClickCategoryItem,
-  passedItemsOpen,
-  failedItemsOpen,
-  errorItemsOpen,
   classes,
   }) {
   const passedTests = testsResults ? testsResults.tests.filter(test => test.passed) : null;
@@ -83,82 +79,80 @@ function OutputView({
             render={passedTests.length > 0}
             mainText={`Passed Tests (${passedTests.length})`}
             icon={faCheck}
-            trigger={passedItemsOpen}
-            toggleFunction={() => handleClickCategoryItem('passed')}
             componentClass={classes.passedList}
-            contentComponent={
-              <List component="div" disablePadding>
-                {passedTests.map( test => (
-                  <ListItem key={test.id}>
-                    <ListItemText primary={test.name} secondary="Passed"/>
-                  </ListItem>
-                ))}
-              </List>
-              
-            }
-          />
+          >
+            <List component="div">
+              {passedTests.map( test => (
+                <ListItem key={test.id} className={classes.indented}>
+                  <ListItemText primary={test.name} secondary="Passed"/>
+                </ListItem>
+              ))}
+            </List>
+          </ExpandableListItem>
           <ExpandableListItem
             render={failedTests.length > 0}
             mainText={`Failed Tests (${failedTests.length})`}
-            icon={faAngry}
-            trigger={failedItemsOpen}
-            toggleFunction={() => handleClickCategoryItem('failed')}
+            icon={faExclamationTriangle}
             componentClass={classes.failedList}
-            contentComponent={
-              <List component="div" disablePadding>
-                {failedTests.map( test => (
-                  <ListItem key={test.id}>
-                    <ListItemText primary={test.name} secondary={test.message}/>
-                  </ListItem>
-                ))}
-              </List>
-            }
-          />
+          >
+            <List component="div">
+              {failedTests.map( test => (
+                <ExpandableListItem
+                  render={!!test}
+                  mainText={test.name}
+                  componentClass={classes.failedList}
+                  key={test.id}
+                >
+                  <Typography>
+                    {test.message}
+                  </Typography>
+                </ExpandableListItem>
+              ))}
+            </List>
+          </ExpandableListItem>
           <ExpandableListItem
-            render={testsResults.err}
+            render={!!testsResults.err}
             mainText="Errors"
             icon={faBug}
-            trigger={errorItemsOpen}
-            toggleFunction={() => handleClickCategoryItem('error')}
             componentClass={classes.error}
-            contentComponent={
-              <List component="div" disablePadding>
-                <List component="div">
-                  <ListItem>
-                    <ListItemText primary="STDERR" secondary={testsResults.err} />
-                  </ListItem>
-                </List>
-              </List>
-            }
-          />
+          >
+            <List component="div">
+              <ExpandableListItem
+                render
+                mainText="STDERR"
+                componentClass={classes.error}
+              >
+                <Typography className={classes.indented}>
+                  {testsResults.err}
+                </Typography>
+              </ExpandableListItem>
+            </List>
+          </ExpandableListItem>
         </List>
         {
           (passedTests.length === testsResults.tests.length)
-            ? 
-              (
-                <div className={classes.success}>
-                  <p className={classes.successText}>
-                    All tests have been completed successfully
-                  </p>
-                  {(status.submitted)
-                    ? (<p className={classes.successText}>Challenge Submitted</p>)
-                    : null}
-                </div>
-              )
-            : null
+            ?(
+              <div className={classes.success}>
+                <p className={classes.successText}>
+                  All tests have been completed successfully
+                </p>
+                {(status.submitted)
+                  ? (<p className={classes.successText}>Challenge Submitted</p>)
+                  : null}
+              </div>
+            ): null
         }
     </Paper>
   );
 }
 
 OutputView.propTypes = {
-  handleClickCategoryItem: PropTypes.func.isRequired,
-  passedItemsOpen: PropTypes.bool.isRequired,
-  failedItemsOpen: PropTypes.bool.isRequired,
-  errorItemsOpen: PropTypes.bool.isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
   testsResults: PropTypes.instanceOf(Object),
   classes: PropTypes.instanceOf(Object).isRequired,
 };
 
+OutputView.defaultProps = {
+  testsResults: null,
+};
 export default withStyles(styles)(OutputView);
