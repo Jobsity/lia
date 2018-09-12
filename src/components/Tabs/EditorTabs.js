@@ -29,8 +29,8 @@ class EditorTabs extends Component {
         permissions: ["candidate", "observer", "evaluator"],
         component: (
           <Fragment>
-            <Editor editorDidMount={this.editorDidMount} />
             <Playback />
+            <Editor editorDidMount={this.editorDidMount} />
           </Fragment>
         )
       },

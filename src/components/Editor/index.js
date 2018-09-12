@@ -10,8 +10,6 @@ import * as timelineActions from '../../actions/timeline';
 import MonacoField from '../MonacoField/MonacoField';
 
 class Editor extends Component {
-  defaultCode = '';
-
   editor = null;
 
   model = null;
@@ -47,6 +45,19 @@ class Editor extends Component {
     addEditorChange(startingTime, eventData, newValue);
   }
 
+  addInitChange() {
+    const { addEditorChange, defaultCode, startingTime } = this.props;
+    const eventData = {
+      edit: {
+        range: this.model.getFullModelRange(),
+        text: defaultCode,
+      },
+      viewState: null,
+    };
+
+    addEditorChange(startingTime, eventData, defaultCode);
+  }
+
   applyEdits(edits, viewState) {
     const { editor, model } = this;
 
@@ -56,15 +67,21 @@ class Editor extends Component {
     // no overlapping.
     edits.forEach(e => model.applyEdits([e]));
 
-    editor.restoreViewState(viewState);
+    if (viewState) {
+      editor.restoreViewState(viewState);
+    }
     this.props.setEditorCode(model.getValue());
   }
 
   componentDidUpdate(prevProps) {
-    const { changes, startingTime } = this.props;
+    const { changes, language, resetCounter, startingTime } = this.props;
 
-    if (prevProps.startingTime !== startingTime) {
-      this.initChange();
+    if (
+      prevProps.startingTime !== startingTime
+      || prevProps.resetCounter !== resetCounter
+      || prevProps.language !== language
+    ) {
+      this.addInitChange();
       return;
     }
 
@@ -99,23 +116,11 @@ class Editor extends Component {
     this.playedIndex = lastIndex;
   }
 
-  initChange() {
-    // Default code is added to timeline when onChange is triggered
-    this.model.applyEdits([{
-      range: {
-        endColumn: 1,
-        endLineNumber: 1,
-        startColumn: 1,
-        startLineNumber: 1,
-      },
-      text: this.defaultCode,
-    }]);
-  }
-
   render() {
+    const { playbackWasInteracted, role } = this.props;
     const options = {
       lineNumbers: 'on',
-      readOnly: this.props.playbackWasInteracted,
+      readOnly: playbackWasInteracted || role !== 'candidate',
       selectOnLineNumbers: true,
     };
 
@@ -135,9 +140,12 @@ class Editor extends Component {
 const mapState = state => ({
   changes: fromReducers.getEditorChanges(state),
   code: fromReducers.getEditorCode(state),
+  defaultCode: 'asdasfdasfd\nasd',
   language: fromReducers.getLanguage(state),
   startingTime: fromReducers.getStartingTime(state),
   playbackWasInteracted: fromReducers.getPlaybackWasInteracted(state),
+  resetCounter: fromReducers.getEditorResetCounter(state),
+  role: fromReducers.getUser(state).role,
 });
 
 const mapDispatch = {
