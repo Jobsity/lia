@@ -4,11 +4,42 @@ Thanks for taking the time to contribute!
 
 The following is a set of guidelines for contributing to LIA. 
 
-These are just guidelines, not rules, so use your best judgement and feel free to propose changes to this document in a pull request.
-
 ## Getting Started
 
 LIA app is built on top of [React](https://reactjs.org/). If you are new to React, please head over to [this](https://reactjs.org/tutorial/tutorial.html) great article.
+
+## Code Style Guide
+[See: airbnb style guide](https://github.com/airbnb/javascript)
+
+## Consider in the whole app:
+
+* Comment every util’s function and, optionally, comment any behavior that you think needs a documentation using [jsdoc's guide](http://usejsdoc.org/index.html).
+
+* Write descriptive commits for each file you modify, create or delete.
+
+## Folder Structure:
+```
+-file /folder
+
+/lia
+  /public
+  /build
+  /src 
+    /__tests__ 
+      /__snapshots__ 
+      -testName.test.js 
+    /redux
+      -initialState.js
+      -actions.js
+      /reducers
+      /boundedActions 
+    /router 
+      -index.js 
+    /utils 
+      -utilName.js 
+    /components 
+      -componentName.js
+```
 
 ## Community
 
