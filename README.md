@@ -1,4 +1,4 @@
-#  Live Interivew Application ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) 
+#  Live Interview Application ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg) 
 
 Evaluate developers on the go through an interactive dashboard with integrated IDE, I/O Console and tests platform. 
 
@@ -12,39 +12,21 @@ Evaluate developers on the go through an interactive dashboard with integrated I
 
 ## Requeriments
 
-- NodeJS with NPM.
+- NodeJS (v8.*) with NPM (^6.4.1).
 - HTML5 web browser.
 
 ## Getting Started 
 
 ### Installing dependencies
 
-You can install all dependencies listed in `package.json` with
+You can install all dependencies listed in `package.json` with:
 
-```$ yarn install```
+`$ npm install`
 
-or 
+### Scripts
+`$ npm start` this starts the app at localhost:3000.
 
-```$ npm install```
-
-### Running the development server
-
-To run the development server simply type: 
-
-```$ npm start```
-
-And the server will develop at `localhost:3000`.
-
-
-## Building
- ``` $ npm run build```
-
-  or
-
-```$ yarn build```
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles app production mode and optimizes the build for the best performance.
+`$ npm build` optimize and bundle the app for prodution.
 
 ## Contributors
 
@@ -57,17 +39,18 @@ It correctly bundles app production mode and optimizes the build for the best pe
 - [@ArashiNoKishi](https://github.com/ArashiNoKishi)
 - [@hdt94](https://github.com/hdt94)
 - [@juliansibaja84](https://github.com/juliansibaja84)
+- [@pharesdiego](https://github.com/pharesdiego)
 
 ## How to Contribute
 
-Please read [CONTRIBUTE.md](./docs/contribute.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTE.md](./docs/contribute.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](./docs/license.md) file for details
 
 ---
-For aditional guidance, FAQ and Troubleshooting please [Read the full docs](https://github.com/Jobsity/lia/tree/readme/docs)
+For aditional guidance, FAQ and Troubleshooting please [Read the full docs.](https://github.com/Jobsity/lia/tree/readme/docs)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
