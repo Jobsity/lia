@@ -1,3 +1,3 @@
-# Configuiration Reference
+# Configuration Reference
 
 ...
