@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import SampleTestsView from './sampleTestsView';
-import { setCurrentLanguage } from  '../../actions/session';
-import { updateCurrentTests, resetEditors, runTests, submitChallenge } from  '../../actions/challenge';
-import store from '../../store/store';
-import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from '../../actions/types';
+import SampleTestsView from './SampleTestsView';
+import { setCurrentLanguage } from  './../redux/actions/session';
+import { updateCurrentTests, resetEditors, runTests, submitChallenge } from  './../redux/actions/challenge';
+import store from './../store';
+import { FETCH_CHALLENGE_DATA_START, RUN_SAMPLE_TESTS_START, SUBMIT_CHALLENGE_START } from './../redux/actions';
 import {
   getIsLoading,
   getLanguage,
@@ -18,7 +18,7 @@ import {
   getStartingTime,
   getSubmitChallengeLoading,
   getEditorCode,
-} from '../../reducers';
+} from './../redux/reducers';
 
 class SampleTests extends Component {
   constructor(props) {

@@ -16,7 +16,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 
-import MonacoField from "../MonacoField/MonacoField";
+import MonacoField from "./MonacoField";
 import dialogs from "./dialogs";
 
 const styles = theme => ({

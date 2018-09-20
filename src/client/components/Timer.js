@@ -2,7 +2,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import { formatStartEnd } from '../../lib/utils/timer';
+import { formatStartEnd } from './../utils/timer';
 
 const styles = {
   text: {

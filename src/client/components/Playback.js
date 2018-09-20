@@ -5,8 +5,8 @@ import isEqual from 'lodash/isEqual';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 
-import * as fromReducers from '../../reducers';
-import * as playbackActions from '../../actions/playback';
+import * as fromReducers from './../redux/reducers';
+import * as playbackActions from './../redux/actions/playback';
 
 import PlayPauseButton from './PlayPauseButton';
 import Timeline from './Timeline';

@@ -1,8 +1,8 @@
 import { take, call, put }  from 'redux-saga/effects';
-import { runTests } from '../modules/api';
-import { createTimestamp } from '../lib/utils/timeline';
+import { runTests } from './../../server/api';
+import { createTimestamp } from './../utils/timeline';
 
-import { RUN_SAMPLE_TESTS_START, RUN_SAMPLE_TESTS_SUCCESS, RUN_SAMPLE_TESTS_ERROR } from '../actions/types';
+import { RUN_SAMPLE_TESTS_START, RUN_SAMPLE_TESTS_SUCCESS, RUN_SAMPLE_TESTS_ERROR } from './../redux/actions';
 
 function* runSampleTests(payload) {
   const { requestData, startingTime } = payload;

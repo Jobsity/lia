@@ -3,7 +3,7 @@ import { Bar } from "react-chartjs";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { api } from '../../server/mockServer';
+// import { api } from '../../server/mockServer';
 
 const styles = theme => ({
   root: {
@@ -29,7 +29,7 @@ class ScoresView extends Component {
 
   render() {
     const { loading, data, classes } = this.props;
-    const { labels = [], data = [] } = data.chartData;
+    const { labels = [], dataValue = [] } = data.chartData;
 
     // let labels = data.chartData?data.chartData.labels:[];
     // let dataValue = data.chartData?data.chartData.data:[];
@@ -45,7 +45,7 @@ class ScoresView extends Component {
           pointStrokeColor: "#fff",
           pointHighlightFill: "#fff",
           pointHighlightStroke: "rgba(220,220,220,1)",
-          data,
+          data: dataValue,
         }
       ]
     };

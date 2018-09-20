@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import isEqual from 'lodash/isEqual';
 
-import * as fromReducers from '../../reducers';
-import * as editorActions from '../../actions/editor';
-import * as playbackActions from '../../actions/playback';
-import * as timelineActions from '../../actions/timeline';
+import * as fromReducers from './../redux/reducers';
+import * as editorActions from './../redux/actions/editor';
+import * as playbackActions from './../redux/actions/playback';
+import * as timelineActions from './../redux/actions/timeline';
 
-import MonacoField from '../MonacoField/MonacoField';
+import MonacoField from './MonacoField';
 
 class Editor extends Component {
   defaultCode = '';

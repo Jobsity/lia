@@ -1,6 +1,10 @@
 import { takeEvery, call, put }  from 'redux-saga/effects';
-import { fetchChallengeData } from '../modules/api';
-import { FETCH_CHALLENGE_DATA_START, FETCH_CHALLENGE_DATA_SUCCESS, FETCH_CHALLENGE_DATA_ERROR } from '../actions/types';
+import { fetchChallengeData } from './../../server/api';
+import { 
+  FETCH_CHALLENGE_DATA_START, 
+  FETCH_CHALLENGE_DATA_SUCCESS, 
+  FETCH_CHALLENGE_DATA_ERROR 
+} from './../redux/actions';
 
 function* getChallengeData() {
   const response = yield call(fetchChallengeData);

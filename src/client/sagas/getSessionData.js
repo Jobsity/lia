@@ -1,6 +1,6 @@
 import { takeEvery, call, put }  from 'redux-saga/effects';
-import { fetchSessionData } from '../modules/api';
-import { FETCH_SESSION_DATA_START, FETCH_SESSION_DATA_SUCCESS, FETCH_SESSION_DATA_ERROR } from '../actions/types';
+import { fetchSessionData } from './../../server/api';
+import { FETCH_SESSION_DATA_START, FETCH_SESSION_DATA_SUCCESS, FETCH_SESSION_DATA_ERROR } from './../redux/actions';
 
 function* getSessionData(payload) {
   const { token } = payload.payload;

@@ -4,14 +4,13 @@ import isEqual from 'lodash/isEqual';
 
 import createRanges from './createRanges';
 
-import Editor from './range/Editor';
-import Output from './range/Output';
+import Editor from './EditorRange';
+import Output from './OutputRange';
 
 const typedComponents = {
   editor: Editor,
   output: Output,
 }
-
 
 const styles = () => ({
   box: {

@@ -8,7 +8,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Divider from '@material-ui/core/Divider';
 import ReactMarkdown from 'react-markdown';
 
-import styles from "./styles";
+const styles = theme => ({
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2,
+    height: "-webkit-fill-available"
+  },
+  loading: {
+    position: "relative",
+    top: "0.5em",
+    left: "25em"
+  }
+});
 
 const InstructionsView = ({ data, loading, classes }) => (
   <Paper className={classes.root} elevation={1} square>

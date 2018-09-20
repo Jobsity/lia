@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 
-import Playback from '../Playback';
-import Editor from '../Editor';
+import Playback from './Playback';
+import Editor from './Editor';
 
 import TabsView from "./TabsView";
-import Output from "../Output";
-import { api } from "../../server/mockServer";
+import Output from "./Output";
+import { api } from "./../../server/mockServer";
 
 
 

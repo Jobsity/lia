@@ -10,11 +10,11 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 
-import logo from "../../assets/img/logo.svg";
-import footerLogo from "../../assets/img/jobsity-footer.png";
-import store from '../../store/store';
-import { FETCH_SESSION_DATA_START } from '../../actions/types';
-import { api } from "../../server/mockServer";
+import logo from "./../assets/img/jobsity-footer.png";
+import footerLogo from "./../assets/img/jobsity-footer.png";
+import store from './../store';
+import { FETCH_SESSION_DATA_START } from './../redux/actions';
+import { api } from "./../../server/mockServer";
 
 const styles = theme => ({
   paper: {

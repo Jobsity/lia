@@ -1,7 +1,7 @@
 import { take, call, put }  from 'redux-saga/effects';
-import { submitChallengeData } from '../modules/api';
-import { SUBMIT_CHALLENGE_START, SUBMIT_CHALLENGE_SUCCESS, SUBMIT_CHALLENGE_ERROR } from '../actions/types';
-import { createTimestamp } from '../lib/utils/timeline';
+import { submitChallengeData } from './../../server/api';
+import { SUBMIT_CHALLENGE_START, SUBMIT_CHALLENGE_SUCCESS, SUBMIT_CHALLENGE_ERROR } from './../redux/actions';
+import { createTimestamp } from './../utils/timeline';
 
 function* submitChallenge(payload) {
   const { requestData, startingTime } = payload;

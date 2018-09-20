@@ -1,14 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Homepage from '../pages/Homepage';
-import Welcome from '../components/Welcome/Welcome';
+import Homepage from './../components/Homepage';
+import Welcome from './../components/Welcome';
 
 const Router = () => (
   <Switch>
-    <Route exact path="/:roomId/welcome" component={Welcome} />
-    <Redirect from="/:roomId" exact to="/:roomId/welcome" />
-    <Route exact path="/:roomId/home" component={Homepage} />
-    <Route path="/" render={() => <div>Error 404</div>} />
+    <Route path="/" exact render={() => <Redirect to="/evaluatorToken/welcome" />} />
+    <Redirect from="/:token" exact to="/:token/welcome" />
+    <Route exact path="/:token/home" component={Homepage} />
+    <Route exact path="/:token/welcome" component={Welcome} />
   </Switch>
 );
 

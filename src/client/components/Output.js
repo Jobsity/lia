@@ -10,7 +10,7 @@ import {
   getSubmitChallengeError,
   getSubmitted,
   getUser,
-} from '../../reducers';
+} from './../redux/reducers';
 
 function Output({
   testsResults,

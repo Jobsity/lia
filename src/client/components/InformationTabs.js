@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import InformationTabsView from "./TabsView";
-import SampleTests from "../SampleTests";
-import CandidateInformation from "../CandidateInformation";
-import Evaluation from "../Evaluation";
-import Scores from "../Scores";
-import { api } from "../../server/mockServer";
+import SampleTests from "./SampleTests";
+import CandidateInformation from "./CandidateInformation";
+import Evaluation from "./Evaluation";
+import Scores from "./Scores";
+import { api } from "./../../server/mockServer";
 
 class InformationTabs extends Component {
   constructor(props, context) {

@@ -1,7 +1,7 @@
 // delete
 import * as actionTypes from './types';
 
-import { createTime, createTimestamp } from '../lib/utils/timeline';
+import { createTime, createTimestamp } from './../../utils/timeline';
 
 export const addEvent = (startingTime, type, data) => ({
   type: actionTypes.TIMELINE_EVENT,

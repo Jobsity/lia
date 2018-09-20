@@ -1,7 +1,7 @@
 // delete
-import * as actionTypes from './types';
+import * as actionTypes from './index';
 
-import { createTimestamp } from '../lib/utils/timeline';
+import { createTimestamp } from './../../utils/timeline';
 
 export const addEditorChange = (startingTime, eventData, newCode) => ({
   type: actionTypes.EDITOR_CHANGE_EVENT,

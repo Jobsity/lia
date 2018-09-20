@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider } from "@material-ui/core/styles";
 import Router from './router/router';
 import { Switch, Route } from 'react-router-dom';
-import Homepage from './pages/Homepage';
+import Homepage from './components/Welcome';
 import theme from './styles/theme';
 
 class App extends Component {
@@ -10,13 +10,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={theme}>
         <Switch>
-          <Route
-            exact
-            path='/:roomId'
-            component={<div>404</div>} />
-          <Route 
-            // component={NotFound}
-            render={() => <div>404</div>} />
+          <Router />
         </Switch>
       </MuiThemeProvider>
     );
