@@ -58,9 +58,10 @@ class InformationTabs extends Component {
         // setTimeout just to watch the animation...
         // must be removed when connected to real server
         setTimeout(
-          () => this.setState({ data, loading: false, roles, tabs }),
+          () => console.log(data, roles, tabs) || this.setState({ data, loading: false, roles, tabs }),
           1000
         );
+        // debugger;
       }
     });
   }

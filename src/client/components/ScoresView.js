@@ -29,7 +29,7 @@ class ScoresView extends Component {
 
   render() {
     const { loading, data, classes } = this.props;
-    const { labels = [], dataValue = [] } = data.chartData;
+    const { labels = [], dataValue = [] } = data.chartData || {};
 
     // let labels = data.chartData?data.chartData.labels:[];
     // let dataValue = data.chartData?data.chartData.data:[];
