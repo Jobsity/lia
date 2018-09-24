@@ -23,21 +23,31 @@ LIA app is built on top of [React](https://reactjs.org/). If you are new to Reac
 /lia
   /public
   /build
-  /src 
-    /__tests__ 
-      /__snapshots__ 
-      -testName.test.js 
-    /redux
-      -initialState.js
-      -actions.js
-      /reducers
-      /boundedActions 
-    /router 
-      -index.js 
-    /utils 
-      -utilName.js 
-    /components 
-      -componentName.js
+  /docs
+  /src
+    /client
+      /__tests__ 
+        /__snapshots__ 
+        -testName.test.js 
+      /redux
+        -initialState.js
+        -actions.js
+        /reducers
+        /boundedActions 
+      /router 
+        -index.js 
+      /utils 
+        -utilName.js 
+      /components 
+        -componentName.js
+    /server
+      /config
+      /controllers
+      /errors
+      /models
+      /routes
+      /utils
+    -server.js
 ```
 ## Community
 
