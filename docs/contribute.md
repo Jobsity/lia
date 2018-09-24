@@ -71,6 +71,17 @@ Consider providing the following information:
 * The application version.
 * The operating system.
 
+## Testing
+LIA performs **Unit Testing** for each component and function inside the application in order to ensure code quality and minimize bugs.
+
+**The following libraries are used to performs LIA's tests**:
+
+- Jest
+
+- Enzyme + enzyme-adapter-react-16
+
+Run tests with: `npm run test`
+
 ## Pull Requests
 Pull Requests are always welcome. 
 
