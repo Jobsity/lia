@@ -24,7 +24,6 @@
     "chart.js": "^1.1.1",
     "lodash": "^4.17.10",
     "material-ui": "^0.20.1",
-    "npm": "^6.3.0",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-chartjs": "^1.2.0",
@@ -72,5 +71,9 @@
     "flow-bin": "^0.75.0",
     "prettier": "1.13.6",
     "redux-devtools-extension": "^2.13.5"
+  },
+  "engines": {
+    "npm": "^6.4.1",
+    "yarn": ">>>>> Don't use Yarn, instead use NPM ^6.4.1 <<<<<"
   }
 }
