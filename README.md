@@ -21,7 +21,9 @@ Evaluate developers on the go through an interactive dashboard with integrated I
 
 You can install all dependencies listed in `package.json` with:
 
-`$ npm install`
+`$ npm ci`
+
+*the `$ npm ci` command prevents the modification to the `package-lock.json` file.* 
 
 ### Scripts
 `$ npm start` this starts the app at localhost:3000.
