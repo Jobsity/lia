@@ -1,42 +1,39 @@
 import React, { Component } from 'react';
-import { withStyles } from "@material-ui/core/styles";
+import { withStyles } from '@material-ui/core/styles';
 import { Collapse, Button } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faTimesCircle, faEdit, faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import {
+  faEye,
+  faTimesCircle,
+  faEdit,
+  faPlusSquare
+} from '@fortawesome/free-regular-svg-icons';
 import { Typography } from 'material-ui/styles/typography';
 
 import Evaluate from './Evaluate';
 
-const styles = theme => ({
+const styles = (theme) => ({
   title: {
-    textAlign: "center"
-  },
-  selector: {
-    display: "grid",
-    gridTemplateColumns: "1fr 144px 1fr"
+    textAlign: 'center'
   },
   leftLabel: {
-    textAlign: "right",
-    padding: "15px 0"
+    textAlign: 'right',
+    padding: '15px 0'
   },
   rightLabel: {
-    textAlign: "left",
-    padding: "15px 0"
+    textAlign: 'left',
+    padding: '15px 0'
   },
   buttonArea: {
-    display: "flex"
+    display: 'flex'
   },
   button: {
-    flex: "1"
+    flex: '1'
   },
   list: {
     listStyle: 'none',
     padding: '0',
-    margin: '0',
-  },
-  listItem: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 192px'
+    margin: '0'
   },
 });
 
@@ -46,7 +43,7 @@ class Evaluation extends Component {
     this.state = {
       toggleView: false,
       evaluationView: {},
-      editable: false,
+      editable: false
     };
 
     this.handleAdd = this.handleAdd.bind(this);
@@ -57,7 +54,7 @@ class Evaluation extends Component {
   }
 
   handleDelete() {
-    // backend delete method 
+    // backend delete method
     this.setState({
       toggleView: false,
       evaluationView: {}
@@ -68,7 +65,7 @@ class Evaluation extends Component {
     this.setState({
       toggleView: true,
       evaluationView: ev,
-      editable: true,
+      editable: true
     });
   }
 
@@ -76,7 +73,7 @@ class Evaluation extends Component {
     this.setState({
       toggleView: true,
       evaluationView: {},
-      editable: true,
+      editable: true
     });
   }
 
@@ -84,19 +81,18 @@ class Evaluation extends Component {
     this.setState({
       toggleView: true,
       evaluationView: ev,
-      editable: false,
+      editable: false
     });
   }
 
   hideEvaluation() {
     this.setState({
-      toggleView: false,
+      toggleView: false
     });
   }
-  
-  render() {
 
-    // mock server data needed for list of evaluations 
+  render() {
+    // mock server data needed for list of evaluations
     const evaluationList = [
       {
         id: 1,
@@ -108,7 +104,11 @@ class Evaluation extends Component {
           maintainability: 'great',
           codeStructure: 'normal',
           defensiveCoding: 'great',
-          feedback: ['## Good knowledge', '- uses array methods very well','- handles exceptions'],
+          feedback: [
+            '## Good knowledge',
+            '- uses array methods very well',
+            '- handles exceptions'
+          ]
         }
       },
       {
@@ -121,7 +121,12 @@ class Evaluation extends Component {
           maintainability: 'normal',
           codeStructure: 'great',
           defensiveCoding: 'great',
-          feedback: ['## Impresive', '- usage of uncommon methos','- styling is amazing', '- Structure off the charts'],
+          feedback: [
+            '## Impresive',
+            '- usage of uncommon methos',
+            '- styling is amazing',
+            '- Structure off the charts'
+          ]
         }
       }
     ];
@@ -130,29 +135,48 @@ class Evaluation extends Component {
     const { classes } = this.props;
 
     return (
-      <div style={{padding: '0.2em'}}>
+      <div style={{ padding: '0.2em' }}>
         <ul className={classes.list}>
-          <li><h3>List of Evaluations</h3></li>
-          {evaluationList.map(evaluation => 
-            <li key={evaluation.id} className={classes.listItem}>
-              <span className={classes.itemTitle}>
-                {evaluation.title}
-              </span>
+          <li>
+            <h3>List of Evaluations</h3>
+          </li>
+          {evaluationList.map((evaluation) => (
+            <li key={evaluation.id}>
+              <span className={classes.itemTitle}>{evaluation.title}</span>
               <span>
-                <Button size='small' onClick={() => this.handlePreview(evaluation)}><FontAwesomeIcon icon={faEye}/></Button>
-                <Button size='small' onClick={() => this.handleEdit(evaluation)}><FontAwesomeIcon icon={faEdit}/></Button>
-                <Button size='small' onClick={this.handleDelete}><FontAwesomeIcon icon={faTimesCircle}/></Button>
+                <Button
+                  size="small"
+                  onClick={() => this.handlePreview(evaluation)}>
+                  <FontAwesomeIcon icon={faEye} />
+                </Button>
+                <Button
+                  size="small"
+                  onClick={() => this.handleEdit(evaluation)}>
+                  <FontAwesomeIcon icon={faEdit} />
+                </Button>
+                <Button size="small" onClick={this.handleDelete}>
+                  <FontAwesomeIcon icon={faTimesCircle} />
+                </Button>
               </span>
             </li>
-          )}
-          <li><Button onClick={this.handleAdd}><FontAwesomeIcon icon={faPlusSquare}/>Add Evaluation</Button></li>
+          ))}
+          <li>
+            <Button onClick={this.handleAdd}>
+              <FontAwesomeIcon icon={faPlusSquare} />Add Evaluation
+            </Button>
+          </li>
         </ul>
         <Collapse in={toggleView}>
-          {toggleView&&
-          <Evaluate evaluation={evaluationView} editable={editable} hideEvaluation={this.hideEvaluation}/>}
+          {toggleView && (
+            <Evaluate
+              evaluation={evaluationView}
+              editable={editable}
+              hideEvaluation={this.hideEvaluation}
+            />
+          )}
         </Collapse>
       </div>
-    )
+    );
   }
 }
 

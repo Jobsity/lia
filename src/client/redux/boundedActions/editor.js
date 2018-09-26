@@ -9,14 +9,14 @@ export const addEditorChange = (startingTime, eventData, newCode) => ({
     event: {
       data: eventData,
       ts: createTimestamp(startingTime),
-      type: 'editor',
-    },
+      type: 'editor'
+    }
   }
 });
 
-export const setEditorCode = code => ({
+export const setEditorCode = (code) => ({
   type: actionTypes.EDITOR_VALUE_SET,
   payload: {
-    code,
-  },
-})
+    code
+  }
+});

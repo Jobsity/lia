@@ -1,19 +1,26 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faBug, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faCheck,
+  faBug,
+  faExclamationTriangle
+} from '@fortawesome/free-solid-svg-icons';
 
 const styles = {
   container: {
-    fontSize: '100%',
-  },
+    fontSize: '100%'
+  }
 };
 
 const Output = (props) => {
-  const { classes, dataArray: [{ err, tests }] } = props;
+  const {
+    classes,
+    dataArray: [{ err, tests }]
+  } = props;
   const testsLen = tests.length;
-  const passedLen = tests.filter(t => t.passed).length;
+  const passedLen = tests.filter((t) => t.passed).length;
   let color = '#00FF00';
   let icon = faCheck;
   let tooltipTitle = `All tests passed!`;
@@ -34,11 +41,11 @@ const Output = (props) => {
         className={classes.container}
         icon={icon}
         style={{
-          color,
+          color
         }}
       />
     </Tooltip>
-  )
-}
+  );
+};
 
 export default withStyles(styles)(Output);

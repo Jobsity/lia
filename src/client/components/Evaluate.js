@@ -3,40 +3,44 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Radio, RadioGroup, Button, Typography } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash, faTimesCircle } from '@fortawesome/free-regular-svg-icons';
+import {
+  faEye,
+  faEyeSlash,
+  faTimesCircle
+} from '@fortawesome/free-regular-svg-icons';
 import ReactMarkdown from 'react-markdown';
 
-const styles = theme => ({
+const styles = (theme) => ({
   title: {
-    textAlign: "center"
+    textAlign: 'center'
   },
   selector: {
-    display: "grid",
-    gridTemplateColumns: "1fr 144px 1fr"
+    display: 'grid',
+    gridTemplateColumns: '1fr 144px 1fr'
   },
   leftLabel: {
-    textAlign: "right",
-    padding: "15px 0"
+    textAlign: 'right',
+    padding: '15px 0'
   },
   rightLabel: {
-    textAlign: "left",
-    padding: "15px 0"
+    textAlign: 'left',
+    padding: '15px 0'
   },
   buttonArea: {
-    display: "flex"
+    display: 'flex'
   },
   button: {
-    flex: "1"
+    flex: '1'
   },
   list: {
     listStyle: 'none',
     padding: '0',
-    margin: '0',
+    margin: '0'
   },
   listItem: {
     display: 'grid',
     gridTemplateColumns: '1fr 192px'
-  },
+  }
 });
 
 const placeholder = `Add any notes you want to share with your team about this candidate. Markdown is supported.\n\nThe Entire review is for internal use and won't be shared with the candidate.`;
@@ -46,20 +50,20 @@ class Evaluate extends Component {
     super(props, context);
 
     this.state = {
-      overall: "normal",
-      easyness: "normal",
-      codeStyle: "normal",
-      maintainability: "normal",
-      codeStructure: "normal",
-      defensiveCoding: "normal",
+      overall: 'normal',
+      easyness: 'normal',
+      codeStyle: 'normal',
+      maintainability: 'normal',
+      codeStructure: 'normal',
+      defensiveCoding: 'normal',
       preview: true,
-      feedback: ""
+      feedback: ''
     };
   }
 
   componentDidMount() {
     const { evaluation, editable } = this.props;
-    if(evaluation.id) {
+    if (evaluation.id) {
       this.setState({
         overall: evaluation.rating.overall,
         easyness: evaluation.rating.easyness,
@@ -68,7 +72,7 @@ class Evaluate extends Component {
         codeStructure: evaluation.rating.codeStructure,
         defensiveCoding: evaluation.rating.defensiveCoding,
         feedback: evaluation.rating.feedback,
-        preview: editable,
+        preview: editable
       });
     }
   }
@@ -111,11 +115,11 @@ class Evaluate extends Component {
     }
   };
 
-  handleFeedback = event => {
+  handleFeedback = (event) => {
     this.setState({ feedback: event.target.value.split('\n') });
-  }
+  };
 
-  handleSubmit = event => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const {
       overall,
@@ -124,12 +128,12 @@ class Evaluate extends Component {
       codeStructure,
       maintainability,
       defensiveCoding,
-      feedback,
+      feedback
     } = this.state;
 
     const evaluation = {
-      candidate: "",
-      evaluator: "",
+      candidate: '',
+      evaluator: '',
       rating: {
         overall,
         easyness,
@@ -144,7 +148,7 @@ class Evaluate extends Component {
     // API call to add evaluation to backend
     // axios.post(args, evaluation);
     console.log('added evaluation: ', evaluation);
-  }
+  };
 
   render() {
     const {
@@ -155,10 +159,10 @@ class Evaluate extends Component {
       codeStructure,
       defensiveCoding,
       feedback,
-      preview 
+      preview
     } = this.state;
 
-    const { editable, classes, hideEvaluation } = this.props; 
+    const { editable, classes, hideEvaluation } = this.props;
 
     const qualities = [
       {
@@ -166,116 +170,148 @@ class Evaluate extends Component {
         tag: 'easyness',
         leftLbl: 'Hard to Understand',
         rightLbl: 'Easy to Read',
-        value: easyness 
+        value: easyness
       },
       {
         id: 2,
         tag: 'style',
         leftLbl: 'Rudimentary Coding Style',
         rightLbl: 'Advanced Grasp of Language',
-        value: codeStyle 
+        value: codeStyle
       },
       {
         id: 3,
         tag: 'maintainability',
         leftLbl: 'Hard to Mantain',
         rightLbl: 'Easy to Mantain',
-        value: maintainability 
+        value: maintainability
       },
       {
         id: 4,
         tag: 'structure',
         leftLbl: 'Poorly Structured',
         rightLbl: 'Well Structured',
-        value: codeStructure 
+        value: codeStructure
       },
       {
         id: 5,
         tag: 'defense',
         leftLbl: 'Lack of Defensive Coding',
         rightLbl: 'Handles Edge Cases',
-        value: defensiveCoding 
-      },
+        value: defensiveCoding
+      }
     ];
 
     return (
-      <div style={{position: 'relative'}}>
-        <Typography variant='display1' className={classes.title}>
-          Evaluation 
+      <div style={{ position: 'relative' }}>
+        <Typography variant="display1" className={classes.title}>
+          Evaluation
         </Typography>
         <form onSubmit={this.handleSubmit}>
-          <Button size='small' onClick={hideEvaluation} style={{position: 'absolute', right: '0'}}>
-            <FontAwesomeIcon icon={faTimesCircle}/>
+          <Button
+            size="small"
+            onClick={hideEvaluation}
+            style={{ position: 'absolute', right: '0' }}>
+            <FontAwesomeIcon icon={faTimesCircle} />
           </Button>
-          <Typography variant='title' component='h3' className={classes.title}>
-            Overall Rating 
+          <Typography variant="title" component="h3" className={classes.title}>
+            Overall Rating
           </Typography>
-          <Typography component='div' className={classes.selector}>
-            <Typography variant='subheading' component='span' className={classes.leftLabel}>
-              Poor 
+          <Typography component="div" className={classes.selector}>
+            <Typography
+              variant="subheading"
+              component="span"
+              className={classes.leftLabel}>
+              Poor
             </Typography>
-            <RadioGroup 
-              name='overall'
+            <RadioGroup
+              name="overall"
               value={overall}
-              row 
-              onChange={(e) => editable?this.handleChange(e, 'overall'):null}
-            >
-              <Radio value='poor'/>
-              <Radio value='normal'/>
-              <Radio value='great'/>
+              row
+              onChange={(e) =>
+                editable ? this.handleChange(e, 'overall') : null
+              }>
+              <Radio value="poor" />
+              <Radio value="normal" />
+              <Radio value="great" />
             </RadioGroup>
-            <Typography variant='subheading' component='span' className={classes.rightLabel}>
-              Great 
+            <Typography
+              variant="subheading"
+              component="span"
+              className={classes.rightLabel}>
+              Great
             </Typography>
           </Typography>
-          <Typography variant='title' component='h3' className={classes.title}>
-            Qualities 
+          <Typography variant="title" component="h3" className={classes.title}>
+            Qualities
           </Typography>
-          {qualities.map(quality => (
-            <Typography key={quality.id} component='div' className={classes.selector}>
-              <Typography variant='subheading' component='span' className={classes.leftLabel}>
+          {qualities.map((quality) => (
+            <Typography
+              key={quality.id}
+              component="div"
+              className={classes.selector}>
+              <Typography
+                variant="subheading"
+                component="span"
+                className={classes.leftLabel}>
                 {quality.leftLbl}
               </Typography>
-              <RadioGroup 
+              <RadioGroup
                 name={quality.tag}
                 value={quality.value}
-                row 
-                onChange={(e) => editable?this.handleChange(e, quality.tag):null}
-              >
-                <Radio value='poor'/>
-                <Radio value='normal'/>
-                <Radio value='great'/>
+                row
+                onChange={(e) =>
+                  editable ? this.handleChange(e, quality.tag) : null
+                }>
+                <Radio value="poor" />
+                <Radio value="normal" />
+                <Radio value="great" />
               </RadioGroup>
-              <Typography variant='subheading' component='span' className={classes.rightLabel}>
+              <Typography
+                variant="subheading"
+                component="span"
+                className={classes.rightLabel}>
                 {quality.rightLbl}
               </Typography>
             </Typography>
           ))}
-          <Typography variant='title' component='h3' className={classes.title}>
-            Feedback Notes 
+          <Typography variant="title" component="h3" className={classes.title}>
+            Feedback Notes
           </Typography>
-          {editable&&
-          <Button style={{float: 'right'}} onClick={this.togglePreview}>
-            <FontAwesomeIcon icon={preview?faEye:faEyeSlash}/> Preview 
-          </Button>}
-          {preview?
-            <textarea 
+          {editable && (
+            <Button style={{ float: 'right' }} onClick={this.togglePreview}>
+              <FontAwesomeIcon icon={preview ? faEye : faEyeSlash} /> Preview
+            </Button>
+          )}
+          {preview ? (
+            <textarea
               placeholder={placeholder}
-              cols='59'
-              rows='10'
-              value={feedback?feedback.join('\n'):null}
-              onChange={editable?this.handleFeedback:null}
+              cols="59"
+              rows="10"
+              value={feedback ? feedback.join('\n') : null}
+              onChange={editable ? this.handleFeedback : null}
+            />
+          ) : (
+            <Typography
+              variant="body1"
+              component="div"
+              className={classes.previewDiv}>
+              <ReactMarkdown
+                className={classes.markdown}
+                source={feedback ? feedback.join('  \n') : null}
               />
-              :
-            <Typography variant='body1' component='div' className={classes.previewDiv}>
-              <ReactMarkdown className={classes.markdown} source={feedback ? feedback.join('  \n') : null} />
             </Typography>
-          }
-          {editable&&
-          <div className={classes.buttonArea}>
-            <Button className={classes.button} type='submit'>Add Overall Review</Button>
-            <Button className={classes.button} onClick={hideEvaluation}>Close Review Editor</Button>
-          </div>}
+          )}
+          {editable && (
+            <div className={classes.buttonArea}>
+              <Button className={classes.button} type="submit">
+                Add Overall Review
+              </Button>
+              <Button className={classes.button} onClick={hideEvaluation}>
+                Close Review Editor
+              </Button>
+            </div>
+          )}
         </form>
       </div>
     );
@@ -290,9 +326,9 @@ Evaluate.propTypes = {
     maintainability: PropTypes.string,
     codeStructure: PropTypes.string,
     defensiveCoding: PropTypes.string,
-    feedback: PropTypes.array,
+    feedback: PropTypes.array
   }),
-  editable: PropTypes.bool,
+  editable: PropTypes.bool
 };
 
 Evaluate.defaultProps = {
@@ -303,9 +339,9 @@ Evaluate.defaultProps = {
     maintainability: 'normal',
     codeStructure: 'normal',
     defensiveCoding: 'normal',
-    feedback: '',
+    feedback: ''
   },
-  editable: true,
+  editable: true
 };
 
 export default withStyles(styles)(Evaluate);

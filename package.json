@@ -22,11 +22,14 @@
     "apisauce": "^0.15.2",
     "axios": "^0.18.0",
     "chart.js": "^1.1.1",
+    "classnames": "^2.2.6",
+    "codemirror": "^5.40.2",
     "lodash": "^4.17.10",
     "material-ui": "^0.20.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-chartjs": "^1.2.0",
+    "react-codemirror2": "^5.1.0",
     "react-dom": "^16.4.1",
     "react-grid-layout": "^0.16.6",
     "react-markdown": "^3.4.1",
@@ -52,7 +55,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --verbose=false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prettier": "prettier --write --arrow-parens always --jsx-bracket-same-line --trailing-comma none --single-quote \"src/**/*.js\""
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",

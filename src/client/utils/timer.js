@@ -1,6 +1,6 @@
 // Internal functions (not exported)
 
-const strTwoDigits = value => `${value < 10 ? '0' : ''}${value}`;
+const strTwoDigits = (value) => `${value < 10 ? '0' : ''}${value}`;
 
 const formatMinsSecs = (timeInSecs) => {
   const mins = parseInt(timeInSecs / 60, 10);
@@ -22,7 +22,6 @@ const getFormattingFcn = (timeInSecs) => {
 
   return formatHoursMinSecs;
 };
-
 
 // Exported functions
 

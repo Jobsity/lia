@@ -1,129 +1,70 @@
-import React from "react";
-import RGL, { WidthProvider } from "react-grid-layout";
+import React, { Fragment } from 'react';
+import RGL, { WidthProvider } from 'react-grid-layout';
+import Paper from '@material-ui/core/Paper';
+import { withStyles } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-import InformationTabs from "./InformationTabs";
-import EditorTabs from "./EditorTabs";
-import Instructions from "./Instructions";
-import TopBar from "./TopBar";
+import InformationTabs from './InformationTabs';
+import EditorTabs from './EditorTabs';
+import Instructions from './Instructions';
+import TopBar from './TopBar';
 
-const ReactGridLayout = WidthProvider(RGL);
+const styles = (theme) => ({
+  layout: {
+    ...theme.inject.flex({ dir: 'column' }),
+    width: '100%',
+    height: '100%',
+    padding: '10px',
+    backgroundColor: 'transparent'
+  },
+  titleBar: {
+    width: '100%',
+    height: '50px',
+    color: 'white'
+  },
+  section: {
+    ...theme.inject.flex(),
+    flex: '1',
+  },
+  side: {
+    ...theme.inject.flex({ dir: 'column' }),
+    overflow: 'scroll'
+  },
+  leftSide: {
+    flex: '0.6'
+  },
+  rigthSide: {
+    flex: '0.4',
+    marginLeft: '15px'
+  }
+})
 
 class Homepage extends React.PureComponent {
-  static defaultProps = {
-    className: "layout",
-    isDraggable: false,
-    isResizable: false,
-    items: 6,
-    rowHeight: 100,
-    onLayoutChange() {},
-    cols: 12
-  };
-
   constructor(props) {
     super(props);
-
-    const layout = this.generateLayout();
-    this.state = {
-      layout
-    };
-  }
-
-
-  generateDOM() {
-    return [
-      <div key="bar">
-      <TopBar />
-      </div>,
-      <div key="1">
-        {
-          // TODO
-          // render Playback only if session is not live
-          // and role is 'evaluator'
-        }
-        <EditorTabs />
-      </div>,
-      <div key="2">
-        <InformationTabs />
-      </div>,
-      <div key="6">
-        <Instructions />
-      </div>
-    ];
-  }
-
-  generateLayout() {
-    return [
-      {
-        x: 0,
-        y: 0,
-        w: 12,
-        h: 0.64,
-        i: "bar",
-      },
-      {
-        x: 0,
-        y: 1,
-        w: 8,
-        h: 5.3,
-        i: "1",
-      },
-      {
-        x: 8,
-        y: 1,
-        w: 4,
-        h: 6,
-        i: "2"
-      },
-      {
-        x: 8,
-        y: 0,
-        w: 4,
-        h: 5,
-        i: "3"
-      },
-      {
-        x: 8,
-        y: 0,
-        w: 4,
-        h: 4,
-        i: "4"
-      },
-      {
-        x: 8,
-        y: 0,
-        w: 4,
-        h: 1,
-        i: "5"
-      },
-      {
-        x: 0,
-        y: 1,
-        w: 8,
-        h: 2,
-        i: "6"
-      }
-    ];
-  }
-
-  onLayoutChange(layout) {
-    this.props.onLayoutChange(layout);
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <ReactGridLayout
-        style={{background: "rgba(83,52,85,0.7)"}}
-        layout={this.state.layout}
-        onLayoutChange={this.onLayoutChange}
-        {...this.props}>
-        {this.generateDOM()}
-      </ReactGridLayout>
+      <Paper
+        square
+        className={classes.layout}>
+        <div className={classes.titleBar}>
+          Live Interview App
+        </div>
+        <div className={classes.section}>
+          <div className={classNames(classes.side, classes.leftSide)}>
+            <EditorTabs />
+            <Instructions />
+          </div>
+          <div className={classNames(classes.side, classes.rigthSide)}>
+            <InformationTabs />
+          </div>
+        </div>
+      </Paper>
     );
   }
 }
 
-// if (require.main === module) {
-//   require("../test-hook.jsx")(module.exports);
-// }
-
-export default Homepage;
+export default withStyles(styles)(Homepage);

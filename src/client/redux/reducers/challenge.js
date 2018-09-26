@@ -10,8 +10,8 @@ import {
   RUN_SAMPLE_TESTS_ERROR,
   SUBMIT_CHALLENGE_START,
   SUBMIT_CHALLENGE_SUCCESS,
-  SUBMIT_CHALLENGE_ERROR,
-} from '../actions/types'; 
+  SUBMIT_CHALLENGE_ERROR
+} from '../actions/types';
 
 const initialState = {
   difficulty: '',
@@ -26,16 +26,16 @@ const initialState = {
   runTestsError: '',
   submitChallengeLoading: false,
   submitChallengeError: '',
-  submitted: false,
+  submitted: false
 };
 
-export default function (state = initialState, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case FETCH_CHALLENGE_DATA_START:
       return {
         ...state,
         error: '',
-        isLoading: true,
+        isLoading: true
       };
     case FETCH_CHALLENGE_DATA_SUCCESS:
       return {
@@ -45,70 +45,74 @@ export default function (state = initialState, action) {
         currentTests: action.payload.data.testSuite[0].tests,
         difficulty: action.payload.data.difficulty,
         error: '',
-        isLoading: false,
-      }
+        isLoading: false
+      };
     case FETCH_CHALLENGE_DATA_ERROR:
       return {
         ...state,
         error: action.payload.error,
-        loading: false,
+        loading: false
       };
     case SET_CURRENT_LANGUAGE:
       return {
         ...state,
-        currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests
-      }
+        currentTests: state.testSuite.filter(
+          (tests) => tests.language === action.payload.language
+        )[0].tests
+      };
     case UPDATE_CURRENT_TESTS:
       return {
         ...state,
-        currentTests: action.payload.newTests,
-      }
+        currentTests: action.payload.newTests
+      };
     case RESET_EDITORS:
       return {
         ...state,
-        currentTests: state.testSuite.filter(tests => tests.language === action.payload.language)[0].tests,
-      }
+        currentTests: state.testSuite.filter(
+          (tests) => tests.language === action.payload.language
+        )[0].tests
+      };
     case RUN_SAMPLE_TESTS_START:
       return {
         ...state,
         runTestsLoading: true,
         runTestsError: '',
-        submitChallengeError: '',
-      }
+        submitChallengeError: ''
+      };
     case RUN_SAMPLE_TESTS_SUCCESS:
       return {
         ...state,
         runTestsLoading: false,
         runTestsError: '',
-        submitChallengeError: '',
-      }
+        submitChallengeError: ''
+      };
     case RUN_SAMPLE_TESTS_ERROR:
       return {
         ...state,
         runTestsLoading: false,
-        runTestsError: action.payload.error,
-      }
+        runTestsError: action.payload.error
+      };
     case SUBMIT_CHALLENGE_START:
       return {
         ...state,
         submitChallengeLoading: true,
         submitChallengeError: '',
-        runTestsError: '',
-      }
+        runTestsError: ''
+      };
     case SUBMIT_CHALLENGE_SUCCESS:
       return {
         ...state,
         submitChallengeLoading: false,
         submitChallengeError: '',
         runTestsError: '',
-        submitted: true,
-      }
+        submitted: true
+      };
     case SUBMIT_CHALLENGE_ERROR:
       return {
         ...state,
         submitChallengeLoading: false,
-        submitChallengeError: action.payload.error,
-      }
+        submitChallengeError: action.payload.error
+      };
     default:
       break;
   }
@@ -116,28 +120,29 @@ export default function (state = initialState, action) {
 }
 
 // Getters
-export const getDifficulty = state => state.difficulty;
+export const getDifficulty = (state) => state.difficulty;
 
-export const getError = state => state.error;
+export const getError = (state) => state.error;
 
-export const getIsLoading = state => state.isLoading;
+export const getIsLoading = (state) => state.isLoading;
 
-export const getLanguages = state => state.languages;
+export const getLanguages = (state) => state.languages;
 
-export const getScore = state => state.score;
+export const getScore = (state) => state.score;
 
-export const getStats = state => state.stats;
+export const getStats = (state) => state.stats;
 
-export const getTestSuite = state => state.testSuite;
+export const getTestSuite = (state) => state.testSuite;
 
-export const getCurrentTests = state => state.currentTests;
+export const getCurrentTests = (state) => state.currentTests;
 
-export const getSubmitted = state => state.submitted;
+export const getSubmitted = (state) => state.submitted;
 
-export const getRunTestsLoading = state => state.runTestsLoading;
+export const getRunTestsLoading = (state) => state.runTestsLoading;
 
-export const getRunTestsError = state => state.runTestsError;
+export const getRunTestsError = (state) => state.runTestsError;
 
-export const getSubmitChallengeLoading = state => state.submitChallengeLoading;
+export const getSubmitChallengeLoading = (state) =>
+  state.submitChallengeLoading;
 
-export const getSubmitChallengeError = state => state.submitChallengeError;
+export const getSubmitChallengeError = (state) => state.submitChallengeError;

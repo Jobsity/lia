@@ -1,35 +1,36 @@
-import React from "react";
-import { PropTypes } from "prop-types";
-import FormControl from "@material-ui/core/FormControl";
+import React from 'react';
+import { PropTypes } from 'prop-types';
+import FormControl from '@material-ui/core/FormControl';
 
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import { withStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Select from '@material-ui/core/Select';
+import Button from '@material-ui/core/Button';
+import Input from '@material-ui/core/Input';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import { withStyles } from '@material-ui/core/styles';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 
-import MonacoField from "./MonacoField";
-import dialogs from "./dialogs";
+import MonacoField from './MonacoField';
+import Editor from './Editor';
+import dialogs from './dialogs';
 
-const styles = theme => ({
+const styles = (theme) => ({
   loading: {
-    position: "absolute",
-    top: "8em",
-    left: "8em"
+    position: 'absolute',
+    top: '8em',
+    left: '8em'
   },
-  selectors: {
-    margin: "1em",
-    display: "flex",
-    justifyContent: "center"
-  }
+  // selectors: {
+  //   margin: '1em',
+  //   display: 'flex',
+  //   justifyContent: 'center'
+  // }
 });
 
 function sampleTestsView({
@@ -54,18 +55,7 @@ function sampleTestsView({
       ) : (
         <div>
           <div className="output-console">
-            <MonacoField
-              code={tests.currentTests}
-              language={tests.language}
-              onChange={e => handleTestsEditorChange(e)}
-              options={{
-                lineNumbers: "off",
-                readOnly: false,
-                minimap: {
-                  enabled: false
-                }
-              }}
-            />
+            <Editor />
           </div>
           <div className={classes.selectors}>
             <FormControl>
@@ -74,8 +64,8 @@ function sampleTestsView({
                 value={tests.language}
                 input={<Input />}
                 color="secondary"
-                onChange={e => handleDialogOpening("changeLanguage", e)}>
-                {tests.languages.map(language => (
+                onChange={(e) => handleDialogOpening('changeLanguage', e)}>
+                {tests.languages.map((language) => (
                   <MenuItem key={language} value={language}>
                     {language}
                   </MenuItem>
@@ -89,7 +79,7 @@ function sampleTestsView({
                 status.submitChallengeLoading
               }
               color="secondary"
-              onClick={() => handleDialogOpening("reset")}>
+              onClick={() => handleDialogOpening('reset')}>
               Reset
             </Button>
             <Button
@@ -108,7 +98,7 @@ function sampleTestsView({
                 status.runTestsLoading ||
                 status.submitChallengeLoading
               }
-              onClick={() => handleDialogOpening("submit")}>
+              onClick={() => handleDialogOpening('submit')}>
               Submit
             </Button>
           </div>
@@ -151,7 +141,7 @@ sampleTestsView.propTypes = {
   handleDialogOpening: PropTypes.func.isRequired,
   challengeSubmitted: PropTypes.bool.isRequired,
   dialogOpened: PropTypes.string,
-  dialogHandlers: PropTypes.instanceOf(Object).isRequired,
+  dialogHandlers: PropTypes.instanceOf(Object).isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(sampleTestsView);

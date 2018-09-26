@@ -8,8 +8,8 @@ const styles = {
   text: {
     paddingLeft: '0.5rem',
     paddingRight: '0.5rem',
-    whiteSpace: 'nowrap',
-  },
+    whiteSpace: 'nowrap'
+  }
 };
 
 const Timer = (props) => {
@@ -20,10 +20,7 @@ const Timer = (props) => {
   }
 
   return (
-    <Typography
-      className={classes.text}
-      variant="body2"
-    >
+    <Typography className={classes.text} variant="body2">
       {formatStartEnd(currentTime || 0, duration)}
     </Typography>
   );

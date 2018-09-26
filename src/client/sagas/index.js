@@ -9,6 +9,6 @@ export default function* rootSaga() {
     getChallengeData(),
     getSessionData(),
     runSampleTests(),
-    submitChallenge(),
+    submitChallenge()
   ]);
 }

@@ -11,7 +11,7 @@ const store = createStore(
   rootReducer,
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   // Keep logger as the last middleware
-  applyMiddleware(sagaMiddleware, logger),
+  applyMiddleware(sagaMiddleware)
 );
 
 sagaMiddleware.run(rootSaga);

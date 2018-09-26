@@ -7,8 +7,8 @@ const styles = {
     'background-size': '1rem 1rem',
     'background-image': 'radial-gradient(#fff 0%, #fff 20%, transparent 20%)',
     height: '100%',
-    minWidth: '1rem',
-  },
+    minWidth: '1rem'
+  }
 };
 
 const Editor = (props) => {
@@ -18,7 +18,7 @@ const Editor = (props) => {
     <Tooltip title="Editor typing">
       <div className={classes.container} />
     </Tooltip>
-  )
-}
+  );
+};
 
 export default withStyles(styles)(Editor);

@@ -7,27 +7,25 @@ class Instructions extends Component {
     super(props, context);
     this.state = {
       loading: true,
-      data: {},
+      data: {}
     };
   }
 
   componentDidMount() {
     api.get('/challenges/id').then((response) => {
       if (response.status === 200) {
-       
-      // setTimeout just to watch the animation...
-      // must be removed when connected to real server
-      setInterval(() => (this.setState({ data: response.data.data, loading: false })), 1000) ;
+        // setTimeout just to watch the animation...
+        // must be removed when connected to real server
+        setInterval(
+          () => this.setState({ data: response.data.data, loading: false }),
+          1000
+        );
       }
     });
   }
 
   render() {
-    return (
-      <InstructionsView
-        {...this.state}
-      />
-    );
+    return <InstructionsView {...this.state} />;
   }
 }
 

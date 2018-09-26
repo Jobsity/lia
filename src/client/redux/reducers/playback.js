@@ -3,7 +3,7 @@ import * as actionTypes from '../actions/types';
 const initState = {
   isPlaying: false,
   playedEvents: null,
-  wasInteracted: false,
+  wasInteracted: false
 };
 
 export default (state = initState, action) => {
@@ -12,24 +12,23 @@ export default (state = initState, action) => {
       return {
         ...state,
         playedEvents: action.payload.playedEvents,
-        wasInteracted: true,
+        wasInteracted: true
       };
     case actionTypes.PLAYBACK_PLAYING_SET:
       return {
         ...state,
         isPlaying: action.payload.isPlaying,
-        wasInteracted: true,
+        wasInteracted: true
       };
     default:
       return state;
   }
-}
-
+};
 
 // Getters
 
-export const getIsPlaying = state => state.isPlaying;
+export const getIsPlaying = (state) => state.isPlaying;
 
-export const getPlayedEvents = state => state.playedEvents;
+export const getPlayedEvents = (state) => state.playedEvents;
 
-export const getWasInteracted = state => state.wasInteracted;
+export const getWasInteracted = (state) => state.wasInteracted;

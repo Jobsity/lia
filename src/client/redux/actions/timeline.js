@@ -9,15 +9,15 @@ export const addEvent = (startingTime, type, data) => ({
     event: {
       data,
       ts: createTimestamp(startingTime),
-      type,
+      type
     }
-  },
+  }
 });
 
 export const resetTimeline = () => ({
   type: actionTypes.TIMELINE_RESET,
   payload: {
     events: [],
-    startingTime: createTime(),
-  },
+    startingTime: createTime()
+  }
 });

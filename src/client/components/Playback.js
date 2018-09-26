@@ -15,7 +15,7 @@ import Timer from './Timer';
 const styles = {
   container: {
     alignItems: 'center',
-    display: 'flex',
+    display: 'flex'
   }
 };
 
@@ -23,13 +23,13 @@ class Playback extends Component {
   timeoutId = null;
 
   state = {
-    timestamp: 0,
-  }
+    timestamp: 0
+  };
 
   handleChange = (currentTs) => {
     clearTimeout(this.timeoutId);
     this.timer(currentTs);
-  }
+  };
 
   togglePlayPause = () => {
     const { events } = this.props;
@@ -41,7 +41,7 @@ class Playback extends Component {
     const { isPlaying, setIsPlaying } = this.props;
 
     setIsPlaying(!isPlaying);
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const { events, isPlaying } = this.props;
@@ -71,7 +71,7 @@ class Playback extends Component {
 
   timer(currentTs) {
     const { events } = this.props;
-    const index = events.map(e => e.ts <= currentTs).indexOf(false);
+    const index = events.map((e) => e.ts <= currentTs).indexOf(false);
 
     if (index === -1) {
       this.playEvents(events);
@@ -117,7 +117,7 @@ class Playback extends Component {
   }
 }
 
-const mapState = state => {
+const mapState = (state) => {
   const events = fromReducers.getTimelineEvents(state);
   const { length } = events;
   const maxTs = length === 0 ? 0 : events[length - 1].ts;
@@ -127,14 +127,15 @@ const mapState = state => {
     isPlaying: fromReducers.getIsPlaying(state),
     maxTs,
     playedEvents: fromReducers.getPlayedEvents(state),
-    step: Math.min(100, maxTs),
-  }
+    step: Math.min(100, maxTs)
+  };
 };
-const mapDispatch = ({
+const mapDispatch = {
   setPlayedEvents: playbackActions.setPlayedEvents,
-  setIsPlaying: playbackActions.setIsPlaying,
-});
+  setIsPlaying: playbackActions.setIsPlaying
+};
 
-export default connect(mapState, mapDispatch)(
-  withStyles(styles)(Playback)
-);
+export default connect(
+  mapState,
+  mapDispatch
+)(withStyles(styles)(Playback));

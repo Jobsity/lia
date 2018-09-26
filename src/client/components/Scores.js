@@ -7,27 +7,18 @@ class Scores extends Component {
     super(props, context);
     this.state = {
       loading: true,
-      data: {},
+      data: {}
     };
   }
 
   componentDidMount() {
     api.get('/challenges/id/scores').then((response) => {
-      if (response.status === 200) {
-       
-      // setTimeout just to watch the animation...
-      // must be removed when connected to real server
-      setTimeout(() => (this.setState({ data: response.data.data, loading: false })), 1000) ;
-      }
+      this.setState({ data: response.data.data, loading: false })
     });
   }
 
   render() {
-    return (
-      <ScoresView 
-        {...this.state}
-      />
-    );
+    return <ScoresView {...this.state} />;
   }
 }
 

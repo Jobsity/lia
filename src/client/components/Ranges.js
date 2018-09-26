@@ -9,8 +9,8 @@ import Output from './OutputRange';
 
 const typedComponents = {
   editor: Editor,
-  output: Output,
-}
+  output: Output
+};
 
 const styles = () => ({
   box: {
@@ -21,28 +21,28 @@ const styles = () => ({
     position: 'absolute',
     textAlign: 'center',
     '&:hover': {
-      opacity: 1,
-    },
+      opacity: 1
+    }
   },
   boxInternal: {
     bottom: 0,
     display: 'inline-block',
     height: '100%',
     transform: 'translate(-50%, 0)',
-    zIndex: 4,
+    zIndex: 4
   },
   container: {
     alignItems: 'center',
     position: 'relative',
     height: '1rem',
-    minWidth: '100px',
-  },
+    minWidth: '100px'
+  }
 });
 
 class Ranges extends React.Component {
   state = {
-    ranges: [],
-  }
+    ranges: []
+  };
 
   componentDidMount() {
     this.updateRanges();
@@ -63,8 +63,8 @@ class Ranges extends React.Component {
   renderOneRange(range) {
     const { classes, maxTs, onClick } = this.props;
     const Component = typedComponents[range.type];
-    const children = <Component dataArray={range.dataArray}/>;
-    const left = `${100 * range.start / maxTs}%`;
+    const children = <Component dataArray={range.dataArray} />;
+    const left = `${(100 * range.start) / maxTs}%`;
     const widthRate = (range.end - range.start) / maxTs;
     const width = `${100 * widthRate}%`;
 
@@ -72,16 +72,12 @@ class Ranges extends React.Component {
       <div
         className={classes.box}
         onClick={() => onClick(range.start)}
-        style={{ left, width }}
-      >
-        {
-          widthRate < 0.01
-            ? (
-              <div className={classes.boxInternal}>
-                {children}
-              </div>
-            ) : children
-        }
+        style={{ left, width }}>
+        {widthRate < 0.01 ? (
+          <div className={classes.boxInternal}>{children}</div>
+        ) : (
+          children
+        )}
       </div>
     );
   }
@@ -96,7 +92,7 @@ class Ranges extends React.Component {
 
     return (
       <div className={classes.container}>
-        {ranges.map(range => this.renderOneRange(range))}
+        {ranges.map((range) => this.renderOneRange(range))}
       </div>
     );
   }

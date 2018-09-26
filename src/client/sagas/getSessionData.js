@@ -1,6 +1,10 @@
-import { takeEvery, call, put }  from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 import { fetchSessionData } from './../../server/api';
-import { FETCH_SESSION_DATA_START, FETCH_SESSION_DATA_SUCCESS, FETCH_SESSION_DATA_ERROR } from './../redux/actions';
+import {
+  FETCH_SESSION_DATA_START,
+  FETCH_SESSION_DATA_SUCCESS,
+  FETCH_SESSION_DATA_ERROR
+} from './../redux/actions';
 
 function* getSessionData(payload) {
   const { token } = payload.payload;
@@ -8,22 +12,22 @@ function* getSessionData(payload) {
   if (Object.prototype.hasOwnProperty.call(response, 'error')) {
     yield put({
       type: FETCH_SESSION_DATA_ERROR,
-      payload: { error: response.error}
-    })
+      payload: { error: response.error }
+    });
   } else if (response.status === 200) {
     const dataParsed = {
       user: {
         id: response.data.data.user.id,
         name: response.data.data.user.name,
-        role: response.data.data.user.roles[0],
+        role: response.data.data.user.roles[0]
       },
       session: response.data.data.session,
       language: response.data.data.session.language,
-      isLive: response.data.data.session.active == 1,
+      isLive: response.data.data.session.active === 1
     };
     yield put({
       type: FETCH_SESSION_DATA_SUCCESS,
-      payload: { data: dataParsed },
+      payload: { data: dataParsed }
     });
   }
 }
@@ -31,4 +35,3 @@ function* getSessionData(payload) {
 export default function* watchGetSessionData() {
   yield takeEvery(FETCH_SESSION_DATA_START, getSessionData);
 }
-

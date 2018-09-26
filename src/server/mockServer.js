@@ -1,7 +1,8 @@
 import { create } from 'apisauce';
 import MockAdapter from 'axios-mock-adapter';
 
-const api = create({ baseURL: 'http://dev-jtalent-api.jobsity.com' }).axiosInstance;
+const api = create({ baseURL: 'http://dev-jtalent-api.jobsity.com' })
+  .axiosInstance;
 
 const mock = new MockAdapter(api, { delayResponse: 1500 });
 mock.onGet('/challenges/id').reply(200, {
@@ -11,49 +12,47 @@ mock.onGet('/challenges/id').reply(200, {
     slug: 'hello-world-lia-test',
     createdAt: '2018-08-08T13:15:00+00:00',
     createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
-    instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
-    languages: [
-      'javascript',
-      'php',
-    ],
+    instructions:
+      'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+    languages: ['javascript', 'php'],
     testSuite: [
       {
         language: 'javascript',
-        tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+        tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`
       },
       {
         language: 'php',
-        tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+        tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`
       }
     ],
     difficultyLevel: 'easy',
-    max_time: '00:05:00',
-  },
+    max_time: '00:05:00'
+  }
 });
 
 mock.onGet('/challenges/id/scores').reply(200, {
   data: {
     chartData: {
-      labels: ['37.5%','100%'],
-      data: [1,8]
+      labels: ['37.5%', '100%'],
+      data: [1, 8]
     },
     total: 9,
     passRate: 88.9,
     minScore: 37.5,
     maxScore: 100,
     averageScore: 93.1,
-    deviationStd: 19.6,
-  },
+    deviationStd: 19.6
+  }
 });
 
 mock.onGet('/candidates/:id').reply(200, {
   data: {
-    id: "b49bc530-9433-11e8-88d3-39619bf324e6",
-    first_name: "Zoie",
-    last_name: "Rogahn",
-    date_of_birth: "1995-11-24",
-    email: "domenick95@parker.biz",
-    phone_number: "858.216.3346",
+    id: 'b49bc530-9433-11e8-88d3-39619bf324e6',
+    first_name: 'Zoie',
+    last_name: 'Rogahn',
+    date_of_birth: '1995-11-24',
+    email: 'domenick95@parker.biz',
+    phone_number: '858.216.3346',
     seniority: null,
     photo: null,
     unemployed: true,
@@ -61,13 +60,13 @@ mock.onGet('/candidates/:id').reply(200, {
     not_hired_message: null,
     notes: null,
     hr_interview: {
-      current_job: "with_a_company",
+      current_job: 'with_a_company',
       education: [],
       experience: [],
       skills: [
         {
-          id: "b4428030-9433-11e8-a493-b70c21d3985c",
-          name: "meteor",
+          id: 'b4428030-9433-11e8-a493-b70c21d3985c',
+          name: 'meteor',
           soft: false,
           years_experience: 1,
           months_experience: 3
@@ -75,83 +74,87 @@ mock.onGet('/candidates/:id').reply(200, {
       ],
       tech_skills_comment: null,
       soft_skills_comment: null,
-      fundamental_programming_level: "low",
-      fundamental_programming_comment: "Aut deserunt esse accusantium. Consequuntur alias est sapiente et. Est dolorum et placeat aliquam voluptatem quos dolor.",
-      english_written_level: "medium",
-      english_spoken_level: "medium",
-      english_comment: "Dolorem ut sunt maxime repellat doloribus non at sapiente. At sit et natus placeat tenetur.",
-      passion_level: "low",
-      passion_comment: "Dicta dolore ut aliquam provident sapiente necessitatibus qui. Provident libero quis sit veritatis rerum. Amet odit sunt veniam ut.",
-      notes: "<p>Consectetur reprehenderit iste libero saepe qui quas doloremque. Corporis molestiae sit perspiciatis dicta. Ipsa similique nihil labore optio quibusdam.</p>",
+      fundamental_programming_level: 'low',
+      fundamental_programming_comment:
+        'Aut deserunt esse accusantium. Consequuntur alias est sapiente et. Est dolorum et placeat aliquam voluptatem quos dolor.',
+      english_written_level: 'medium',
+      english_spoken_level: 'medium',
+      english_comment:
+        'Dolorem ut sunt maxime repellat doloribus non at sapiente. At sit et natus placeat tenetur.',
+      passion_level: 'low',
+      passion_comment:
+        'Dicta dolore ut aliquam provident sapiente necessitatibus qui. Provident libero quis sit veritatis rerum. Amet odit sunt veniam ut.',
+      notes:
+        '<p>Consectetur reprehenderit iste libero saepe qui quas doloremque. Corporis molestiae sit perspiciatis dicta. Ipsa similique nihil labore optio quibusdam.</p>'
     },
     city: {
       id: 517440,
-      name: "Medellín",
+      name: 'Medellín',
       region: {
         id: 685,
-        name: "Antioquia",
+        name: 'Antioquia',
         country_id: 44
       },
-      "country": {
+      country: {
         id: 44,
-        name: "Colombia",
-        code: "CO"
+        name: 'Colombia',
+        code: 'CO'
       }
     },
     professional_roles: [],
     processes: [
       {
         process: {
-          id: "b4a3a390-9433-11e8-92c6-c1e2e4cea673",
-          name: "Quas sed itaque atque quia.",
-          description: "Saepe laborum maiores est. Et et ab qui enim quaerat asperiores.",
+          id: 'b4a3a390-9433-11e8-92c6-c1e2e4cea673',
+          name: 'Quas sed itaque atque quia.',
+          description:
+            'Saepe laborum maiores est. Et et ab qui enim quaerat asperiores.',
           due_date: null,
           client: {
-            id: "a07622f0-9433-11e8-92af-6501822d3ea9",
+            id: 'a07622f0-9433-11e8-92af-6501822d3ea9',
             name: "Luettgen, O'Connell and Halvorson",
-            logo: "http://localhosthttp://localhost/storage/clients/logo-test-1.jpg",
-            website: "harris.info",
+            logo:
+              'http://localhosthttp://localhost/storage/clients/logo-test-1.jpg',
+            website: 'harris.info'
           },
           active: 1,
           candidates: [],
           skills: []
         },
         stage: {
-          id: "b437ffc0-9433-11e8-8929-51628047318f",
-          name: "Screening",
+          id: 'b437ffc0-9433-11e8-8929-51628047318f',
+          name: 'Screening',
           order: 1
         }
       }
     ],
     stage: {
-      id: "b435ab40-9433-11e8-aad7-f91cd4c23f46",
-      name: "In Progress",
+      id: 'b435ab40-9433-11e8-aad7-f91cd4c23f46',
+      name: 'In Progress',
       order: 2
     },
     age: 22,
-    created_at: "2018-07-30T20:04:02+00:00",
-    updated_at: "2018-07-30T20:04:02+00:00"
+    created_at: '2018-07-30T20:04:02+00:00',
+    updated_at: '2018-07-30T20:04:02+00:00'
   }
 });
 
 mock.onGet('/candidateToken').reply(200, {
   data: {
     user: {
-      id: "b49bc530-9433-11e8-88d3-39619bf324e6",
-      name: "Zoie Rogahn",
-      email: "domenick95@parker.biz",
-      roles: [
-        "candidate",
-      ]
+      id: 'b49bc530-9433-11e8-88d3-39619bf324e6',
+      name: 'Zoie Rogahn',
+      email: 'domenick95@parker.biz',
+      roles: ['candidate']
     },
     session: {
       active: 0,
       id: 'id',
-      candidate:{
-        id: "b49bc530-9433-11e8-88d3-39619bf324e6",
-        first_name: "Zoie",
-        last_name: "Rogahn",
-        email: "domenick95@parker.biz",
+      candidate: {
+        id: 'b49bc530-9433-11e8-88d3-39619bf324e6',
+        first_name: 'Zoie',
+        last_name: 'Rogahn',
+        email: 'domenick95@parker.biz'
       },
       challenge: {
         id: '8c144b3a-22aa-45cf-8524-f9291844c6d8',
@@ -159,26 +162,24 @@ mock.onGet('/candidateToken').reply(200, {
         slug: 'hello-world-lia-test',
         createdAt: '2018-08-08T13:15:00+00:00',
         createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
-        instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
-        languages: [
-          'javascript',
-          'php',
-        ],
+        instructions:
+          'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+        languages: ['javascript', 'php'],
         testSuite: [
           {
             language: 'javascript',
-            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`
           },
           {
             language: 'php',
-            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`
           }
         ],
         difficultyLevel: 'easy',
-        max_time: '00:05:00',
+        max_time: '00:05:00'
       },
       language: 'javascript',
-      code: '// type your code...',
+      code: '// type your code...'
     }
   }
 });
@@ -186,49 +187,44 @@ mock.onGet('/candidateToken').reply(200, {
 mock.onGet('/evaluatorToken').reply(200, {
   data: {
     user: {
-      id: "64b6ede0-8384-11e8-be59-090c7768ea0e",
-      name: "Cordia Mills",
-      email: "alexys.effertz@example.org",
-      roles: [
-        "evaluator"
-      ],
+      id: '64b6ede0-8384-11e8-be59-090c7768ea0e',
+      name: 'Cordia Mills',
+      email: 'alexys.effertz@example.org',
+      roles: ['evaluator']
     },
     session: {
       active: 0,
       id: 'id',
-      candidate:{
-        id: "b49bc530-9433-11e8-88d3-39619bf324e6",
-        first_name: "Zoie",
-        last_name: "Rogahn",
-        email: "domenick95@parker.biz",
+      candidate: {
+        id: 'b49bc530-9433-11e8-88d3-39619bf324e6',
+        first_name: 'Zoie',
+        last_name: 'Rogahn',
+        email: 'domenick95@parker.biz'
       },
       challenge: {
-        
         id: '8c144b3a-22aa-45cf-8524-f9291844c6d8',
         name: 'Hello World LIA Test',
         slug: 'hello-world-lia-test',
         createdAt: '2018-08-08T13:15:00+00:00',
         createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
-        instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
-        languages: [
-          'javascript',
-          'php',
-        ],
+        instructions:
+          'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+        languages: ['javascript', 'php'],
         testSuite: [
           {
             language: 'javascript',
-            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`
           },
           {
             language: 'php',
-            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`
           }
         ],
         difficultyLevel: 'easy',
-        max_time: '00:05:00',
+        max_time: '00:05:00'
       },
       language: 'javascript',
-      code: '// type your code...',
+      code: '// type your code...'
     }
   }
 });
@@ -236,49 +232,44 @@ mock.onGet('/evaluatorToken').reply(200, {
 mock.onGet('/observerToken').reply(200, {
   data: {
     user: {
-      id: "64b64b80-8384-11e8-89a3-e96803490c72",
-      name: "Alex Becker",
-      email: "verner21@example.com",
-      roles: [
-        "observer"
-      ],
+      id: '64b64b80-8384-11e8-89a3-e96803490c72',
+      name: 'Alex Becker',
+      email: 'verner21@example.com',
+      roles: ['observer']
     },
     session: {
       active: 0,
       id: 'id',
-      candidate:{
-        id: "b49bc530-9433-11e8-88d3-39619bf324e6",
-        first_name: "Zoie",
-        last_name: "Rogahn",
-        email: "domenick95@parker.biz",
+      candidate: {
+        id: 'b49bc530-9433-11e8-88d3-39619bf324e6',
+        first_name: 'Zoie',
+        last_name: 'Rogahn',
+        email: 'domenick95@parker.biz'
       },
       challenge: {
-        
         id: '8c144b3a-22aa-45cf-8524-f9291844c6d8',
         name: 'Hello World LIA Test',
         slug: 'hello-world-lia-test',
         createdAt: '2018-08-08T13:15:00+00:00',
         createdBy: '7cd85d9e-96b0-441c-ae3b-49f475fb0356',
-        instructions: 'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
-        languages: [
-          'javascript',
-          'php',
-        ],
+        instructions:
+          'Write a function called `hello()` that:\n- If provided a `name` string, results in `Hello, name!`.\n- If not provided a name, results in `Hello there!`.',
+        languages: ['javascript', 'php'],
         testSuite: [
           {
             language: 'javascript',
-            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`,
+            tests: `let assert = require("chai").assert;\ndescribe('Challenge', function() {\n  it('should say hello', function() {\n    assert.equal(hello("Jobsity"), "Hello, Jobsity!");\n  });\n  it('should handle blank input', function() {\n    assert.equal(hello(""), "Hello there!");\n  });\n});`
           },
           {
             language: 'php',
-            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`,
+            tests: `<?php\n\nclass SayHelloSolution extends TestCase\n  {\n    public function testSaysHello()\n    {\n      $this->assertEquals("Hello, Jobsity!", hello("Jobsity"));\n    }\n\n    public function testHandlesBlankInput()\n    {\n      $this->assertEquals("Hello there!", hello(""));\n    }\n  }\n}`
           }
         ],
         difficultyLevel: 'easy',
-        max_time: '00:05:00',
+        max_time: '00:05:00'
       },
       language: 'javascript',
-      code: '// type your code...',
+      code: '// type your code...'
     }
   }
 });
@@ -291,18 +282,18 @@ mock.onPost('/submit').reply(200, {
         name: 'Test without parameters',
         passed: true,
         expectedResult: 'Hello World!',
-        testResult: 'Hello World!',
+        testResult: 'Hello World!'
       },
       {
         id: 1,
         name: 'Sample test',
         passed: true,
         expectedResult: 'Hello World',
-        testResult: 'Hello World',
-      },
+        testResult: 'Hello World'
+      }
     ],
     executionTime: 1500,
-    err: 'Error in sample.test.js: no such file found.',
+    err: 'Error in sample.test.js: no such file found.'
   },
   internalTests: {
     tests: [
@@ -311,14 +302,14 @@ mock.onPost('/submit').reply(200, {
         name: 'Test without parameters',
         passed: true,
         expectedResult: 'Hello World!',
-        testResult: 'Hello World!',
+        testResult: 'Hello World!'
       },
       {
         id: 1,
         name: 'Sample test',
         passed: true,
         expectedResult: 'Hello World',
-        testResult: 'Hello World',
+        testResult: 'Hello World'
       },
       {
         id: 2,
@@ -326,14 +317,14 @@ mock.onPost('/submit').reply(200, {
         passed: false,
         expectedResult: 'Hello, Jobsity!',
         testResult: 'Hi I am from Jobsity',
-        message: "Failed asserting that two strings are equal.\nExpected: 'Hello, Jobsity!'\nActual  : 'Hi I am from Jobsity'\n",
-      },
+        message:
+          "Failed asserting that two strings are equal.\nExpected: 'Hello, Jobsity!'\nActual  : 'Hi I am from Jobsity'\n"
+      }
     ],
     executionTime: 1200,
-    err: '',
-  },
-  
-})
+    err: ''
+  }
+});
 
 mock.onPost('/test').reply(200, {
   clientTests: {
@@ -343,19 +334,19 @@ mock.onPost('/test').reply(200, {
         name: 'Test without parameters',
         passed: true,
         expectedResult: 'Hello World!',
-        testResult: 'Hello World!',
+        testResult: 'Hello World!'
       },
       {
         id: 1,
         name: 'Sample test',
         passed: true,
         expectedResult: 'Hello World',
-        testResult: 'Hello World',
-      },
+        testResult: 'Hello World'
+      }
     ],
     executionTime: 1500, // time in milliseconds
-    err: '',
-  },
-})
+    err: ''
+  }
+});
 
 export { api };
