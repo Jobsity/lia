@@ -28,7 +28,6 @@
     "format-duration": "^1.2.0",
     "jrewind": "0.0.2",
     "lodash": "^4.17.10",
-    "material-ui": "^0.20.1",
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-chartjs": "^1.2.0",
