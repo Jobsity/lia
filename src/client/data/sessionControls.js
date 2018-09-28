@@ -4,10 +4,6 @@ export const supportedLanguages = [
   'Java',
   'PHP',
   'Ruby'
-]
+];
 
-export const sessionActions = [
-  'reset',
-  'run tests',
-  'submit'
-]
+export const sessionActions = ['stop session'];

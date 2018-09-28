@@ -15,6 +15,7 @@ import dialogs from './../data/dialogs';
 import Dialog from './Dialog';
 import SessionControls from './SessionControls';
 import { supportedLanguages, sessionActions } from './../data/sessionControls';
+import JRewind from '../JRewind';
 
 const styles = (theme) => ({
   loading: {
@@ -39,9 +40,13 @@ function sampleTestsView({
     <Fragment>
       <Editor />
       <SessionControls
-        buttons={sessionActions.map(action => ({ text: action }))}
+        buttons={sessionActions.map((action) => ({
+          text: action,
+          handler: () =>
+            JRewind.stopRecording() || console.log(JRewind.getDisk())
+        }))}
         listItems={supportedLanguages}
-        listLabel='Select a language'
+        listLabel="Select a language"
       />
       {dialogOpened && (
         <Dialog
@@ -53,7 +58,8 @@ function sampleTestsView({
               text: dialogs[dialogOpened].confirmationText,
               handler: dialogHandlers[dialogOpened]
             }
-          ]} />
+          ]}
+        />
       )}
     </Fragment>
   );

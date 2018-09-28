@@ -1,3 +1,3 @@
 import JRewind from 'jrewind';
 
-export default JRewind('');
+export default JRewind('// your code');

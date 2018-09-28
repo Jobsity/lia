@@ -13,7 +13,7 @@ import PropTypes from 'prop-types';
 
 const styles = (theme) => ({
   paper: {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.secondary.main
   },
   fullWidth: {
     width: '100%'
@@ -21,47 +21,48 @@ const styles = (theme) => ({
   borderBottom: {
     borderBottom: '2px solid ' + theme.palette.primary.white
   }
-})
+});
 
 const SessionControls = (props) => {
   const { classes, buttons, listItems, listLabel, onListItem } = props;
   return (
     <Paper className={classes.paper}>
       <div className={classes.borderBottom}>
-        { buttons.map(({ text, handler }) => <Button children={text} onClick={handler} />) }
+        {buttons.map(({ text, handler }) => (
+          <Button key={text} children={text} onClick={handler} />
+        ))}
       </div>
       <div>
         <ExpansionPanel className={classes.paper}>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography children={listLabel} />
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <List component='div' className={classes.fullWidth}>
-              { 
-                listItems
-                  .map((item) => (
-                        <ListItem button divider>
-                          <Typography children={item} onClick={onListItem} />
-                        </ListItem>
-                      ))
-              }
+            <List component="div" className={classes.fullWidth}>
+              {listItems.map((item) => (
+                <ListItem key={item} button divider>
+                  <Typography children={item} onClick={onListItem} />
+                </ListItem>
+              ))}
             </List>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </div>
     </Paper>
-  )
-}
+  );
+};
 
 SessionControls.propTypes = {
   listLabel: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onListItem: PropTypes.func,
   listItems: PropTypes.arrayOf(PropTypes.string),
-  buttons: PropTypes.arrayOf(PropTypes.shape({
-    text: PropTypes.string.isRequired,
-    handler: PropTypes.func
-  }))
-}
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string.isRequired,
+      handler: PropTypes.func
+    })
+  )
+};
 
 export default withStyles(styles)(SessionControls);

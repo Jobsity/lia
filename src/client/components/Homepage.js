@@ -13,7 +13,7 @@ import Playback from './Playback';
 
 import RealPlayback from './RealPlayback';
 import CodeMirror from './CodeMirror';
-import JRewind from './../jrewind';
+import JRewind from '../JRewind';
 
 const { Rewinder } = JRewind;
 
@@ -76,31 +76,29 @@ class Homepage extends React.PureComponent {
         <div className={classes.titleBar}>Live Interview App</div>
         <div className={classes.section}>
           <Rewinder
-            render={(record, { run, stop, rewindToMs }) =>
-              console.log(record) || (
-                <Fragment>
-                  <div className={classNames(classes.side, classes.leftSide)}>
-                    <CodeMirror
-                      value={record.value}
-                      onChange={(editor, data, value) =>
-                        console.log(value) || JRewind.feeder(value)
-                      }
-                    />
-                    <RealPlayback
-                      value={record.currentTime}
-                      duration={JRewind.getDuration()}
-                      onStart={run}
-                      onStop={stop}
-                      onRewind={rewindToMs}
-                    />
-                    <TabsView tabs={tabs} loading={false} />
-                  </div>
-                  <div className={classNames(classes.side, classes.rigthSide)}>
-                    <InformationTabs />
-                  </div>
-                </Fragment>
-              )
-            }
+            render={(record, { run, stop, rewindToMs }) => (
+              <Fragment>
+                <div className={classNames(classes.side, classes.leftSide)}>
+                  <CodeMirror
+                    value={record.value}
+                    onChange={(editor, data, value) =>
+                      console.log(value) || JRewind.feeder(value)
+                    }
+                  />
+                  <RealPlayback
+                    value={record.currentTime}
+                    duration={JRewind.getDuration()}
+                    onStart={run}
+                    onStop={stop}
+                    onRewind={rewindToMs}
+                  />
+                  <TabsView tabs={tabs} loading={false} />
+                </div>
+                <div className={classNames(classes.side, classes.rigthSide)}>
+                  <InformationTabs />
+                </div>
+              </Fragment>
+            )}
           />
         </div>
       </Paper>

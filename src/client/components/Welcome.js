@@ -15,13 +15,13 @@ import footerLogo from './../assets/img/jobsity-footer.png';
 import store from './../store';
 import { FETCH_SESSION_DATA_START } from './../redux/actions';
 import { api } from './../../server/mockServer';
+import JRewind from '../JRewind';
 
 const styles = (theme) => ({
   paper: {
     height: 'inherit'
   },
   root: {
-    // ...theme.mixins.gutters(),
     position: 'relative',
     top: '12%',
     margin: 'auto',
@@ -50,7 +50,8 @@ const styles = (theme) => ({
   },
   subPaper: {
     backgroundColor: '#F4F4F4',
-    padding: '15px 0'
+    padding: '15px 0',
+    color: theme.palette.primary.main
   },
   icon: {
     color: theme.palette.secondary.main
@@ -179,19 +180,25 @@ class Welcome extends Component {
                   <Typography
                     key={idx}
                     className={classes.headline}
+                    color="primary"
                     variant="title">
                     {lan.toUpperCase()}
                   </Typography>
                 ))}
-                <Typography variant="caption">{data.test}</Typography>
-                <Typography variant="body2" gutterBottom>
+                <Typography color="primary" variant="caption">
+                  {data.test}
+                </Typography>
+                <Typography color="primary" variant="body2" gutterBottom>
                   <FontAwesomeIcon className={classes.icon} icon={faClock} />
                   {` ${data.time}`}
                 </Typography>
               </Paper>
 
               <Button
-                onClick={this.props.toggleView}
+                onClick={() => {
+                  this.props.toggleView();
+                  JRewind.startRecording();
+                }}
                 fullWidth
                 variant="contained"
                 size="large"

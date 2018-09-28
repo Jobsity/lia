@@ -1,7 +1,7 @@
 import React from 'react';
 import { UnControlled as CodeMirrorEditor } from 'react-codemirror2';
 import editorOptions from './../data/editorOptions';
-import JRewind from './../jrewind';
+import JRewind from '../JRewind';
 
 const CodeMirror = (props) => {
   return (

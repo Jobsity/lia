@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Welcome from './Welcome';
 import Homepage from './Homepage';
-import JRewind from './../jrewind';
+import JRewind from '../JRewind';
 
 class Landing extends Component {
   state = {
-    isReady: true
+    isReady: false
   };
 
   toggleView = () => {
