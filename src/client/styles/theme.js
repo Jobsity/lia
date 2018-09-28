@@ -5,7 +5,7 @@ const theme = createMuiTheme({
     type: 'dark',
     primary: {
       main: '#231E20', // Jobsity gray
-      white: '#fff' 
+      white: '#fff'
     },
     secondary: {
       main: '#46A8D8' // Jobsity blue
@@ -21,10 +21,11 @@ const theme = createMuiTheme({
     /**
      * @description inject flex properties inside a class.
      */
-    flex: ({ dir, justify } = {}) => ({
+    flex: ({ dir, justify, alignItems } = {}) => ({
       display: 'flex',
       flexDirection: dir || 'row',
-      justifyContent: justify || 'flex-start'
+      justifyContent: justify || 'flex-start',
+      alignItems: alignItems || 'stretch'
     })
   }
 });
