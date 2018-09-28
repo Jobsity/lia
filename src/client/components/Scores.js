@@ -13,7 +13,7 @@ class Scores extends Component {
 
   componentDidMount() {
     api.get('/challenges/id/scores').then((response) => {
-      this.setState({ data: response.data.data, loading: false })
+      this.setState({ data: response.data.data, loading: false });
     });
   }
 

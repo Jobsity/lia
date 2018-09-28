@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
   root: {
     paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
   },
   loading: {
     position: 'relative',

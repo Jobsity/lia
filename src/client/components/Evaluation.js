@@ -34,7 +34,7 @@ const styles = (theme) => ({
     listStyle: 'none',
     padding: '0',
     margin: '0'
-  },
+  }
 });
 
 class Evaluation extends Component {

@@ -15,16 +15,16 @@ const tabs = [
     component: (
       <Fragment>
         <Editor />
-        <Playback />
+        {/* <Playback /> */}
       </Fragment>
     )
-  },
-  {
-    id: 'output',
-    name: 'Output',
-    permissions: ['candidate', 'observer', 'evaluator'],
-    component: <Output />
   }
+  // {
+  //   id: 'output',
+  //   name: 'Output',
+  //   permissions: ['candidate', 'observer', 'evaluator'],
+  //   component: <Output />
+  // }
 ];
 
 class EditorTabs extends Component {
@@ -32,8 +32,8 @@ class EditorTabs extends Component {
     loading: false, // needs to be true
     roles: '',
     tabs: []
-  }
-  
+  };
+
   componentDidMount() {
     api.get('/evaluatorToken').then((response) => {
       if (response.status === 200) {
@@ -42,7 +42,7 @@ class EditorTabs extends Component {
         this.setState({
           roles,
           tabs
-        })
+        });
         // setTimeout(() => this.setState({ loading: false, roles, tabs }), 1000);
       }
     });
@@ -68,13 +68,7 @@ class EditorTabs extends Component {
 
     // filtered tabs based in truth array
     const roleTabs = this.filterTabs(inclussions, tabs);
-    return (
-      <TabsView
-        tabs={roleTabs}
-        loading={loading}
-        {...this.state}
-      />
-    );
+    return <TabsView tabs={roleTabs} loading={loading} {...this.state} />;
   }
 }
 

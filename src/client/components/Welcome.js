@@ -127,7 +127,7 @@ class Welcome extends Component {
 
       // setTimeout just to watch the animation...
       // must be removed when connected to real server
-      this.setState({ isLoading: false, lock: true })
+      this.setState({ isLoading: false, lock: true });
     }
   }
 

@@ -7,24 +7,34 @@ import classNames from 'classnames';
 import InformationTabs from './InformationTabs';
 import EditorTabs from './EditorTabs';
 import Instructions from './Instructions';
-import TopBar from './TopBar';
+import TabsView from './TabsView';
+import Output from './Output';
+import Playback from './Playback';
+
+import RealPlayback from './RealPlayback';
+import CodeMirror from './CodeMirror';
+import JRewind from './../jrewind';
+
+const { Rewinder } = JRewind;
 
 const styles = (theme) => ({
   layout: {
     ...theme.inject.flex({ dir: 'column' }),
     width: '100%',
     height: '100%',
-    padding: '10px',
+    padding: '15px',
     backgroundColor: 'transparent'
   },
   titleBar: {
     width: '100%',
     height: '50px',
-    color: 'white'
+    color: 'white',
+    fontSize: 'calc(20px + 1vw)',
+    fontFamily: 'sans-serif'
   },
   section: {
     ...theme.inject.flex(),
-    flex: '1',
+    flex: '1'
   },
   side: {
     ...theme.inject.flex({ dir: 'column' }),
@@ -37,7 +47,22 @@ const styles = (theme) => ({
     flex: '0.4',
     marginLeft: '15px'
   }
-})
+});
+
+const tabs = [
+  {
+    name: 'Instructions',
+    id: 'instructions',
+    permissions: ['candidate', 'observer', 'evaluator'],
+    component: <Instructions />
+  },
+  {
+    name: 'Output',
+    id: 'Output',
+    permissions: ['candidate', 'observer', 'evaluator'],
+    component: <Output />
+  }
+];
 
 class Homepage extends React.PureComponent {
   constructor(props) {
@@ -47,20 +72,36 @@ class Homepage extends React.PureComponent {
   render() {
     const { classes } = this.props;
     return (
-      <Paper
-        square
-        className={classes.layout}>
-        <div className={classes.titleBar}>
-          Live Interview App
-        </div>
+      <Paper square className={classes.layout}>
+        <div className={classes.titleBar}>Live Interview App</div>
         <div className={classes.section}>
-          <div className={classNames(classes.side, classes.leftSide)}>
-            <EditorTabs />
-            <Instructions />
-          </div>
-          <div className={classNames(classes.side, classes.rigthSide)}>
-            <InformationTabs />
-          </div>
+          <Rewinder
+            render={(record, { run, stop, rewindToMs }) =>
+              console.log(record) || (
+                <Fragment>
+                  <div className={classNames(classes.side, classes.leftSide)}>
+                    <CodeMirror
+                      value={record.value}
+                      onChange={(editor, data, value) =>
+                        console.log(value) || JRewind.feeder(value)
+                      }
+                    />
+                    <RealPlayback
+                      value={record.currentTime}
+                      duration={JRewind.getDuration()}
+                      onStart={run}
+                      onStop={stop}
+                      onRewind={rewindToMs}
+                    />
+                    <TabsView tabs={tabs} loading={false} />
+                  </div>
+                  <div className={classNames(classes.side, classes.rigthSide)}>
+                    <InformationTabs />
+                  </div>
+                </Fragment>
+              )
+            }
+          />
         </div>
       </Paper>
     );

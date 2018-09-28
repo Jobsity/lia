@@ -4,6 +4,7 @@ import SampleTests from './SampleTests';
 import CandidateInformation from './CandidateInformation';
 import Evaluation from './Evaluation';
 import Scores from './Scores';
+import SessionControls from './SessionControls';
 import { api } from './../../server/mockServer';
 
 class InformationTabs extends Component {
@@ -55,7 +56,7 @@ class InformationTabs extends Component {
         const { user } = response.data.data;
         const { roles } = user;
 
-        this.setState({ data, loading: false, roles, tabs })
+        this.setState({ data, loading: false, roles, tabs });
         // debugger;
       }
     });

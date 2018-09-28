@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Welcome from './Welcome';
 import Homepage from './Homepage';
+import JRewind from './../jrewind';
 
 class Landing extends Component {
   state = {
@@ -8,6 +9,7 @@ class Landing extends Component {
   };
 
   toggleView = () => {
+    JRewind.startRecording();
     this.setState({
       isReady: true
     });

@@ -8,21 +8,15 @@ import * as playbackActions from './../redux/actions/playback';
 import * as timelineActions from './../redux/actions/timeline';
 
 import CodeMirror from './CodeMirror';
+import JRewind from './../jrewind';
 
 class Editor extends Component {
   render() {
-    const options = {
-      lineNumbers: 'on',
-      readOnly: this.props.playbackWasInteracted,
-      selectOnLineNumbers: true
-    };
-
     return (
       <CodeMirror
-        options={{
-          lineNumbers: true,
-          
-        }}
+        onChange={(editor, data, value) =>
+          console.log(value) || JRewind.feeder(value)
+        }
         styles={{
           overflow: 'hidden'
         }}

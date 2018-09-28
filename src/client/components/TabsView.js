@@ -11,7 +11,9 @@ import Paper from '@material-ui/core/Paper';
 
 const styles = (theme) => ({
   tabPaper: {
-    ...theme.inject.flex({ dir: 'column' })
+    ...theme.inject.flex({ dir: 'column' }),
+    flex: '1',
+    display: 'flex'
   },
   loading: {
     position: 'absolute',
@@ -21,12 +23,18 @@ const styles = (theme) => ({
   tabRoot: {
     fontWeight: 'bold',
     borderBottom: '1'
+  },
+  swipeable: {
+    flex: '1',
+    '& > *': {
+      width: '100%',
+      height: '100%'
+    },
+    '& > * > *': {
+      ...theme.inject.flex({ dir: 'column' })
+    }
   }
 });
-
-function TabContainer({ children }) {
-  return <div style={{ overflow: 'hidden' }}>{children}</div>;
-}
 
 class TabsView extends Component {
   state = {
@@ -45,55 +53,47 @@ class TabsView extends Component {
     const { loading, tabs, classes, theme } = this.props;
 
     return (
-      <Paper
-        className={classes.tabPaper}
-        square
-        elevation={1} >
-          { loading ? (
-            <CircularProgress
-              classes={{ root: classes.loading }}
-              size={200}
-              color="secondary"
-            />
-          ) : (
-            <Fragment>
-              <AppBar position="static" color="primary">
-                <Tabs
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                  indicatorColor="secondary"
-                  textColor="secondary"
-                  scrollable
-                  scrollButtons="auto"
-                  >
-                  {tabs.map((tab) => (
-                    <Tab
-                      classes={{
-                        root: classes.tabRoot
-                      }}
-                      color="primary"
-                      key={tab.id}
-                      label={tab.name}
-                    />
-                  ))}
-                </Tabs>
-              </AppBar>
-
-              <SwipeableViews
-                axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={this.state.value}
-                onChangeIndex={this.handleChangeIndex}>
-                {tabs.map((tab, index) => (
-                  <TabContainer
-                    key={index}
-                    style={{ overflow: 'hidden', height: '' }}
-                    dir={theme.direction}>
-                    {tab.component}
-                  </TabContainer>
+      <Paper className={classes.tabPaper} square elevation={1}>
+        {loading ? (
+          <CircularProgress
+            classes={{ root: classes.loading }}
+            size={200}
+            color="secondary"
+          />
+        ) : (
+          <Fragment>
+            <AppBar position="static" color="secondary">
+              <Tabs
+                value={this.state.value}
+                onChange={this.handleChange}
+                indicatorColor="primary"
+                textColor="primary"
+                scrollable
+                scrollButtons="auto">
+                {tabs.map((tab) => (
+                  <Tab
+                    classes={{
+                      root: classes.tabRoot
+                    }}
+                    color="primary"
+                    key={tab.id}
+                    label={tab.name}
+                  />
                 ))}
-              </SwipeableViews>
-            </Fragment>
-          )}
+              </Tabs>
+            </AppBar>
+
+            <SwipeableViews
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+              index={this.state.value}
+              onChangeIndex={this.handleChangeIndex}
+              className={classes.swipeable}>
+              {tabs.map((tab, index) =>
+                React.cloneElement(tab.component, { key: index })
+              )}
+            </SwipeableViews>
+          </Fragment>
+        )}
       </Paper>
     );
   }
