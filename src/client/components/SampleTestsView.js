@@ -40,11 +40,7 @@ function sampleTestsView({
     <Fragment>
       <Editor />
       <SessionControls
-        buttons={sessionActions.map((action) => ({
-          text: action,
-          handler: () =>
-            JRewind.stopRecording() || console.log(JRewind.getDisk())
-        }))}
+        buttons={sessionActions}
         listItems={supportedLanguages}
         listLabel="Select a language"
       />

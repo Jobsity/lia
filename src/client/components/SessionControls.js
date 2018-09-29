@@ -24,12 +24,12 @@ const styles = (theme) => ({
 });
 
 const SessionControls = (props) => {
-  const { classes, buttons, listItems, listLabel, onListItem } = props;
+  const { classes, buttons, listItems, listLabel, onButton, onListItem } = props;
   return (
     <Paper className={classes.paper}>
       <div className={classes.borderBottom}>
-        {buttons.map(({ text, handler }) => (
-          <Button key={text} children={text} onClick={handler} />
+        {buttons.map((text) => (
+          <Button key={text} children={text} onClick={onButton} />
         ))}
       </div>
       <div>
@@ -56,13 +56,9 @@ SessionControls.propTypes = {
   listLabel: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
   onListItem: PropTypes.func,
+  onButton: PropTypes.func,
   listItems: PropTypes.arrayOf(PropTypes.string),
-  buttons: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string.isRequired,
-      handler: PropTypes.func
-    })
-  )
+  buttons: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default withStyles(styles)(SessionControls);
