@@ -8,7 +8,6 @@ import {
   faEdit,
   faPlusSquare
 } from '@fortawesome/free-regular-svg-icons';
-import { Typography } from 'material-ui/styles/typography';
 
 import Evaluate from './Evaluate';
 
