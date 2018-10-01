@@ -10,11 +10,7 @@ import {
   submitChallenge
 } from './../redux/actions/challenge';
 import store from './../store';
-import {
-  FETCH_CHALLENGE_DATA_START,
-  RUN_SAMPLE_TESTS_START,
-  SUBMIT_CHALLENGE_START
-} from './../redux/actions';
+import { FETCH_CHALLENGE_DATA_START } from './../redux/actions';
 import {
   getIsLoading,
   getLanguage,

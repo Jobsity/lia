@@ -1,48 +1,36 @@
 import React, { Fragment } from 'react';
 import { PropTypes } from 'prop-types';
-import FormControl from '@material-ui/core/FormControl';
-
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import Input from '@material-ui/core/Input';
 import { withStyles } from '@material-ui/core/styles';
-
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-
-import Editor from './CodeMirror';
+import Paper from '@material-ui/core/Paper';
+import CodeMirror from './CodeMirror';
 import dialogs from './../data/dialogs';
 import Dialog from './Dialog';
 import SessionControls from './SessionControls';
 import { supportedLanguages, sessionActions } from './../data/sessionControls';
-import JRewind from '../JRewind';
 
 const styles = (theme) => ({
   loading: {
     position: 'absolute',
     top: '8em',
     left: '8em'
+  },
+  paper: {
+    ...theme.inject.flex({ dir: 'column' }),
+    flex: '1'
   }
 });
 
-function sampleTestsView({
-  classes,
-  tests,
-  dialogOpened,
-  status,
-  dialogHandlers,
-  handleRunTestsClick,
-  handleTestsEditorChange,
-  handleDialogOpening,
-  challengeSubmitted
-}) {
+const SampleTestsView = (props) => {
+  const { dialogOpened, dialogHandlers, handleDialogOpening, classes } = props;
   return (
-    <Fragment>
-      <Editor />
+    <Paper className={classes.paper}>
+      <CodeMirror />
       <SessionControls
         buttons={sessionActions}
         listItems={supportedLanguages}
         listLabel="Select a language"
+        onButton={(e) => console.log(e.target)}
+        onListItem={(e) => console.log(e)}
       />
       {dialogOpened && (
         <Dialog
@@ -57,11 +45,11 @@ function sampleTestsView({
           ]}
         />
       )}
-    </Fragment>
-  );
+    </Paper>
+  )
 }
 
-sampleTestsView.propTypes = {
+SampleTestsView.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   tests: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
@@ -73,4 +61,4 @@ sampleTestsView.propTypes = {
   dialogHandlers: PropTypes.instanceOf(Object).isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(sampleTestsView);
+export default withStyles(styles)(SampleTestsView);

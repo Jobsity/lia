@@ -1,19 +1,14 @@
 import React, { Fragment } from 'react';
-import RGL, { WidthProvider } from 'react-grid-layout';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-import InformationTabs from './InformationTabs';
-import EditorTabs from './EditorTabs';
-import Instructions from './Instructions';
-import TabsView from './TabsView';
-import Output from './Output';
-import Playback from './Playback';
-
 import RealPlayback from './RealPlayback';
 import CodeMirror from './CodeMirror';
+import Tabs from './Tabs';
 import JRewind from '../JRewind';
+
+import { leftSideTabs, rightSideTabs } from './../data/tabs';
 
 const { Rewinder } = JRewind;
 
@@ -49,21 +44,6 @@ const styles = (theme) => ({
   }
 });
 
-const tabs = [
-  {
-    name: 'Instructions',
-    id: 'instructions',
-    permissions: ['candidate', 'observer', 'evaluator'],
-    component: <Instructions />
-  },
-  {
-    name: 'Output',
-    id: 'Output',
-    permissions: ['candidate', 'observer', 'evaluator'],
-    component: <Output />
-  }
-];
-
 class Homepage extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -92,10 +72,16 @@ class Homepage extends React.PureComponent {
                     onStop={stop}
                     onRewind={rewindToMs}
                   />
-                  <TabsView tabs={tabs} loading={false} />
+                  <Tabs 
+                    tabs={leftSideTabs}
+                    barColor='secondary'
+                    tabColor='secondary' />
                 </div>
                 <div className={classNames(classes.side, classes.rigthSide)}>
-                  <InformationTabs />
+                  <Tabs 
+                    tabs={rightSideTabs}
+                    barColor='secondary'
+                    tabColor='secondary' />
                 </div>
               </Fragment>
             )}

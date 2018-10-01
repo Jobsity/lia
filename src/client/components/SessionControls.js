@@ -24,12 +24,23 @@ const styles = (theme) => ({
 });
 
 const SessionControls = (props) => {
-  const { classes, buttons, listItems, listLabel, onButton, onListItem } = props;
+  const {
+    classes,
+    buttons,
+    listItems,
+    listLabel,
+    onButton,
+    onListItem
+  } = props;
   return (
     <Paper className={classes.paper}>
       <div className={classes.borderBottom}>
         {buttons.map((text) => (
-          <Button key={text} children={text} onClick={onButton} />
+          <Button
+            key={text}
+            children={text}
+            onClick={(e) => onButton(e, text)}
+          />
         ))}
       </div>
       <div>
@@ -40,8 +51,12 @@ const SessionControls = (props) => {
           <ExpansionPanelDetails>
             <List component="div" className={classes.fullWidth}>
               {listItems.map((item) => (
-                <ListItem key={item} button divider>
-                  <Typography children={item} onClick={onListItem} />
+                <ListItem
+                  key={item}
+                  button
+                  divider
+                  onClick={(e) => onListItem(e, item)}>
+                  <Typography children={item} />
                 </ListItem>
               ))}
             </List>
