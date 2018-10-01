@@ -2,13 +2,13 @@ import * as actionTypes from '../actions/types';
 
 const initState = {
   events: [],
-  startingTime: null,
-}
+  startingTime: null
+};
 
 const initEventState = {
   data: null,
   ts: null,
-  type: '',
+  type: ''
 };
 
 const addEvent = (state, event) => ({
@@ -17,8 +17,8 @@ const addEvent = (state, event) => ({
     ...state.events,
     {
       ...initEventState,
-      ...event,
-    },
+      ...event
+    }
   ]
 });
 
@@ -34,16 +34,15 @@ export default (state = initState, action) => {
     case actionTypes.TIMELINE_RESET:
       return {
         ...initState,
-        ...action.payload,
+        ...action.payload
       };
     default:
       return state;
   }
-}
-
+};
 
 // Getters
 
-export const getEvents = state => state.events;
+export const getEvents = (state) => state.events;
 
-export const getStartingTime = state => state.startingTime;
+export const getStartingTime = (state) => state.startingTime;

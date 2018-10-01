@@ -1,148 +1,55 @@
-import React from "react";
-import { PropTypes } from "prop-types";
-import FormControl from "@material-ui/core/FormControl";
+import React, { Fragment } from 'react';
+import { PropTypes } from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import CodeMirror from './CodeMirror';
+import dialogs from './../data/dialogs';
+import Dialog from './Dialog';
+import SessionControls from './SessionControls';
+import { supportedLanguages, sessionActions } from './../data/sessionControls';
 
-import Select from "@material-ui/core/Select";
-import Button from "@material-ui/core/Button";
-import Input from "@material-ui/core/Input";
-import Dialog from "@material-ui/core/Dialog";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import { withStyles } from "@material-ui/core/styles";
-import CircularProgress from "@material-ui/core/CircularProgress";
-
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-
-import MonacoField from "./MonacoField";
-import dialogs from "./dialogs";
-
-const styles = theme => ({
+const styles = (theme) => ({
   loading: {
-    position: "absolute",
-    top: "8em",
-    left: "8em"
+    position: 'absolute',
+    top: '8em',
+    left: '8em'
   },
-  selectors: {
-    margin: "1em",
-    display: "flex",
-    justifyContent: "center"
+  paper: {
+    ...theme.inject.flex({ dir: 'column' }),
+    flex: '1'
   }
 });
 
-function sampleTestsView({
-  classes,
-  tests,
-  dialogOpened,
-  status,
-  dialogHandlers,
-  handleRunTestsClick,
-  handleTestsEditorChange,
-  handleDialogOpening,
-  challengeSubmitted
-}) {
+const SampleTestsView = (props) => {
+  const { dialogOpened, dialogHandlers, handleDialogOpening, classes } = props;
   return (
-    <div>
-      {tests.isLoading ? (
-        <CircularProgress
-          classes={{ root: classes.loading }}
-          size={200}
-          color="secondary"
+    <Paper className={classes.paper}>
+      <CodeMirror />
+      <SessionControls
+        buttons={sessionActions}
+        listItems={supportedLanguages}
+        listLabel="Select a language"
+        onButton={(e) => console.log(e.target)}
+        onListItem={(e) => console.log(e)}
+      />
+      {dialogOpened && (
+        <Dialog
+          title={dialogs[dialogOpened].title}
+          content={dialogs[dialogOpened].content}
+          onCancel={() => handleDialogOpening(dialogOpened)}
+          actions={[
+            {
+              text: dialogs[dialogOpened].confirmationText,
+              handler: dialogHandlers[dialogOpened]
+            }
+          ]}
         />
-      ) : (
-        <div>
-          <div className="output-console">
-            <MonacoField
-              code={tests.currentTests}
-              language={tests.language}
-              onChange={e => handleTestsEditorChange(e)}
-              options={{
-                lineNumbers: "off",
-                readOnly: false,
-                minimap: {
-                  enabled: false
-                }
-              }}
-            />
-          </div>
-          <div className={classes.selectors}>
-            <FormControl>
-              <InputLabel color="secondary">Language</InputLabel>
-              <Select
-                value={tests.language}
-                input={<Input />}
-                color="secondary"
-                onChange={e => handleDialogOpening("changeLanguage", e)}>
-                {tests.languages.map(language => (
-                  <MenuItem key={language} value={language}>
-                    {language}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <Button
-              disabled={
-                challengeSubmitted ||
-                status.runTestsLoading ||
-                status.submitChallengeLoading
-              }
-              color="secondary"
-              onClick={() => handleDialogOpening("reset")}>
-              Reset
-            </Button>
-            <Button
-              disabled={
-                challengeSubmitted ||
-                status.runTestsLoading ||
-                status.submitChallengeLoading
-              }
-              color="secondary"
-              onClick={handleRunTestsClick}>
-              Run Tests
-            </Button>
-            <Button
-              disabled={
-                challengeSubmitted ||
-                status.runTestsLoading ||
-                status.submitChallengeLoading
-              }
-              onClick={() => handleDialogOpening("submit")}>
-              Submit
-            </Button>
-          </div>
-          {dialogOpened &&
-          Object.prototype.hasOwnProperty.call(dialogs, dialogOpened) ? (
-            <Dialog open onClose={() => handleDialogOpening(dialogOpened)}>
-              <DialogTitle>{dialogs[dialogOpened].title}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  {dialogs[dialogOpened].content}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button
-                  onClick={dialogHandlers[dialogOpened]}
-                  color="secondary">
-                  {dialogs[dialogOpened].confirmationText}
-                </Button>
-                <Button
-                  onClick={() => handleDialogOpening(dialogOpened)}
-                  color="secondary"
-                  autoFocus>
-                  Cancel
-                </Button>
-              </DialogActions>
-            </Dialog>
-          ) : null}
-        </div>
       )}
-    </div>
-  );
+    </Paper>
+  )
 }
 
-sampleTestsView.propTypes = {
+SampleTestsView.propTypes = {
   classes: PropTypes.instanceOf(Object).isRequired,
   tests: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.instanceOf(Object).isRequired,
@@ -151,7 +58,7 @@ sampleTestsView.propTypes = {
   handleDialogOpening: PropTypes.func.isRequired,
   challengeSubmitted: PropTypes.bool.isRequired,
   dialogOpened: PropTypes.string,
-  dialogHandlers: PropTypes.instanceOf(Object).isRequired,
+  dialogHandlers: PropTypes.instanceOf(Object).isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(sampleTestsView);
+export default withStyles(styles)(SampleTestsView);

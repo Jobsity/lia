@@ -8,38 +8,37 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   flex: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20,
+    marginRight: 20
   },
   colors: {
-      color: "inherit",
-    backgroundColor: "#57c7ff"
+    color: 'inherit',
+    backgroundColor: '#57c7ff'
   }
 });
 
 class MenuAppBar extends React.Component {
   state = {
     auth: true,
-    anchorEl: null,
+    anchorEl: null
   };
 
   handleChange = (event, checked) => {
     this.setState({ auth: checked });
   };
 
-  handleMenu = event => {
+  handleMenu = (event) => {
     this.setState({ anchorEl: event.currentTarget });
   };
 
@@ -54,12 +53,21 @@ class MenuAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar color="secondary" position="static" classes={{root: classes.colors}}>
+        <AppBar
+          color="secondary"
+          position="static"
+          classes={{ root: classes.colors }}>
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-             <FontAwesomeIcon icon={faBars} />
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Menu">
+              <FontAwesomeIcon icon={faBars} />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.flex}>
               Live Interview App
             </Typography>
             {auth && (
@@ -68,8 +76,7 @@ class MenuAppBar extends React.Component {
                   aria-owns={open ? 'menu-appbar' : null}
                   aria-haspopup="true"
                   onClick={this.handleMenu}
-                  color="inherit"
-                >
+                  color="inherit">
                   <FontAwesomeIcon icon={faUserCircle} />
                 </IconButton>
                 <Menu
@@ -77,15 +84,14 @@ class MenuAppBar extends React.Component {
                   anchorEl={anchorEl}
                   anchorOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
+                    horizontal: 'right'
                   }}
                   transformOrigin={{
                     vertical: 'top',
-                    horizontal: 'right',
+                    horizontal: 'right'
                   }}
                   open={open}
-                  onClose={this.handleClose}
-                >
+                  onClose={this.handleClose}>
                   <MenuItem onClick={this.handleClose}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>My account</MenuItem>
                 </Menu>
@@ -99,7 +105,7 @@ class MenuAppBar extends React.Component {
 }
 
 MenuAppBar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(MenuAppBar);

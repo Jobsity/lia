@@ -1,18 +1,22 @@
-import { take, call, put }  from 'redux-saga/effects';
+import { take, call, put } from 'redux-saga/effects';
 import { runTests } from './../../server/api';
 import { createTimestamp } from './../utils/timeline';
 
-import { RUN_SAMPLE_TESTS_START, RUN_SAMPLE_TESTS_SUCCESS, RUN_SAMPLE_TESTS_ERROR } from './../redux/actions';
+import {
+  RUN_SAMPLE_TESTS_START,
+  RUN_SAMPLE_TESTS_SUCCESS,
+  RUN_SAMPLE_TESTS_ERROR
+} from './../redux/actions';
 
 function* runSampleTests(payload) {
   const { requestData, startingTime } = payload;
   const response = yield call(runTests, requestData);
-  
+
   if (Object.prototype.hasOwnProperty.call(response, 'error')) {
     yield put({
       type: RUN_SAMPLE_TESTS_ERROR,
-      payload: { error: response.error},
-    })
+      payload: { error: response.error }
+    });
   } else if (response.status === 200) {
     yield put({
       type: RUN_SAMPLE_TESTS_SUCCESS,
@@ -21,9 +25,9 @@ function* runSampleTests(payload) {
         event: {
           data: response.data,
           ts: createTimestamp(startingTime),
-          type: 'output',
+          type: 'output'
         }
-      },
+      }
     });
   }
 }

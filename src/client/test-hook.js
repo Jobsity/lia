@@ -1,12 +1,12 @@
-import React from "react";
-import ReactDOM from "react-dom";
-typeof window !== "undefined" && (window.React = React); // for devtools
+import React from 'react';
+import ReactDOM from 'react-dom';
+typeof window !== 'undefined' && (window.React = React); // for devtools
 
 module.exports = function(Layout) {
   class ExampleLayout extends React.Component {
     state = { layout: [] };
 
-    onLayoutChange = layout => {
+    onLayoutChange = (layout) => {
       this.setState({ layout: layout });
     };
 
@@ -33,8 +33,8 @@ module.exports = function(Layout) {
     }
   }
 
-  document.addEventListener("DOMContentLoaded", function() {
-    const contentDiv = document.getElementById("content");
+  document.addEventListener('DOMContentLoaded', function() {
+    const contentDiv = document.getElementById('content');
     const gridProps = window.gridProps || {};
     ReactDOM.render(React.createElement(ExampleLayout, gridProps), contentDiv);
   });

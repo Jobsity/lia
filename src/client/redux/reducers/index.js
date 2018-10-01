@@ -15,89 +15,80 @@ export default combineReducers({
   playback,
   session,
   output,
-  timeline,
+  timeline
 });
-
 
 // Editor getters
 
-export const getEditorChanges = state =>
-  fromEditor.getChanges(state.editor);
+export const getEditorChanges = (state) => fromEditor.getChanges(state.editor);
 
-export const getEditorCode = state =>
-  fromEditor.getCode(state.editor);
-
+export const getEditorCode = (state) => fromEditor.getCode(state.editor);
 
 // Playback getters
 
-export const getIsPlaying = state =>
+export const getIsPlaying = (state) =>
   fromPlayback.getIsPlaying(state.playback);
 
-export const getPlayedEvents = state =>
+export const getPlayedEvents = (state) =>
   fromPlayback.getPlayedEvents(state.playback);
 
-export const getPlaybackWasInteracted = state =>
+export const getPlaybackWasInteracted = (state) =>
   fromPlayback.getWasInteracted(state.playback);
 
 // Timeline getters
 
-export const getTimelineEvents = state =>
+export const getTimelineEvents = (state) =>
   fromTimeline.getEvents(state.timeline);
 
-export const getStartingTime = state =>
+export const getStartingTime = (state) =>
   fromTimeline.getStartingTime(state.timeline);
 
 // Challenge getters
 
-export const getDifficulty = state =>
+export const getDifficulty = (state) =>
   fromChallenge.getDifficulty(state.challenge);
 
-export const getErrors = state =>
-  fromChallenge.getError(state.challenge);
+export const getErrors = (state) => fromChallenge.getError(state.challenge);
 
-export const getIsLoading = state =>
+export const getIsLoading = (state) =>
   fromChallenge.getIsLoading(state.challenge);
 
-export const getLanguages = state =>
+export const getLanguages = (state) =>
   fromChallenge.getLanguages(state.challenge);
 
-export const getScore = state =>
-  fromChallenge.getScore(state.challenge);
+export const getScore = (state) => fromChallenge.getScore(state.challenge);
 
-export const getStats = state =>
-  fromChallenge.getStats(state.challenge);
+export const getStats = (state) => fromChallenge.getStats(state.challenge);
 
-export const getTestSuite = state =>
+export const getTestSuite = (state) =>
   fromChallenge.getTestSuite(state.challenge);
 
-export const getCurrentTests = state =>
+export const getCurrentTests = (state) =>
   fromChallenge.getCurrentTests(state.challenge);
 
-export const getSubmitted = state =>
+export const getSubmitted = (state) =>
   fromChallenge.getSubmitted(state.challenge);
 
-export const getRunTestsLoading = state =>
+export const getRunTestsLoading = (state) =>
   fromChallenge.getRunTestsLoading(state.challenge);
 
-export const getRunTestsError = state =>
+export const getRunTestsError = (state) =>
   fromChallenge.getRunTestsError(state.challenge);
 
-export const getSubmitChallengeLoading = state =>
+export const getSubmitChallengeLoading = (state) =>
   fromChallenge.getSubmitChallengeLoading(state.challenge);
 
-export const getSubmitChallengeError = state =>
+export const getSubmitChallengeError = (state) =>
   fromChallenge.getSubmitChallengeError(state.challenge);
 
 // Output Getters
-export const getTestsResults = state =>
+export const getTestsResults = (state) =>
   fromOutput.getTestsResults(state.output);
 
 // Session getters
-export const getLanguage = state =>
-  fromSession.getLanguage(state.session);
+export const getLanguage = (state) => fromSession.getLanguage(state.session);
 
-export const getUser = state =>
-  fromSession.getUser(state.session);
+export const getUser = (state) => fromSession.getUser(state.session);
 
 // Custom getters
 export const getPlayedEventsData = (state, type = null) => {
@@ -108,8 +99,8 @@ export const getPlayedEventsData = (state, type = null) => {
   }
 
   if (typeof type === 'string' && type.length > 0) {
-    playedEvents = playedEvents.filter(e => e.type === type);
+    playedEvents = playedEvents.filter((e) => e.type === type);
   }
 
-  return playedEvents.map(e => e.data);
-}
+  return playedEvents.map((e) => e.data);
+};

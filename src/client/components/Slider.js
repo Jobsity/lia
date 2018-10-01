@@ -1,13 +1,13 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => {
+const styles = (theme) => {
   const sliderThumbStyle = {
     background: theme.palette.secondary.main,
     borderRadius: '50%',
     cursor: 'pointer',
     height: '1rem',
-    width: '1rem',
+    width: '1rem'
   };
 
   return {
@@ -24,17 +24,17 @@ const styles = theme => {
       'z-index': 2,
       '-webkit-transition': '.2s',
       '&:hover': {
-        opacity: 1,
+        opacity: 1
       },
       '&::-webkit-slider-thumb': {
         appearance: 'none',
         '-webkit-appearance': 'none',
-        ...sliderThumbStyle,
+        ...sliderThumbStyle
       },
       '&::-moz-range-thumb': {
-        ...sliderThumbStyle,
+        ...sliderThumbStyle
       }
-    },
+    }
   };
 };
 
@@ -52,6 +52,6 @@ const Slider = (props) => {
       value={props.value}
     />
   );
-}
+};
 
 export default withStyles(styles, { withTheme: true })(Slider);

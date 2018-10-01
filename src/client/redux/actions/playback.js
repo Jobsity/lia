@@ -13,31 +13,31 @@ const classifier = (eventsData, { data, type }) => {
   return eventsData;
 };
 
-const classifyEventsData = playedEvents => {
+const classifyEventsData = (playedEvents) => {
   if (playedEvents.length === 0) {
     return {};
   }
 
   return playedEvents.reduce(classifier, {});
-}
+};
 
 // Exported action creators
 
-export const setPlayedEvents = playedEvents => {
+export const setPlayedEvents = (playedEvents) => {
   const eventsData = classifyEventsData(playedEvents);
 
   return {
     type: actionTypes.PLAYBACK_EVENTS_SET,
     payload: {
       eventsData,
-      playedEvents,
-    },
+      playedEvents
+    }
   };
 };
 
-export const setIsPlaying = isPlaying => ({
+export const setIsPlaying = (isPlaying) => ({
   type: actionTypes.PLAYBACK_PLAYING_SET,
   payload: {
-    isPlaying,
-  },
+    isPlaying
+  }
 });

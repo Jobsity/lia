@@ -1,35 +1,40 @@
-import React, { Component, Fragment } from "react";
-import { PropTypes } from "prop-types";
+import React, { Component, Fragment } from 'react';
+import { PropTypes } from 'prop-types';
 
-import { withStyles } from "@material-ui/core/styles";
-import SwipeableViews from "react-swipeable-views";
-import AppBar from "@material-ui/core/AppBar";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Paper from "@material-ui/core/Paper";
+import { withStyles } from '@material-ui/core/styles';
+import SwipeableViews from 'react-swipeable-views';
+import AppBar from '@material-ui/core/AppBar';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
 
-const styles = theme => ({
+const styles = (theme) => ({
   tabPaper: {
-    height: "-webkit-fill-available" // This not supported across browsers.
+    ...theme.inject.flex({ dir: 'column' }),
+    flex: '1',
+    display: 'flex'
   },
   loading: {
-    position: "absolute",
-    top: "8em",
-    left: "8em"
+    position: 'absolute',
+    top: '8em',
+    left: '8em'
   },
   tabRoot: {
-    minWidth: "auto",
-    maxWidth: "inherit",
-    fontWeight: "bold",
-    backgroundColor: theme.palette.background.default,
-    borderBottom: "1"
+    fontWeight: 'bold',
+    borderBottom: '1'
+  },
+  swipeable: {
+    flex: '1',
+    '& > *': {
+      width: '100%',
+      height: '100%'
+    },
+    '& > * > *': {
+      ...theme.inject.flex({ dir: 'column' })
+    }
   }
 });
-
-function TabContainer({ children }) {
-  return <div style={{ overflow: "hidden" }}>{children}</div>;
-}
 
 class TabsView extends Component {
   state = {
@@ -40,7 +45,7 @@ class TabsView extends Component {
     this.setState({ value });
   };
 
-  handleChangeIndex = index => {
+  handleChangeIndex = (index) => {
     this.setState({ value: index });
   };
 
@@ -57,17 +62,20 @@ class TabsView extends Component {
           />
         ) : (
           <Fragment>
-            <AppBar position="static" color="default">
+            <AppBar position="static" color="secondary">
               <Tabs
                 value={this.state.value}
                 onChange={this.handleChange}
-                textColor="secondary"
-                fullWidth>
-                {tabs.map(tab => (
+                indicatorColor="primary"
+                textColor="primary"
+                scrollable
+                scrollButtons="auto">
+                {tabs.map((tab) => (
                   <Tab
                     classes={{
                       root: classes.tabRoot
                     }}
+                    color="primary"
                     key={tab.id}
                     label={tab.name}
                   />
@@ -76,17 +84,13 @@ class TabsView extends Component {
             </AppBar>
 
             <SwipeableViews
-              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
+              axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
               index={this.state.value}
-              onChangeIndex={this.handleChangeIndex}>
-              {tabs.map((tab, index) => (
-                <TabContainer
-                  key={index}
-                  style={{ overflow: "hidden", height: "" }}
-                  dir={theme.direction}>
-                  {tab.component}
-                </TabContainer>
-              ))}
+              onChangeIndex={this.handleChangeIndex}
+              className={classes.swipeable}>
+              {tabs.map((tab, index) =>
+                React.cloneElement(tab.component, { key: index })
+              )}
             </SwipeableViews>
           </Fragment>
         )}

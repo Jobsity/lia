@@ -3,48 +3,48 @@ import {
   UPDATE_CURRENT_TESTS,
   RESET_EDITORS,
   RUN_SAMPLE_TESTS_START,
-  SUBMIT_CHALLENGE_START,
+  SUBMIT_CHALLENGE_START
 } from './types';
 
 export function updateCurrentTests(newTests) {
   return {
     type: UPDATE_CURRENT_TESTS,
-    payload: { newTests },
+    payload: { newTests }
   };
 }
-
 
 export function resetEditors(language) {
   return {
     type: RESET_EDITORS,
-    payload: { language },
+    payload: { language }
   };
 }
 
 export function runTests(editorCode, currentTests, language, startingTime) {
-  return ({
+  return {
     type: RUN_SAMPLE_TESTS_START,
     payload: {
       requestData: {
         editorCode,
         tests: currentTests,
-        language,
+        language
       },
-      startingTime,
-    },
-  });
+      startingTime
+    }
+  };
 }
 
 export function submitChallenge(editorCode, testSuite, language, startingTime) {
-  return ({
+  return {
     type: SUBMIT_CHALLENGE_START,
     payload: {
       requestData: {
         editorCode,
-        tests: testSuite.filter(tests => tests.language === language)[0].tests,
-        language,
+        tests: testSuite.filter((tests) => tests.language === language)[0]
+          .tests,
+        language
       },
-      startingTime,
-    },
-  });
+      startingTime
+    }
+  };
 }

@@ -10,13 +10,12 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     margin: '0 1rem',
-    width: '100%',
-  },
+    width: '100%'
+  }
 };
 
 class Timeline extends React.Component {
-
-  handleSliderChange = event => {
+  handleSliderChange = (event) => {
     if (!event.target) {
       return;
     }
@@ -24,7 +23,7 @@ class Timeline extends React.Component {
     const { value } = event.target;
 
     this.props.onChange(Number(value));
-  }
+  };
 
   render() {
     const { classes } = this.props;

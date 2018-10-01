@@ -1,122 +1,122 @@
-import React, { Component, Fragment } from "react";
-import PropTypes from "prop-types";
-import { Redirect } from "react-router-dom";
+import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
-import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faClock } from '@fortawesome/free-regular-svg-icons';
 
-import logo from "./../assets/img/jobsity-footer.png";
-import footerLogo from "./../assets/img/jobsity-footer.png";
+import logo from './../assets/img/jobsity-footer.png';
+import footerLogo from './../assets/img/jobsity-footer.png';
 import store from './../store';
 import { FETCH_SESSION_DATA_START } from './../redux/actions';
-import { api } from "./../../server/mockServer";
+import { api } from './../../server/mockServer';
+import JRewind from '../JRewind';
 
-const styles = theme => ({
+const styles = (theme) => ({
   paper: {
-    height: "inherit"
+    height: 'inherit'
   },
   root: {
-    // ...theme.mixins.gutters(),
-    position: "relative",
-    top: "12%",
-    margin: "auto",
-    maxWidth: "25em",
-    padding: "3em"
+    position: 'relative',
+    top: '12%',
+    margin: 'auto',
+    maxWidth: '25em',
+    padding: '3em'
   },
   wrap: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#EEEEEE",
-    textAlign: "center"
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#EEEEEE',
+    textAlign: 'center'
   },
   headline: {
-    textAlign: "center",
-    fontWeight: "bold"
+    textAlign: 'center',
+    fontWeight: 'bold'
   },
   logo: {
-    position: "absolute",
-    top: "-40px",
-    right: "210px",
-    height: "5em"
+    position: 'absolute',
+    top: '-40px',
+    right: '210px',
+    height: '5em'
   },
   par: {
-    padding: "1em 0"
+    padding: '1em 0'
   },
   subPaper: {
-    backgroundColor: "#F4F4F4",
-    padding: "15px 0"
+    backgroundColor: '#F4F4F4',
+    padding: '15px 0',
+    color: theme.palette.primary.main
   },
   icon: {
     color: theme.palette.secondary.main
   },
   button: {
     marginTop: theme.spacing.unit * 2,
-    color: "white",
-    fontWeight: "bold"
+    color: 'white',
+    fontWeight: 'bold'
   },
   help: {
     marginTop: theme.spacing.unit * 3
   },
-  loading:{
-    padding: "2em",
+  loading: {
+    padding: '2em'
   },
   footer: {
-    display: "block",
-    position: "absolute",
-    width: "100%",
-    height: "6em",
+    display: 'block',
+    position: 'absolute',
+    width: '100%',
+    height: '6em',
     bottom: 0,
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.palette.primary.main
   },
   footerText: {
-    color: "#EEEEEE",
-    position: "relative",
-    top: "20px"
+    color: '#EEEEEE',
+    position: 'relative',
+    top: '20px'
   },
   footerLogo: {
-    position: "relative",
-    top: "1em",
-    height: "1.5em",
-
+    position: 'relative',
+    top: '1em',
+    height: '1.5em'
   }
-
 });
 
 class Welcome extends Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      token: this.props.match.params.token,
-      isLoading: true,
-      toMain: false,
-      chal: false,
-      cand: false,
-      lock: false,
-      challengeData: {},
-      candidateData: {}
-    };
-  }
+  state = {
+    token: this.props.match.params.token,
+    isLoading: true,
+    chal: false,
+    cand: false,
+    lock: false,
+    challengeData: {},
+    candidateData: {}
+  };
 
   componentDidMount() {
-    // mock server calls 
-    api.get("/challenges/id").then(response => {
+    // mock server calls
+    api.get('/challenges/id').then((response) => {
+      console.log(response);
       if (response.status === 200) {
         this.setState({ challengeData: response.data.data, chal: true });
       }
     });
 
-    api.get("/candidates/:id").then(response => {
+    api.get('/candidates/:id').then((response) => {
+      console.log(response);
       if (response.status === 200) {
         this.setState({ candidateData: response.data.data, cand: true });
       }
     });
-    store.dispatch( {type: FETCH_SESSION_DATA_START, payload: { token: this.state.token }  });
+    store.dispatch({
+      type: FETCH_SESSION_DATA_START,
+      payload: { token: this.state.token }
+    });
   }
 
   componentDidUpdate() {
@@ -124,26 +124,19 @@ class Welcome extends Component {
 
     // this state change only executes once
     if (chal && cand && !lock) {
-      console.log("loaded all!");
+      console.log('loaded all!');
 
       // setTimeout just to watch the animation...
       // must be removed when connected to real server
-      setTimeout(() =>(this.setState({ isLoading: false, lock: true })), 1000)
-      
+      this.setState({ isLoading: false, lock: true });
     }
   }
 
-  goToMain = () => this.setState({ toMain: true });
-
   render() {
     const { classes } = this.props;
-    const { challengeData, candidateData, toMain, isLoading } = this.state;
+    const { challengeData, candidateData, isLoading } = this.state;
     const { first_name, last_name } = candidateData;
     const { languages, max_time, name } = challengeData;
-
-    if (toMain) {
-      return <Redirect to={`/${this.state.token}/home`} />;
-    }
 
     // to be injected in props
     const data = {
@@ -163,43 +156,58 @@ class Welcome extends Component {
             component="h3">
             Welcome to Jobsity Live Coding
           </Typography>
-          {isLoading && 
-            <CircularProgress classes={{root: classes.loading}} size={200} className={classes.progress} color="secondary" />}
+          {isLoading && (
+            <CircularProgress
+              classes={{ root: classes.loading }}
+              size={200}
+              className={classes.progress}
+              color="secondary"
+            />
+          )}
           {!isLoading && (
             <Fragment>
               <Typography className={classes.par} component="p">
                 {`Hello ${
                   data.candidate
                 }!, today we will work on a live coding exercise. Please
-          follow the instructions in the next screen.`}
+              follow the instructions in the next screen.`}
               </Typography>
               <Typography className={classes.par} component="p">
-               Good luck!
+                Good luck!
               </Typography>
               <Paper square elevation={0} className={classes.subPaper}>
                 {languages.map((lan, idx) => (
-                  <Typography key={idx} className={classes.headline} variant="title">
+                  <Typography
+                    key={idx}
+                    className={classes.headline}
+                    color="primary"
+                    variant="title">
                     {lan.toUpperCase()}
                   </Typography>
                 ))}
-                <Typography variant="caption">{data.test}</Typography>
-                <Typography variant="body2" gutterBottom>
+                <Typography color="primary" variant="caption">
+                  {data.test}
+                </Typography>
+                <Typography color="primary" variant="body2" gutterBottom>
                   <FontAwesomeIcon className={classes.icon} icon={faClock} />
                   {` ${data.time}`}
                 </Typography>
               </Paper>
-           
-          <Button
-            onClick={this.goToMain}
-            fullWidth
-            variant="contained"
-            size="large"
-            color="secondary"
-            className={classes.button}>
-            Start Coding!
-          </Button>
-          </Fragment>
-        )}
+
+              <Button
+                onClick={() => {
+                  this.props.toggleView();
+                  JRewind.startRecording();
+                }}
+                fullWidth
+                variant="contained"
+                size="large"
+                color="secondary"
+                className={classes.button}>
+                Start Coding!
+              </Button>
+            </Fragment>
+          )}
           <Typography className={classes.help} variant="caption">
             --- need help? ---
           </Typography>
